@@ -29,4 +29,7 @@ sudo -u postgres psql -f store_by_tables.sql
 sudo -u postgres psql -f insert_into_tables.sql # This takes ~8 hours
 sudo -u postgres psql -f view_estimate_stored_by_tables.sql
 sudo -u postgres psql -f view_moe_stored_by_tables.sql
-sudo -u postgres psql -c "DROP TABLE tmp_geoheader;"
+
+# Drop temp tables
+cd /home/ubuntu
+sudo -u postgres psql -f 04_drop_acs_2011_5yr_tmp_tables.sql
