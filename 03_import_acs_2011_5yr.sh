@@ -17,9 +17,9 @@ sudo -u postgres psql -f create_tmp_geoheader.sql
 sudo -u postgres psql -f create_import_tables.sql
 
 # Correct the directories in the import scripts
-sed -i "s/\/<census_upload_root>\/acs2011_5yr\/All_Geographies_Not_Tracts_Block_Groups/\/mnt\/tmp\/geog/" /home/ubuntu/census-postgres/acs2011_5yr/import_geoheader.sql
-sed -i "s/\/<census_upload_root>\/acs2011_5yr\/All_Geographies_Not_Tracts_Block_Groups/\/mnt\/tmp\/group1/" /home/ubuntu/census-postgres/acs2011_5yr/import_sequences.sql
-sed -i "s/\/<census_upload_root>\/acs2011_5yr\/Tracts_Block_Groups_Only/\/mnt\/tmp\/group2/" /home/ubuntu/census-postgres/acs2011_5yr/import_sequences.sql
+sed -i "s/\/<census_upload_root>\/acs2011_5yr\/All_Geographies_Not_Tracts_Block_Groups/\/mnt\/tmp\/acs2011_5yr\/geog/" /home/ubuntu/census-postgres/acs2011_5yr/import_geoheader.sql
+sed -i "s/\/<census_upload_root>\/acs2011_5yr\/All_Geographies_Not_Tracts_Block_Groups/\/mnt\/tmp\/acs2011_5yr\/group1/" /home/ubuntu/census-postgres/acs2011_5yr/import_sequences.sql
+sed -i "s/\/<census_upload_root>\/acs2011_5yr\/Tracts_Block_Groups_Only/\/mnt\/tmp\/acs2011_5yr\/group2/" /home/ubuntu/census-postgres/acs2011_5yr/import_sequences.sql
 
 # Slurp in the actual data
 sudo -u postgres psql -f import_geoheader.sql
