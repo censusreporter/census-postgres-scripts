@@ -6,7 +6,7 @@ sudo chown ubuntu /mnt/tmp
 
 # Grab the 2011 ACS 5 year
 cd /mnt/tmp
-mkdir acs2011_5yr
+mkdir -p acs2011_5yr
 cd acs2011_5yr
 curl -O "http://www2.census.gov/acs2011_5yr/summaryfile/2007-2011_ACSSF_All_In_2_Giant_Files(Experienced-Users-Only)/All_Geographies_Not_Tracts_Block_Groups.tar.gz"
 tar -xvzf All_Geographies_Not_Tracts_Block_Groups.tar.gz
