@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Make a data directory in ephemeral stoage
-sudo mkdir /mnt/tmp
+sudo mkdir -p /mnt/tmp
 sudo chown ubuntu /mnt/tmp
 
 # Grab the 2010 ACS 5 year
