@@ -14,7 +14,10 @@ sudo -u postgres psql -c "DROP SCHEMA IF EXISTS acs2010_5yr; CREATE SCHEMA acs20
 sudo -u postgres psql -f create_geoheader.sql
 sudo -u postgres psql -f geoheader_comments.sql
 sudo -u postgres psql -f create_tmp_geoheader.sql
+sudo -u postgres psql -f drop_import_tables.sql
 sudo -u postgres psql -f create_import_tables.sql
+sudo -u postgres psql -f drop_import_moe.sql
+sudo -u postgres psql -f create_import_moe.sql
 
 # Correct the directories in the import scripts
 sed -i "s/\/<census_upload_root>\/acs2010_5yr\/All_Geographies_Not_Tracts_Block_Groups/\/mnt\/tmp\/acs2010_5yr\/geog/" /home/ubuntu/census-postgres/acs2010_5yr/import_geoheader.sql
