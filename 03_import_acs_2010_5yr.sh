@@ -35,5 +35,5 @@ sudo -u postgres psql -f view_estimate_stored_by_tables.sql
 sudo -u postgres psql -f view_moe_stored_by_tables.sql
 
 # Drop temp tables
-cd /home/ubuntu
+cd /home/ubuntu/census-postgres-scripts
 sudo -u postgres psql -f 04_drop_acs_2010_5yr_tmp_tables.sql
