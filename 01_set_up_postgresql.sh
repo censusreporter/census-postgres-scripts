@@ -1,6 +1,10 @@
 #!/bin/bash
 
-# This should be run as root.
+if [[ $UID -ne 0 ]]; then
+    echo "$0 must be run as root"
+    exit 1
+fi
+
 # This assumes you ran step 00 (attach an EBS)
 
 apt-get update && sudo apt-get install -y postgresql-9.1
