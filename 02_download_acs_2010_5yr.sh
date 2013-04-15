@@ -17,5 +17,5 @@ curl -O "http://www2.census.gov/acs2010_5yr/summaryfile/2006-2010_ACSSF_All_In_2
 unzip 2010_ACS_Geography_Files.zip
 
 # Let the Postgres user access this data
-chmod 777 /mnt/tmp/acs2010_5yr/geog /mnt/tmp/acs2010_5yr/group1 /mnt/tmp/acs2010_5yr/group2
-chmod 644 /mnt/tmp/acs2010_5yr/geog/* /mnt/tmp/acs2010_5yr/group1/* /mnt/tmp/acs2010_5yr/group2/*
+chmod 777 /mnt/tmp/acs2010_5yr/geog /mnt/tmp/acs2010_5yr/tab4/sumfile/prod/2006thru2010/group1 /mnt/tmp/acs2010_5yr/tab4/sumfile/prod/2006thru2010/group2
+chmod 644 /mnt/tmp/acs2010_5yr/geog/* /mnt/tmp/acs2010_5yr/tab4/sumfile/prod/2006thru2010/group1/* /mnt/tmp/acs2010_5yr/tab4/sumfile/prod/2006thru2010/group2/*
