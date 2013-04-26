@@ -11,3 +11,4 @@ cd acs2011_3yr
 sudo apt-get -y install unzip
 curl -O "http://www2.census.gov/acs2011_3yr/summaryfile/2009-2011_ACSSF_All_In_1_Giant_File(Experienced-Users-Only)/All_Geographies.zip"
 unzip All_Geographies.zip
+curl -O "http://www2.census.gov/acs2011_3yr/summaryfile/Sequence_Number_and_Table_Number_Lookup.txt"
