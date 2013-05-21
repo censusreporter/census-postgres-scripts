@@ -26,4 +26,4 @@ sudo -u postgres psql -f insert_into_tables.sql # This takes ~5 minutes
 sudo -u postgres psql -f view_stored_by_tables.sql
 
 # Drop temp tables
-sudo -u postgres psql -f 04_drop_import_tables.sql
+sudo -u postgres psql -f drop_import_tables.sql
