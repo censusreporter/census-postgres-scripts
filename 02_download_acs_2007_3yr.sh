@@ -169,8 +169,7 @@ curl -O "http://www2.census.gov/acs2007_3yr/summaryfile/Wyoming/all_wy.zip"
 unzip all_wy.zip
 rm all_wy.zip
 
-rm all_ACSSF.zip
-for i in prt03/prod/sumfile/data/2006thru2008/**/20083*.zip; do unzip -n $i; done
+for i in prt03/sumfile/**/20073*.zip; do unzip -n $i; done
 
 # The lookup tables are in XLS only, so they'll be provided in the census-postgres
 # package later.
