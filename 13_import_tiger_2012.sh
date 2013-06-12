@@ -15,7 +15,7 @@ do
     # Then load them in to postgres
     sudo -u postgres psql -f $i.sql
 
-    if [ $? -eq 0 ]
+    if [ $? -ne 0 ]
     then
         echo "Couldn't import $i.sql."
         exit 1
