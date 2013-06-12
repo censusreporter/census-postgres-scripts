@@ -9,7 +9,7 @@ done
 sudo -u postgres psql -c "DROP SCHEMA IF EXISTS tiger2012; CREATE SCHEMA tiger2012;"
 sudo -u postgres psql -c "ALTER SCHEMA tiger2012 OWNER TO census;"
 
-for i in AIANNH AITS ANRC BG CBSA CD COUNTY COUSUB CSA ELSD PLACE PUMA SCSD SLDL SLDU STATE ZCTA5
+for i in CBSA CD COUNTY CSA PLACE STATE ELSD SCSD ZCTA5 COUSUB PUMA SLDL SLDU AIANNH AITS ANRC BG CNECTA CONCITY METDIV NECTA NECTADIV SUBMCD TBG TTRACT TABBLOCK TRACT UAC UNSD VTD
 do
     # Pick one of the shapefiles to build schema with
     one_shapefile=`ls -a $i/*.shp | head -n 1`
