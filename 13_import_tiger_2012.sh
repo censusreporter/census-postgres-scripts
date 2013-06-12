@@ -7,6 +7,7 @@ do
 done
 
 sudo -u postgres psql -c "DROP SCHEMA IF EXISTS tiger2012; CREATE SCHEMA tiger2012;"
+sudo -u postgres psql -c "ALTER SCHEMA tiger2012 OWNER TO census;"
 
 for i in AIANNH AITS ANRC BG CBSA CD COUNTY COUSUB CSA ELSD PLACE PUMA SCSD SLDL SLDU STATE ZCTA5
 do
