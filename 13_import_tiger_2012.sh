@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /mnt/tiger2012
+cd /mnt/ftp2.census.gov/geo/tiger/TIGER2012/
 for i in **/*.zip; do unzip $i -d `dirname $i`; rm $i; done
 
 sudo -u postgres psql -c "DROP SCHEMA IF EXISTS tiger2012; CREATE SCHEMA tiger2012;"
