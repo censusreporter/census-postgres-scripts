@@ -13,7 +13,7 @@ do
     shp2pgsql -W "latin1" -s 4326 -a -I $i/*.shp tiger2012.$i >> $i.sql
 
     # Then load them in to postgres
-    sudo -u postgres psql -f $i.sql
+    sudo -u postgres psql -q -f $i.sql
 
     if [ $? -ne 0 ]
     then
