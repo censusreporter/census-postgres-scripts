@@ -17,7 +17,10 @@ do
     shp2pgsql -W "latin1" -s 4326 -p $one_shapefile tiger2012.$i > $i.sql
 
     # Then append all the geometries
-    shp2pgsql -W "latin1" -s 4326 -a -I $i/*.shp tiger2012.$i >> $i.sql
+    for j in $i/*.shp
+    do
+        shp2pgsql -W "latin1" -s 4326 -a -I $j tiger2012.$i >> $i.sql
+    done
 
     # Then load them in to postgres
     sudo -u postgres psql -q -f $i.sql
