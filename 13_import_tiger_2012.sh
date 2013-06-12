@@ -14,12 +14,12 @@ do
     one_shapefile=`ls -a $i/*.shp | head -n 1`
 
     # Start by preparing the table
-    shp2pgsql -W "latin1" -s 4326 -p $one_shapefile tiger2012.$i > $i.sql
+    shp2pgsql -W "latin1" -s 4326 -p -I $one_shapefile tiger2012.$i > $i.sql
 
     # Then append all the geometries
     for j in $i/*.shp
     do
-        shp2pgsql -W "latin1" -s 4326 -a -I $j tiger2012.$i >> $i.sql
+        shp2pgsql -W "latin1" -s 4326 -a $j tiger2012.$i >> $i.sql
     done
 
     # Then load them in to postgres
