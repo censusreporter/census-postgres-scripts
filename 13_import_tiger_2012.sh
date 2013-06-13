@@ -2,8 +2,7 @@
 cd /mnt/ftp2.census.gov/geo/tiger/TIGER2012/
 for i in **/*.zip
 do
-    unzip $i -d `dirname $i`
-    rm -f $i
+    unzip $i -n -d `dirname $i`
 done
 
 sudo -u postgres psql -c "DROP SCHEMA IF EXISTS tiger2012; CREATE SCHEMA tiger2012;"
@@ -31,6 +30,4 @@ do
         echo "Couldn't import $i.sql."
         exit 1
     fi
-
-    rm $i.sql
 done
