@@ -64,8 +64,11 @@ sudo -u postgres psql -c "CREATE INDEX uac_idx_namelsad10_lower ON tiger2012.uac
 sudo -u postgres psql -c "CREATE INDEX unsd_idx_name_lower ON tiger2012.unsd ((lower(name)) text_pattern_ops);"
 sudo -u postgres psql -c "CREATE INDEX vtd_idx_namelsad10_lower ON tiger2012.vtd ((lower(namelsad10)) text_pattern_ops);"
 
+# Change ownership on the TIGER tables
+sudo -u postgres for tbl in `psql -qAt -c "SELECT tablename FROM pg_tables WHERE schemaname = 'tiger2012';"` ; do psql -c "ALTER TABLE tiger2012.$tbl OWNER TO census" ; done
+
 # Create a unified view for all census shapes
-sudo -u postgres psql -c "CREATE VIEW census_names AS
+sudo -u postgres psql -c "CREATE VIEW tiger2012.census_names AS
 SELECT '310' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.cbsa
 UNION ALL
 SELECT '500' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.cd
@@ -125,3 +128,16 @@ UNION ALL
 SELECT '970' AS sumlevel, geoid, name, aland, awater, the_geom FROM tiger2012.unsd
 UNION ALL
 SELECT '700' AS sumlevel, geoid10 AS geoid, namelsad10 AS name, aland10 AS aland, awater10 AS awater, the_geom FROM tiger2012.vtd;"
+
+sudo -u postgres psql -c "CREATE VIEW tiger2012.census_names_simple AS
+SELECT '310' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.cbsa
+UNION ALL
+SELECT '500' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.cd
+UNION ALL
+SELECT '050' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.county
+UNION ALL
+SELECT '330' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.csa
+UNION ALL
+SELECT '160' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.place
+UNION ALL
+SELECT '040' AS sumlevel, geoid, name, aland, awater, the_geom FROM tiger2012.state;"
