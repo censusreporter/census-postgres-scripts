@@ -99,77 +99,79 @@ sudo -u postgres psql -c "CREATE INDEX vtd_idx_geoid ON tiger2012.vtd (geoid);"
 # Change ownership on the TIGER tables
 sudo -u postgres for tbl in `psql -qAt -c "SELECT tablename FROM pg_tables WHERE schemaname = 'tiger2012';"` ; do psql -c "ALTER TABLE tiger2012.$tbl OWNER TO census" ; done
 
+sudo -u postgres for schema in `psql -qAt -c "SELECT distinct schemaname FROM pg_tables WHERE schemaname LIKE 'acs%';"`; do for tbl in `psql -qAt -c "select table_name from information_schema.views where table_schema = '$schema';"`; do psql -c "ALTER TABLE $schema.$tbl OWNER TO census"; done; done
+
 # Create a unified view for all census shapes
 sudo -u postgres psql -c "CREATE VIEW tiger2012.census_names AS
-SELECT '310' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.cbsa
+SELECT '310' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.cbsa
 UNION ALL
-SELECT '500' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.cd
+SELECT '500' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.cd
 UNION ALL
-SELECT '050' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.county
+SELECT '050' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.county
 UNION ALL
-SELECT '330' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.csa
+SELECT '330' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.csa
 UNION ALL
-SELECT '160' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.place
+SELECT '160' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.place
 UNION ALL
-SELECT '040' AS sumlevel, geoid, name, aland, awater, the_geom FROM tiger2012.state
+SELECT '040' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.state
 UNION ALL
-SELECT '950' AS sumlevel, geoid, name, aland, awater, the_geom FROM tiger2012.elsd
+SELECT '950' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.elsd
 UNION ALL
-SELECT '960' AS sumlevel, geoid, name, aland, awater, the_geom FROM tiger2012.scsd
+SELECT '960' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.scsd
 UNION ALL
-SELECT '860' AS sumlevel, geoid10 AS geoid, zcta5ce10 AS name, aland10 AS aland, awater10 AS awater, the_geom FROM tiger2012.zcta5
+SELECT '860' AS sumlevel, geoid10 AS geoid, zcta5ce10 AS name, aland10 AS aland, awater10 AS awater, intptlat10 AS intptlat, intptlon10 AS intptlon, the_geom FROM tiger2012.zcta5
 UNION ALL
-SELECT '060' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.cousub
+SELECT '060' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.cousub
 UNION ALL
-SELECT '795' AS sumlevel, geoid10 AS geoid, namelsad10 AS name, aland10 AS aland, awater10 AS awater, the_geom FROM tiger2012.puma
+SELECT '795' AS sumlevel, geoid10 AS geoid, namelsad10 AS name, aland10 AS aland, awater10 AS awater, intptlat10 AS intptlat, intptlon10 AS intptlon, the_geom FROM tiger2012.puma
 UNION ALL
-SELECT '620' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.sldl
+SELECT '620' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.sldl
 UNION ALL
-SELECT '610' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.sldu
+SELECT '610' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.sldu
 UNION ALL
-SELECT '250' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.aiannh
+SELECT '250' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.aiannh
 UNION ALL
-SELECT '251' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.aits
+SELECT '251' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.aits
 UNION ALL
-SELECT '230' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.anrc
+SELECT '230' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.anrc
 UNION ALL
-SELECT '150' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.bg
+SELECT '150' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.bg
 UNION ALL
-SELECT '335' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.cnecta
+SELECT '335' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.cnecta
 UNION ALL
-SELECT '170' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.concity
+SELECT '170' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.concity
 UNION ALL
-SELECT '314' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.metdiv
+SELECT '314' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.metdiv
 UNION ALL
-SELECT '350' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.necta
+SELECT '350' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.necta
 UNION ALL
-SELECT '355' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.nectadiv
+SELECT '355' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.nectadiv
 UNION ALL
-SELECT '067' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.submcd
+SELECT '067' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.submcd
 UNION ALL
-SELECT '258' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.tbg
+SELECT '258' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.tbg
 UNION ALL
-SELECT '256' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.ttract
+SELECT '256' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.ttract
 UNION ALL
-SELECT '101' AS sumlevel, geoid, name, aland, awater, the_geom FROM tiger2012.tabblock
+SELECT '101' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.tabblock
 UNION ALL
-SELECT '140' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.tract
+SELECT '140' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.tract
 UNION ALL
-SELECT '400' AS sumlevel, geoid10 AS geoid, namelsad10 AS name, aland10 AS aland, awater10 AS awater, the_geom FROM tiger2012.uac
+SELECT '400' AS sumlevel, geoid10 AS geoid, namelsad10 AS name, aland10 AS aland, awater10 AS awater, intptlat10 AS intptlat, intptlon10 AS intptlon, the_geom FROM tiger2012.uac
 UNION ALL
-SELECT '970' AS sumlevel, geoid, name, aland, awater, the_geom FROM tiger2012.unsd
+SELECT '970' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.unsd
 UNION ALL
-SELECT '700' AS sumlevel, geoid10 AS geoid, namelsad10 AS name, aland10 AS aland, awater10 AS awater, the_geom FROM tiger2012.vtd;"
+SELECT '700' AS sumlevel, geoid10 AS geoid, namelsad10 AS name, aland10 AS aland, awater10 AS awater, intptlat10 AS intptlat, intptlon10 AS intptlon, the_geom FROM tiger2012.vtd;"
 
 sudo -u postgres psql -c "CREATE VIEW tiger2012.census_names_simple AS
-SELECT '310' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.cbsa
+SELECT '310' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.cbsa
 UNION ALL
-SELECT '500' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.cd
+SELECT '500' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.cd
 UNION ALL
-SELECT '050' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.county
+SELECT '050' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.county
 UNION ALL
-SELECT '330' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.csa
+SELECT '330' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.csa
 UNION ALL
-SELECT '160' AS sumlevel, geoid, namelsad AS name, aland, awater, the_geom FROM tiger2012.place
+SELECT '160' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.place
 UNION ALL
-SELECT '040' AS sumlevel, geoid, name, aland, awater, the_geom FROM tiger2012.state;"
+SELECT '040' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.state;"
