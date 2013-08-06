@@ -64,6 +64,38 @@ sudo -u postgres psql -c "CREATE INDEX uac_idx_namelsad10_lower ON tiger2012.uac
 sudo -u postgres psql -c "CREATE INDEX unsd_idx_name_lower ON tiger2012.unsd ((lower(name)) text_pattern_ops);"
 sudo -u postgres psql -c "CREATE INDEX vtd_idx_namelsad10_lower ON tiger2012.vtd ((lower(namelsad10)) text_pattern_ops);"
 
+# Add in geoid indexes
+sudo -u postgres psql -c "CREATE INDEX cbsa_idx_geoid ON tiger2012.cbsa (geoid);"
+sudo -u postgres psql -c "CREATE INDEX cd_idx_geoid ON tiger2012.cd (geoid);"
+sudo -u postgres psql -c "CREATE INDEX county_idx_geoid ON tiger2012.county (geoid);"
+sudo -u postgres psql -c "CREATE INDEX csa_idx_geoid ON tiger2012.csa (geoid);"
+sudo -u postgres psql -c "CREATE INDEX place_idx_geoid ON tiger2012.place (geoid);"
+sudo -u postgres psql -c "CREATE INDEX state_idx_geoid ON tiger2012.state (geoid);"
+sudo -u postgres psql -c "CREATE INDEX elsd_idx_geoid ON tiger2012.elsd (geoid);"
+sudo -u postgres psql -c "CREATE INDEX scsd_idx_geoid ON tiger2012.scsd (geoid);"
+sudo -u postgres psql -c "CREATE INDEX zcta5_idx_geoid ON tiger2012.zcta5 (geoid);"
+sudo -u postgres psql -c "CREATE INDEX cousub_idx_geoid ON tiger2012.cousub (geoid);"
+sudo -u postgres psql -c "CREATE INDEX puma_idx_geoid ON tiger2012.puma (geoid);"
+sudo -u postgres psql -c "CREATE INDEX sldl_idx_geoid ON tiger2012.sldl (geoid);"
+sudo -u postgres psql -c "CREATE INDEX sldu_idx_geoid ON tiger2012.sldu (geoid);"
+sudo -u postgres psql -c "CREATE INDEX aiannh_idx_geoid ON tiger2012.aiannh (geoid);"
+sudo -u postgres psql -c "CREATE INDEX aits_idx_geoid ON tiger2012.aits (geoid);"
+sudo -u postgres psql -c "CREATE INDEX anrc_idx_geoid ON tiger2012.anrc (geoid);"
+sudo -u postgres psql -c "CREATE INDEX bg_idx_geoid ON tiger2012.bg (geoid);"
+sudo -u postgres psql -c "CREATE INDEX cnecta_idx_geoid ON tiger2012.cnecta (geoid);"
+sudo -u postgres psql -c "CREATE INDEX concity_idx_geoid ON tiger2012.concity (geoid);"
+sudo -u postgres psql -c "CREATE INDEX metdiv_idx_geoid ON tiger2012.metdiv (geoid);"
+sudo -u postgres psql -c "CREATE INDEX necta_idx_geoid ON tiger2012.necta (geoid);"
+sudo -u postgres psql -c "CREATE INDEX nectadiv_idx_geoid ON tiger2012.nectadiv (geoid);"
+sudo -u postgres psql -c "CREATE INDEX submcd_idx_geoid ON tiger2012.submcd (geoid);"
+sudo -u postgres psql -c "CREATE INDEX tbg_idx_geoid ON tiger2012.tbg (geoid);"
+sudo -u postgres psql -c "CREATE INDEX ttract_idx_geoid ON tiger2012.ttract (geoid);"
+sudo -u postgres psql -c "CREATE INDEX tabblock_idx_geoid ON tiger2012.tabblock (geoid);"
+sudo -u postgres psql -c "CREATE INDEX tract_idx_geoid ON tiger2012.tract (geoid);"
+sudo -u postgres psql -c "CREATE INDEX uac_idx_geoid ON tiger2012.uac (geoid);"
+sudo -u postgres psql -c "CREATE INDEX unsd_idx_geoid ON tiger2012.unsd (geoid);"
+sudo -u postgres psql -c "CREATE INDEX vtd_idx_geoid ON tiger2012.vtd (geoid);"
+
 # Change ownership on the TIGER tables
 sudo -u postgres for tbl in `psql -qAt -c "SELECT tablename FROM pg_tables WHERE schemaname = 'tiger2012';"` ; do psql -c "ALTER TABLE tiger2012.$tbl OWNER TO census" ; done
 
