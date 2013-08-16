@@ -161,17 +161,6 @@ SELECT '400' AS sumlevel, geoid10 AS geoid, namelsad10 AS name, aland10 AS aland
 UNION ALL
 SELECT '970' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.unsd
 UNION ALL
-SELECT '700' AS sumlevel, geoid10 AS geoid, namelsad10 AS name, aland10 AS aland, awater10 AS awater, intptlat10 AS intptlat, intptlon10 AS intptlon, the_geom FROM tiger2012.vtd;"
-
-sudo -u postgres psql -c "CREATE VIEW tiger2012.census_names_simple AS
-SELECT '310' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.cbsa
+SELECT '700' AS sumlevel, geoid10 AS geoid, namelsad10 AS name, aland10 AS aland, awater10 AS awater, intptlat10 AS intptlat, intptlon10 AS intptlon, the_geom FROM tiger2012.vtd
 UNION ALL
-SELECT '500' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.cd
-UNION ALL
-SELECT '050' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.county
-UNION ALL
-SELECT '330' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.csa
-UNION ALL
-SELECT '160' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.place
-UNION ALL
-SELECT '040' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.state;"
+SELECT '010' AS sumlevel, '' AS geoid, 'United States' as name, 9158687485691 as aland, 698638462086 as awater, '+40.0' as intptlat, '-99.8' as intptlon, null as the_geom;"
