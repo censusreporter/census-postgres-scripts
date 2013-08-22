@@ -113,7 +113,7 @@ SELECT '330' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intp
 UNION ALL
 SELECT '160' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.place
 UNION ALL
-SELECT '040' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.state
+SELECT '040' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.state WHERE geoid NOT IN ('60', '66', '69', '78')
 UNION ALL
 SELECT '950' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.elsd
 UNION ALL
