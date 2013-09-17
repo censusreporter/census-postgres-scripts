@@ -46,17 +46,17 @@ if [[ $? != 0 ]]; then
     exit 1
 fi
 
-echo "Importing sequences"
-sudo -u postgres psql -v ON_ERROR_STOP=1 -q -f import_sequences.sql # This takes ~5 minutes
-if [[ $? != 0 ]]; then
-    echo "Failed importing sequences."
-    exit 1
-fi
-
 echo "Parsing geoheader"
 sudo -u postgres psql -v ON_ERROR_STOP=1 -q -f parse_tmp_geoheader.sql
 if [[ $? != 0 ]]; then
     echo "Failed parsing geoheader."
+    exit 1
+fi
+
+echo "Importing sequences"
+sudo -u postgres psql -v ON_ERROR_STOP=1 -q -f import_sequences.sql # This takes ~5 minutes
+if [[ $? != 0 ]]; then
+    echo "Failed importing sequences."
     exit 1
 fi
 
