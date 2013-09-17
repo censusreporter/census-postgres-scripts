@@ -10,18 +10,71 @@ cd /home/ubuntu/census-postgres/acs2007_1yr
 sudo -u postgres psql -c "DROP SCHEMA IF EXISTS acs2007_1yr CASCADE; CREATE SCHEMA acs2007_1yr;"
 
 # Create import tables
-sudo -u postgres psql -q -f create_geoheader.sql
-sudo -u postgres psql -q -f geoheader_comments.sql
-sudo -u postgres psql -q -f create_tmp_geoheader.sql
-sudo -u postgres psql -q -f create_import_tables.sql
+sudo -u postgres psql -v ON_ERROR_STOP=1 -q -f create_geoheader.sql
+if [[ $? != 0 ]]; then
+    echo "Failed creating geoheader."
+    exit 1
+fi
+
+sudo -u postgres psql -v ON_ERROR_STOP=1 -q -f geoheader_comments.sql
+if [[ $? != 0 ]]; then
+    echo "Failed creating geoheader comments."
+    exit 1
+fi
+
+sudo -u postgres psql -v ON_ERROR_STOP=1 -q -f create_tmp_geoheader.sql
+if [[ $? != 0 ]]; then
+    echo "Failed creating temp geoheader."
+    exit 1
+fi
+
+sudo -u postgres psql -v ON_ERROR_STOP=1 -q -f create_import_tables.sql
+if [[ $? != 0 ]]; then
+    echo "Failed creating temp import tables."
+    exit 1
+fi
 
 # Slurp in the actual data
-sudo -u postgres psql -q -f import_geoheader.sql
-sudo -u postgres psql -q -f import_sequences.sql # This takes ~5 minutes
-sudo -u postgres psql -q -f parse_tmp_geoheader.sql
-sudo -u postgres psql -q -f store_by_tables.sql
-sudo -u postgres psql -q -f insert_into_tables.sql # This takes ~5 minutes
-sudo -u postgres psql -q -f view_stored_by_tables.sql
+sudo -u postgres psql -v ON_ERROR_STOP=1 -q -f import_geoheader.sql
+if [[ $? != 0 ]]; then
+    echo "Failed importing geoheader."
+    exit 1
+fi
+
+sudo -u postgres psql -v ON_ERROR_STOP=1 -q -f import_sequences.sql # This takes ~5 minutes
+if [[ $? != 0 ]]; then
+    echo "Failed importing sequences."
+    exit 1
+fi
+
+sudo -u postgres psql -v ON_ERROR_STOP=1 -q -f parse_tmp_geoheader.sql
+if [[ $? != 0 ]]; then
+    echo "Failed parsing geoheader."
+    exit 1
+fi
+
+sudo -u postgres psql -v ON_ERROR_STOP=1 -q -f store_by_tables.sql
+if [[ $? != 0 ]]; then
+    echo "Failed storing tables."
+    exit 1
+fi
+
+sudo -u postgres psql -v ON_ERROR_STOP=1 -q -f insert_into_tables.sql # This takes ~5 minutes
+if [[ $? != 0 ]]; then
+    echo "Failed inserting into tables."
+    exit 1
+fi
+
+sudo -u postgres psql -v ON_ERROR_STOP=1 -q -f view_stored_by_tables.sql
+if [[ $? != 0 ]]; then
+    echo "Failed creating views."
+    exit 1
+fi
 
 # Drop temp tables
-sudo -u postgres psql -q -f drop_import_tables.sql
+sudo -u postgres psql -v ON_ERROR_STOP=1 -q -f drop_import_tables.sql
+if [[ $? != 0 ]]; then
+    echo "Failed dropping import tables."
+    exit 1
+fi
+
