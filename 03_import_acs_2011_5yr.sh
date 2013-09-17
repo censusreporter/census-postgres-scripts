@@ -7,7 +7,7 @@ git clone git://github.com/censusreporter/census-postgres.git
 
 # Create the schema
 cd /home/ubuntu/census-postgres/acs2011_5yr
-sudo -u postgres psql -c "DROP SCHEMA IF EXISTS acs2011_5yr; CREATE SCHEMA acs2011_5yr;"
+sudo -u postgres psql -c "DROP SCHEMA IF EXISTS acs2011_5yr CASCADE; CREATE SCHEMA acs2011_5yr;"
 
 # Create import tables
 sudo -u postgres psql -f create_geoheader.sql
