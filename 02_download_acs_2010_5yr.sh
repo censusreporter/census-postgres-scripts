@@ -15,6 +15,7 @@ curl -O "http://www2.census.gov/acs2010_5yr/summaryfile/2006-2010_ACSSF_All_In_2
 tar -zxvf Tracts_Block_Groups_Only.zip
 curl -O "http://www2.census.gov/acs2010_5yr/summaryfile/2006-2010_ACSSF_All_In_2_Giant_Files(Experienced-Users-Only)/2010_ACS_Geography_Files.zip"
 unzip 2010_ACS_Geography_Files.zip
+curl -O "http://www2.census.gov/acs2010_5yr/summaryfile/Sequence_Number_and_Table_Number_Lookup.txt"
 
 # The 2010 ACS unzips into deep directory structure,
 # so pull it into something sane
