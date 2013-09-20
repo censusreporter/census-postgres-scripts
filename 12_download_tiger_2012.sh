@@ -1,35 +1,37 @@
 # Download census-y TIGER data
 
-cd /mnt
+mkdir -p /mnt/tmp/tiger2012
 
-wget --mirror --continue \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/COUNTY/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/STATE/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/CBSA/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/CD/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/CSA/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/PLACE/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/ELSD/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/SCSD/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/ZCTA5/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/COUSUB/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/PUMA/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/SLDL/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/SLDU/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/AIANNH/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/AITS/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/ANRC/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/BG/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/CNECTA/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/CONCITY/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/METDIV/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/NECTA/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/NECTADIV/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/SUBMCD/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/TBG/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/TTRACT/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/TABBLOCK/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/TRACT/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/UAC/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/UNSD/*.zip \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/VTD/*.zip
+wget --recursive --continue --accept=*.zip \
+     --no-parent --cut-dirs=3 --no-host-directories \
+     --directory-prefix=/mnt/tmp/tiger2012 \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/COUNTY/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/STATE/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/CBSA/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/CD/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/CSA/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/PLACE/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/ELSD/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/SCSD/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/ZCTA5/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/COUSUB/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/PUMA/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/SLDL/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/SLDU/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/AIANNH/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/AITS/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/ANRC/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/BG/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/CNECTA/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/CONCITY/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/METDIV/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/NECTA/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/NECTADIV/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/SUBMCD/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/TBG/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/TTRACT/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/TABBLOCK/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/TRACT/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/UAC/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/UNSD/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2012/VTD/
