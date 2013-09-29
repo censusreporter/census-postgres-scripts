@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /mnt/ftp2.census.gov/geo/tiger/TIGER2012/
+cd /mnt/tmp/tiger2012
 for i in **/*.zip
 do
     unzip -n $i -d `dirname $i`
