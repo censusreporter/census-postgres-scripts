@@ -226,3 +226,21 @@ for i in prt03/sumfile/**/20071*.zip; do unzip -n $i; done
 
 # The lookup tables are in XLS only, so they'll be provided in the census-postgres
 # package later.
+
+# Some sequences have "ragged ends"/broken CSV column counts, so fix those:
+for i in /mnt/tmp/acs2007_1yr/tab4/sumfile/prod/2007/data/e20071*0043000.txt; do
+    python /home/ubuntu/census-postgres/meta-scripts/fix_csv.py $i $i.fixed.txt
+    mv $i.fixed.txt $i
+done
+for i in /mnt/tmp/acs2007_1yr/tab4/sumfile/prod/2007/data/m20071*0043000.txt; do
+    python /home/ubuntu/census-postgres/meta-scripts/fix_csv.py $i $i.fixed.txt
+    mv $i.fixed.txt $i
+done
+for i in /mnt/tmp/acs2007_1yr/tab4/sumfile/prod/2007/data/e20071*0141000.txt; do
+    python /home/ubuntu/census-postgres/meta-scripts/fix_csv.py --columns 44 $i $i.fixed.txt
+    mv $i.fixed.txt $i
+done
+for i in /mnt/tmp/acs2007_1yr/tab4/sumfile/prod/2007/data/m20071*0141000.txt; do
+    python /home/ubuntu/census-postgres/meta-scripts/fix_csv.py --columns 44 $i $i.fixed.txt
+    mv $i.fixed.txt $i
+done

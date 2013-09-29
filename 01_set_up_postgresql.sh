@@ -15,4 +15,4 @@ mv /var/lib/postgresql/9.1 /vol/postgresql/
 chown -R postgres:postgres /vol/postgresql
 /etc/init.d/postgresql start
 
-sudo -u postgres psql -c "CREATE ROLE census WITH NOSUPERUSER LOGIN UNENCRYPTED PASSWORD 'census';"
+sudo -u postgres psql -c "CREATE ROLE census WITH NOSUPERUSER LOGIN UNENCRYPTED PASSWORD 'censuspassword';"

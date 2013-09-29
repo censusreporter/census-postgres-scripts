@@ -226,3 +226,12 @@ for i in prt03/test/ftp/sumfile/**/20073*.zip; do unzip -n $i; done
 
 # The lookup tables are in XLS only, so they'll be provided in the census-postgres
 # package later.
+
+for i in /mnt/tmp/acs2007_3yr/tab4/sumfile/prod/2005thru2007/data/e20073*0141000.txt; do
+    python /home/ubuntu/census-postgres/meta-scripts/fix_csv.py --columns 43 $i $i.fixed.txt
+    mv $i.fixed.txt $i
+done
+for i in /mnt/tmp/acs2007_3yr/tab4/sumfile/prod/2005thru2007/data/m20073*0141000.txt; do
+    python /home/ubuntu/census-postgres/meta-scripts/fix_csv.py --columns 43 $i $i.fixed.txt
+    mv $i.fixed.txt $i
+done
