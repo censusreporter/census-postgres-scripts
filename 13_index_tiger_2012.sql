@@ -1,35 +1,67 @@
-DROP INDEX tiger2012.cbsa_idx_namelsad_lower;
-DROP INDEX tiger2012.cd_idx_namelsad_lower;
-DROP INDEX tiger2012.county_idx_namelsad_lower;
-DROP INDEX tiger2012.csa_idx_namelsad_lower;
-DROP INDEX tiger2012.place_idx_namelsad_lower;
-DROP INDEX tiger2012.state_idx_name_lower;
-DROP INDEX tiger2012.elsd_idx_name_lower;
-DROP INDEX tiger2012.scsd_idx_name_lower;
-DROP INDEX tiger2012.zcta5_idx_zcta5ce10_lower;
-DROP INDEX tiger2012.cousub_idx_namelsad_lower;
-DROP INDEX tiger2012.puma_idx_namelsad10_lower;
-DROP INDEX tiger2012.sldl_idx_namelsad_lower;
-DROP INDEX tiger2012.sldu_idx_namelsad_lower;
-DROP INDEX tiger2012.aiannh_idx_namelsad_lower;
-DROP INDEX tiger2012.aits_idx_namelsad_lower;
-DROP INDEX tiger2012.anrc_idx_namelsad_lower;
-DROP INDEX tiger2012.bg_idx_namelsad_lower;
-DROP INDEX tiger2012.cnecta_idx_namelsad_lower;
-DROP INDEX tiger2012.concity_idx_namelsad_lower;
-DROP INDEX tiger2012.metdiv_idx_namelsad_lower;
-DROP INDEX tiger2012.necta_idx_namelsad_lower;
-DROP INDEX tiger2012.nectadiv_idx_namelsad_lower;
-DROP INDEX tiger2012.submcd_idx_namelsad_lower;
-DROP INDEX tiger2012.tbg_idx_namelsad_lower;
-DROP INDEX tiger2012.ttract_idx_namelsad_lower;
-DROP INDEX tiger2012.tabblock_idx_name_lower;
-DROP INDEX tiger2012.tract_idx_namelsad_lower;
-DROP INDEX tiger2012.uac_idx_namelsad10_lower;
-DROP INDEX tiger2012.unsd_idx_name_lower;
-DROP INDEX tiger2012.vtd_idx_namelsad10_lower;
+-- Drop old indexes if they're there
+DROP INDEX IF EXISTS tiger2012.cbsa_idx_namelsad_lower;
+DROP INDEX IF EXISTS tiger2012.cd_idx_namelsad_lower;
+DROP INDEX IF EXISTS tiger2012.county_idx_namelsad_lower;
+DROP INDEX IF EXISTS tiger2012.csa_idx_namelsad_lower;
+DROP INDEX IF EXISTS tiger2012.place_idx_namelsad_lower;
+DROP INDEX IF EXISTS tiger2012.state_idx_name_lower;
+DROP INDEX IF EXISTS tiger2012.elsd_idx_name_lower;
+DROP INDEX IF EXISTS tiger2012.scsd_idx_name_lower;
+DROP INDEX IF EXISTS tiger2012.zcta5_idx_zcta5ce10_lower;
+DROP INDEX IF EXISTS tiger2012.cousub_idx_namelsad_lower;
+DROP INDEX IF EXISTS tiger2012.puma_idx_namelsad10_lower;
+DROP INDEX IF EXISTS tiger2012.sldl_idx_namelsad_lower;
+DROP INDEX IF EXISTS tiger2012.sldu_idx_namelsad_lower;
+DROP INDEX IF EXISTS tiger2012.aiannh_idx_namelsad_lower;
+DROP INDEX IF EXISTS tiger2012.aits_idx_namelsad_lower;
+DROP INDEX IF EXISTS tiger2012.anrc_idx_namelsad_lower;
+DROP INDEX IF EXISTS tiger2012.bg_idx_namelsad_lower;
+DROP INDEX IF EXISTS tiger2012.cnecta_idx_namelsad_lower;
+DROP INDEX IF EXISTS tiger2012.concity_idx_namelsad_lower;
+DROP INDEX IF EXISTS tiger2012.metdiv_idx_namelsad_lower;
+DROP INDEX IF EXISTS tiger2012.necta_idx_namelsad_lower;
+DROP INDEX IF EXISTS tiger2012.nectadiv_idx_namelsad_lower;
+DROP INDEX IF EXISTS tiger2012.submcd_idx_namelsad_lower;
+DROP INDEX IF EXISTS tiger2012.tbg_idx_namelsad_lower;
+DROP INDEX IF EXISTS tiger2012.ttract_idx_namelsad_lower;
+DROP INDEX IF EXISTS tiger2012.tabblock_idx_name_lower;
+DROP INDEX IF EXISTS tiger2012.tract_idx_namelsad_lower;
+DROP INDEX IF EXISTS tiger2012.uac_idx_namelsad10_lower;
+DROP INDEX IF EXISTS tiger2012.unsd_idx_name_lower;
+DROP INDEX IF EXISTS tiger2012.vtd_idx_namelsad10_lower;
 
-# Add in the name indexes for autocomplete
+DROP INDEX IF EXISTS tiger2012.cbsa_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.cd_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.county_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.csa_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.place_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.state_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.elsd_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.scsd_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.zcta5_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.cousub_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.puma_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.sldl_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.sldu_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.aiannh_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.aits_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.anrc_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.bg_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.cnecta_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.concity_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.metdiv_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.necta_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.nectadiv_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.submcd_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.tbg_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.ttract_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.tabblock_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.tract_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.uac_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.unsd_idx_fulltext;
+DROP INDEX IF EXISTS tiger2012.vtd_idx_fulltext;
+
+-- Add in the name indexes for autocomplete
 ALTER TABLE tiger2012.cbsa ADD COLUMN fulltext_col tsvector;
 UPDATE tiger2012.cbsa SET fulltext_col = to_tsvector('english', (
     namelsad || ' ' ||
@@ -210,11 +242,12 @@ UPDATE tiger2012.ttract o SET fulltext_col = to_tsvector('english', (SELECT
     '25600US' || t.geoid FROM tiger2012.ttract t JOIN tiger2012.aiannh aiannh ON (t.aiannhce=aiannh.aiannhce AND aiannh.classfp='R') WHERE t.gid=o.gid));
 CREATE INDEX ttract_idx_fulltext ON tiger2012.ttract USING gin(fulltext_col);
 
+-- Not indexing blocks because there are millions of them and very few people will search (in theory)
 ALTER TABLE tiger2012.tabblock ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.tabblock o SET fulltext_col = to_tsvector('english', (
-    name || ' ' ||
-    '10100US' || geoid));
-CREATE INDEX tabblock_idx_fulltext ON tiger2012.tabblock USING gin(fulltext_col);
+-- UPDATE tiger2012.tabblock o SET fulltext_col = to_tsvector('english', (
+--     name || ' ' ||
+--     '10100US' || geoid));
+-- CREATE INDEX tabblock_idx_fulltext ON tiger2012.tabblock USING gin(fulltext_col);
 
 ALTER TABLE tiger2012.tract ADD COLUMN fulltext_col tsvector;
 UPDATE tiger2012.tract o SET fulltext_col = to_tsvector('english', (
@@ -245,7 +278,7 @@ UPDATE tiger2012.vtd o SET fulltext_col = to_tsvector('english', (SELECT
     '70000US' || t.geoid10 FROM tiger2012.vtd t JOIN tiger2012.state state ON (t.statefp10=state.statefp) JOIN tiger2012.county county ON (t.statefp10=county.statefp AND t.countyfp10=county.countyfp) WHERE t.gid=o.gid));
 CREATE INDEX vtd_idx_fulltext ON tiger2012.vtd USING gin(fulltext_col);
 
-# Add in geoid indexes
+-- Add in geoid indexes
 CREATE INDEX cbsa_idx_geoid ON tiger2012.cbsa (geoid);
 CREATE INDEX cd_idx_geoid ON tiger2012.cd (geoid);
 CREATE INDEX county_idx_geoid ON tiger2012.county (geoid);
@@ -277,7 +310,7 @@ CREATE INDEX uac_idx_geoid10 ON tiger2012.uac (geoid10);
 CREATE INDEX unsd_idx_geoid ON tiger2012.unsd (geoid);
 CREATE INDEX vtd_idx_geoid10 ON tiger2012.vtd (geoid10);
 
-# Change ownership on the TIGER tables
+-- Change ownership on the TIGER tables
 ALTER TABLE tiger2012.cbsa OWNER TO census;
 ALTER TABLE tiger2012.cd OWNER TO census;
 ALTER TABLE tiger2012.county OWNER TO census;
@@ -309,7 +342,7 @@ ALTER TABLE tiger2012.uac OWNER TO census;
 ALTER TABLE tiger2012.unsd OWNER TO census;
 ALTER TABLE tiger2012.vtd OWNER TO census;
 
-# Create a unified view for all census shapes
+-- Create a unified view for all census shapes
 CREATE VIEW tiger2012.census_names AS
 SELECT '310' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.cbsa UNION ALL
 SELECT '500' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.cd UNION ALL
