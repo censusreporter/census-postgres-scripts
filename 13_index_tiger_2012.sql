@@ -345,16 +345,16 @@ ALTER TABLE tiger2012.vtd OWNER TO census;
 -- Create a unified view for all census shapes
 DROP VIEW IF EXISTS tiger2012.census_names;
 CREATE VIEW tiger2012.census_names AS
+SELECT '160' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.place UNION ALL
+SELECT '050' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.county UNION ALL
+SELECT '040' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.state WHERE geoid NOT IN ('60', '66', '69', '78') UNION ALL
+SELECT '060' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.cousub UNION ALL
 SELECT '310' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.cbsa UNION ALL
 SELECT '500' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.cd UNION ALL
-SELECT '050' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.county UNION ALL
 SELECT '330' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.csa UNION ALL
-SELECT '160' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.place UNION ALL
-SELECT '040' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.state WHERE geoid NOT IN ('60', '66', '69', '78') UNION ALL
 SELECT '950' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.elsd UNION ALL
 SELECT '960' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.scsd UNION ALL
 SELECT '860' AS sumlevel, geoid10 AS geoid, zcta5ce10 AS name, aland10 AS aland, awater10 AS awater, intptlat10 AS intptlat, intptlon10 AS intptlon, fulltext_col, the_geom FROM tiger2012.zcta5 UNION ALL
-SELECT '060' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.cousub UNION ALL
 SELECT '795' AS sumlevel, geoid10 AS geoid, namelsad10 AS name, aland10 AS aland, awater10 AS awater, intptlat10 AS intptlat, intptlon10 AS intptlon, fulltext_col, the_geom FROM tiger2012.puma UNION ALL
 SELECT '620' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.sldl UNION ALL
 SELECT '610' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.sldu UNION ALL
