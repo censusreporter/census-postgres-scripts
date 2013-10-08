@@ -343,6 +343,7 @@ ALTER TABLE tiger2012.unsd OWNER TO census;
 ALTER TABLE tiger2012.vtd OWNER TO census;
 
 -- Create a unified view for all census shapes
+DROP VIEW IF EXISTS tiger2012.census_names;
 CREATE VIEW tiger2012.census_names AS
 SELECT '310' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.cbsa UNION ALL
 SELECT '500' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.cd UNION ALL
