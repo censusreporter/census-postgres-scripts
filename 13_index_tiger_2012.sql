@@ -226,16 +226,20 @@ CREATE TABLE tiger2012.census_name_lookup (
     prefix_match_name varchar,
     sumlevel varchar(3),
     geoid varchar,
-    full_geoid varchar(20)
+    full_geoid varchar(40),
+    priority smallint
 );
+SELECT AddGeometryColumn('tiger2012', 'census_name_lookup', 'the_geom', 4326, 'MULTIPOLYGON', 2);
 
 INSERT INTO tiger2012.census_name_lookup
     SELECT
-        name,
-        name,
+        state.name,
+        state.name,
         '040',
-        geoid,
-        '04000US' || geoid
+        state.geoid,
+        '04000US' || state.geoid,
+        10,
+        state.the_geom
     FROM tiger2012.state WHERE geoid NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2012.census_name_lookup
     SELECT
@@ -243,7 +247,9 @@ INSERT INTO tiger2012.census_name_lookup
         county.name || ' ' || state.stusps,
         '050',
         county.geoid,
-        '05000US' || county.geoid
+        '05000US' || county.geoid,
+        20,
+        county.the_geom
     FROM tiger2012.county JOIN tiger2012.state USING (statefp);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
@@ -251,7 +257,9 @@ INSERT INTO tiger2012.census_name_lookup
         place.name || ' ' || state.stusps,
         '160',
         place.geoid,
-        '16000US' || place.geoid
+        '16000US' || place.geoid,
+        30,
+        place.the_geom
     FROM tiger2012.place JOIN tiger2012.state USING (statefp);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
@@ -259,7 +267,9 @@ INSERT INTO tiger2012.census_name_lookup
         cousub.name || ' ' || state.stusps,
         '060',
         cousub.geoid,
-        '06000US' || cousub.geoid
+        '06000US' || cousub.geoid,
+        40,
+        cousub.the_geom
     FROM tiger2012.cousub JOIN tiger2012.county USING (statefp, countyfp) JOIN tiger2012.state USING (statefp);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
@@ -267,9 +277,271 @@ INSERT INTO tiger2012.census_name_lookup
         zcta5.zcta5ce10,
         '860',
         zcta5.geoid10,
-        '86000US' || zcta5.geoid10
+        '86000US' || zcta5.geoid10,
+        50,
+        zcta5.the_geom
     FROM tiger2012.zcta5;
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        cbsa.namelsad,
+        cbsa.name,
+        '310',
+        cbsa.geoid,
+        '31000US' || cbsa.geoid,
+        60,
+        cbsa.the_geom
+    FROM tiger2012.cbsa;
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        cd.namelsad || ', ' || state.stusps,
+        cd.namelsad,
+        '500',
+        cd.geoid,
+        '50000US' || cd.geoid,
+        70,
+        cd.the_geom
+    FROM tiger2012.cd JOIN tiger2012.state USING (statefp);
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        csa.namelsad,
+        csa.name,
+        '330',
+        csa.geoid,
+        '33000US' || csa.geoid,
+        80,
+        csa.the_geom
+    FROM tiger2012.csa;
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        elsd.name || ', ' || state.stusps,
+        elsd.name,
+        '950',
+        elsd.geoid,
+        '95000US' || elsd.geoid,
+        90,
+        elsd.the_geom
+    FROM tiger2012.elsd JOIN tiger2012.state USING (statefp);
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        scsd.name || ', ' || state.stusps,
+        scsd.name,
+        '960',
+        scsd.geoid,
+        '96000US' || scsd.geoid,
+        100,
+        scsd.the_geom
+    FROM tiger2012.scsd JOIN tiger2012.state USING (statefp);
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        puma.namelsad10 || ', ' || state.stusps,
+        puma.namelsad10,
+        '795',
+        puma.geoid10,
+        '79500US' || puma.geoid10,
+        110,
+        puma.the_geom
+    FROM tiger2012.puma JOIN tiger2012.state ON (puma.statefp10=state.statefp);
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        sldl.namelsad || ', ' || state.stusps,
+        sldl.namelsad,
+        '620',
+        sldl.geoid,
+        '62000US' || sldl.geoid,
+        120,
+        sldl.the_geom
+    FROM tiger2012.sldl JOIN tiger2012.state USING (statefp);
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        sldu.namelsad || ', ' || state.stusps,
+        sldu.namelsad,
+        '610',
+        sldu.geoid,
+        '61000US' || sldu.geoid,
+        130,
+        sldu.the_geom
+    FROM tiger2012.sldu JOIN tiger2012.state USING (statefp);
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        aiannh.namelsad,
+        aiannh.namelsad,
+        '250',
+        aiannh.geoid,
+        '25000US' || aiannh.geoid,
+        140,
+        aiannh.the_geom
+    FROM tiger2012.aiannh;
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        aits.namelsad,
+        aits.namelsad,
+        '251',
+        aits.geoid,
+        '25100US' || aits.geoid,
+        150,
+        aits.the_geom
+    FROM tiger2012.aits;
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        anrc.namelsad,
+        anrc.namelsad,
+        '230',
+        anrc.geoid,
+        '23000US' || anrc.geoid,
+        160,
+        anrc.the_geom
+    FROM tiger2012.anrc;
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        bg.namelsad || ', ' || county.name || ', ' || state.stusps,
+        null,
+        '150',
+        bg.geoid,
+        '15000US' || bg.geoid,
+        170,
+        bg.the_geom
+    FROM tiger2012.bg JOIN tiger2012.county USING (statefp, countyfp) JOIN tiger2012.state USING (statefp);
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        cnecta.namelsad,
+        cnecta.namelsad,
+        '335',
+        cnecta.geoid,
+        '33500US' || cnecta.geoid,
+        180,
+        cnecta.the_geom
+    FROM tiger2012.cnecta;
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        concity.namelsad || ', ' || state.stusps,
+        concity.name || ' ' || state.stusps,
+        '170',
+        concity.geoid,
+        '17000US' || concity.geoid,
+        190,
+        concity.the_geom
+    FROM tiger2012.concity JOIN tiger2012.state USING (statefp);
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        metdiv.namelsad,
+        metdiv.name,
+        '314',
+        metdiv.geoid,
+        '31400US' || metdiv.geoid,
+        200,
+        metdiv.the_geom
+    FROM tiger2012.metdiv;
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        necta.namelsad,
+        necta.name,
+        '350',
+        necta.geoid,
+        '35000US' || necta.geoid,
+        210,
+        necta.the_geom
+    FROM tiger2012.necta;
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        nectadiv.namelsad,
+        nectadiv.name,
+        '355',
+        nectadiv.geoid,
+        '35500US' || nectadiv.geoid,
+        220,
+        nectadiv.the_geom
+    FROM tiger2012.nectadiv;
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        submcd.namelsad,
+        submcd.name,
+        '067',
+        submcd.geoid,
+        '06700US' || submcd.geoid,
+        230,
+        submcd.the_geom
+    FROM tiger2012.submcd;
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        tbg.namelsad,
+        null,
+        '258',
+        tbg.geoid,
+        '25800US' || tbg.geoid,
+        240,
+        tbg.the_geom
+    FROM tiger2012.tbg;
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        ttract.namelsad,
+        null,
+        '256',
+        ttract.geoid,
+        '25600US' || ttract.geoid,
+        250,
+        ttract.the_geom
+    FROM tiger2012.ttract;
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        tabblock.name || ', ' || county.name || ', ' || state.stusps,
+        null,
+        '101',
+        tabblock.geoid,
+        '10100US' || tabblock.geoid,
+        260,
+        tabblock.the_geom
+    FROM tiger2012.tabblock JOIN tiger2012.county USING (statefp, countyfp) JOIN tiger2012.state USING (statefp);
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        tract.namelsad || ', ' || county.name || ', ' || state.stusps,
+        null,
+        '140',
+        tract.geoid,
+        '14000US' || tract.geoid,
+        270,
+        tract.the_geom
+    FROM tiger2012.tract JOIN tiger2012.county USING (statefp, countyfp) JOIN tiger2012.state USING (statefp);
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        uac.namelsad10,
+        uac.name10,
+        '400',
+        uac.geoid10,
+        '40000US' || uac.geoid10,
+        280,
+        uac.the_geom
+    FROM tiger2012.uac;
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        unsd.name || ', ' || state.stusps,
+        unsd.name || ' ' || state.stusps,
+        '970',
+        unsd.geoid,
+        '97000US' || unsd.geoid,
+        290,
+        unsd.the_geom
+    FROM tiger2012.unsd JOIN tiger2012.state USING (statefp);
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        vtd.name10 || ', ' || state.stusps,
+        vtd.name10 || ' ' || state.stusps,
+        '700',
+        vtd.geoid10,
+        '70000US' || vtd.geoid10,
+        300,
+        vtd.the_geom
+    FROM tiger2012.vtd JOIN tiger2012.state ON (vtd.statefp10=state.statefp);
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        'United States',
+        'united states',
+        '010',
+        '',
+        '01000US',
+        5,
+        null;
 CREATE INDEX census_name_lookup_idx_lower ON tiger2012.census_name_lookup ((lower(prefix_match_name)) text_pattern_ops);
+CREATE INDEX census_name_lookup_idx_geom ON tiger2012.census_name_lookup USING GIST(the_geom);
 
 -- Create a unified view for all census shapes
 DROP VIEW IF EXISTS tiger2012.census_names;
