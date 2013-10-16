@@ -30,6 +30,37 @@ DROP INDEX IF EXISTS tiger2012.uac_idx_namelsad10_lower;
 DROP INDEX IF EXISTS tiger2012.unsd_idx_name_lower;
 DROP INDEX IF EXISTS tiger2012.vtd_idx_namelsad10_lower;
 
+DROP INDEX IF EXISTS tiger2012.cbsa_idx_lower;
+DROP INDEX IF EXISTS tiger2012.cd_idx_lower;
+DROP INDEX IF EXISTS tiger2012.county_idx_lower;
+DROP INDEX IF EXISTS tiger2012.csa_idx_lower;
+DROP INDEX IF EXISTS tiger2012.place_idx_lower;
+DROP INDEX IF EXISTS tiger2012.state_idx_lower;
+DROP INDEX IF EXISTS tiger2012.elsd_idx_lower;
+DROP INDEX IF EXISTS tiger2012.scsd_idx_lower;
+DROP INDEX IF EXISTS tiger2012.zcta5_idx_lower;
+DROP INDEX IF EXISTS tiger2012.cousub_idx_lower;
+DROP INDEX IF EXISTS tiger2012.puma_idx_lower;
+DROP INDEX IF EXISTS tiger2012.sldl_idx_lower;
+DROP INDEX IF EXISTS tiger2012.sldu_idx_lower;
+DROP INDEX IF EXISTS tiger2012.aiannh_idx_lower;
+DROP INDEX IF EXISTS tiger2012.aits_idx_lower;
+DROP INDEX IF EXISTS tiger2012.anrc_idx_lower;
+DROP INDEX IF EXISTS tiger2012.bg_idx_lower;
+DROP INDEX IF EXISTS tiger2012.cnecta_idx_lower;
+DROP INDEX IF EXISTS tiger2012.concity_idx_lower;
+DROP INDEX IF EXISTS tiger2012.metdiv_idx_lower;
+DROP INDEX IF EXISTS tiger2012.necta_idx_lower;
+DROP INDEX IF EXISTS tiger2012.nectadiv_idx_lower;
+DROP INDEX IF EXISTS tiger2012.submcd_idx_lower;
+DROP INDEX IF EXISTS tiger2012.tbg_idx_lower;
+DROP INDEX IF EXISTS tiger2012.ttract_idx_lower;
+DROP INDEX IF EXISTS tiger2012.tabblock_idx_lower;
+DROP INDEX IF EXISTS tiger2012.tract_idx_lower;
+DROP INDEX IF EXISTS tiger2012.uac_idx_lower;
+DROP INDEX IF EXISTS tiger2012.unsd_idx_lower;
+DROP INDEX IF EXISTS tiger2012.vtd_idx_lower;
+
 DROP INDEX IF EXISTS tiger2012.cbsa_idx_fulltext;
 DROP INDEX IF EXISTS tiger2012.cd_idx_fulltext;
 DROP INDEX IF EXISTS tiger2012.county_idx_fulltext;
@@ -61,222 +92,37 @@ DROP INDEX IF EXISTS tiger2012.uac_idx_fulltext;
 DROP INDEX IF EXISTS tiger2012.unsd_idx_fulltext;
 DROP INDEX IF EXISTS tiger2012.vtd_idx_fulltext;
 
--- Add in the name indexes for autocomplete
-ALTER TABLE tiger2012.cbsa ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.cbsa SET fulltext_col = to_tsvector('english', (
-    namelsad || ' ' ||
-    '31000US' || geoid));
-CREATE INDEX cbsa_idx_fulltext ON tiger2012.cbsa USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.cd ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.cd o SET fulltext_col = to_tsvector('english', (SELECT
-    t.namelsad || ' ' ||
-    s.stusps || ' ' ||
-    s.name || ' ' ||
-    '50000US' || t.geoid FROM tiger2012.cd t JOIN tiger2012.state s USING (statefp) WHERE t.gid=o.gid));
-CREATE INDEX cd_idx_fulltext ON tiger2012.cd USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.county ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.county o SET fulltext_col = to_tsvector('english', (SELECT
-    t.name || ' ' ||
-    s.stusps || ' ' ||
-    s.name || ' ' ||
-    '05000US' || t.geoid  FROM tiger2012.county t JOIN tiger2012.state s USING (statefp) WHERE t.gid=o.gid));
-CREATE INDEX county_idx_fulltext ON tiger2012.county USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.csa ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.csa o SET fulltext_col = to_tsvector('english', (
-    name || ' ' ||
-    '33000US' || geoid));
-CREATE INDEX csa_idx_fulltext ON tiger2012.csa USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.place ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.place o SET fulltext_col = to_tsvector('english', (SELECT
-    t.name || ' ' ||
-    s.stusps || ' ' ||
-    s.name || ' ' ||
-    '16000US' || t.geoid  FROM tiger2012.place t JOIN tiger2012.state s USING (statefp) WHERE t.gid=o.gid));
-CREATE INDEX place_idx_fulltext ON tiger2012.place USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.state ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.state o SET fulltext_col = to_tsvector('english', (
-    name || ' ' ||
-    stusps || ' ' ||
-    '04000US' || geoid));
-CREATE INDEX state_idx_fulltext ON tiger2012.state USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.elsd ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.elsd o SET fulltext_col = to_tsvector('english', (SELECT
-    t.name || ' ' ||
-    s.stusps || ' ' ||
-    s.name || ' ' ||
-    '95000US' || t.geoid  FROM tiger2012.elsd t JOIN tiger2012.state s USING (statefp) WHERE t.gid=o.gid));
-CREATE INDEX elsd_idx_fulltext ON tiger2012.elsd USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.scsd ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.scsd o SET fulltext_col = to_tsvector('english', (SELECT
-    t.name || ' ' ||
-    s.stusps || ' ' ||
-    s.name || ' ' ||
-    '96000US' || t.geoid  FROM tiger2012.scsd t JOIN tiger2012.state s USING (statefp) WHERE t.gid=o.gid));
-CREATE INDEX scsd_idx_fulltext ON tiger2012.scsd USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.zcta5 ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.zcta5 o SET fulltext_col = to_tsvector('english', (
-    zcta5ce10 || ' ' ||
-    '86000US' || geoid10));
-CREATE INDEX zcta5_idx_fulltext ON tiger2012.zcta5 USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.cousub ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.cousub o SET fulltext_col = to_tsvector('english', (SELECT
-    t.name || ' ' ||
-    county.name || ' ' ||
-    state.name || ' ' ||
-    state.stusps || ' ' ||
-    '06000US' || t.geoid FROM tiger2012.cousub t JOIN tiger2012.state state USING (statefp) JOIN tiger2012.county county USING (statefp, countyfp) WHERE t.gid=o.gid));
-CREATE INDEX cousub_idx_fulltext ON tiger2012.cousub USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.puma ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.puma o SET fulltext_col = to_tsvector('english', (SELECT
-    t.namelsad10 || ' ' ||
-    s.stusps || ' ' ||
-    s.name || ' ' ||
-    '79500US' || t.geoid10 FROM tiger2012.puma t JOIN tiger2012.state s ON (t.statefp10=s.statefp) WHERE t.gid=o.gid));
-CREATE INDEX puma_idx_fulltext ON tiger2012.puma USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.sldl ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.sldl o SET fulltext_col = to_tsvector('english', (SELECT
-    t.namelsad || ' ' ||
-    s.stusps || ' ' ||
-    s.name || ' ' ||
-    '62000US' || t.geoid FROM tiger2012.sldl t JOIN tiger2012.state s USING (statefp) WHERE t.gid=o.gid));
-CREATE INDEX sldl_idx_fulltext ON tiger2012.sldl USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.sldu ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.sldu o SET fulltext_col = to_tsvector('english', (SELECT
-    t.namelsad || ' ' ||
-    s.stusps || ' ' ||
-    s.name || ' ' ||
-    '61000US' || t.geoid FROM tiger2012.sldu t JOIN tiger2012.state s USING (statefp) WHERE t.gid=o.gid));
-CREATE INDEX sldu_idx_fulltext ON tiger2012.sldu USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.aiannh ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.aiannh o SET fulltext_col = to_tsvector('english', (
-    namelsad || ' ' ||
-    '25000US' || geoid));
-CREATE INDEX aiannh_idx_fulltext ON tiger2012.aiannh USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.aits ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.aits o SET fulltext_col = to_tsvector('english', (SELECT
-    t.namelsad || ' ' ||
-    aiannh.namelsad || ' ' ||
-    '25100US' || t.geoid FROM tiger2012.aits t JOIN tiger2012.aiannh aiannh USING (aiannhce,classfp) WHERE t.gid=o.gid));
-CREATE INDEX aits_idx_fulltext ON tiger2012.aits USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.anrc ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.anrc o SET fulltext_col = to_tsvector('english', (SELECT
-    t.name || ' ' ||
-    s.stusps || ' ' ||
-    s.name || ' ' ||
-    '23000US' || t.geoid FROM tiger2012.anrc t JOIN tiger2012.state s USING (statefp) WHERE t.gid=o.gid));
-CREATE INDEX anrc_idx_fulltext ON tiger2012.anrc USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.bg ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.bg o SET fulltext_col = to_tsvector('english', (
-    namelsad || ' ' ||
-    '15000US' || geoid));
-CREATE INDEX bg_idx_fulltext ON tiger2012.bg USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.cnecta ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.cnecta o SET fulltext_col = to_tsvector('english', (
-    name || ' ' ||
-    '33500US' || geoid));
-CREATE INDEX cnecta_idx_fulltext ON tiger2012.cnecta USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.concity ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.concity o SET fulltext_col = to_tsvector('english', (SELECT
-    t.name || ' ' ||
-    s.stusps || ' ' ||
-    s.name || ' ' ||
-    '17000US' || t.geoid FROM tiger2012.concity t JOIN tiger2012.state s USING (statefp) WHERE t.gid=o.gid));
-CREATE INDEX concity_idx_fulltext ON tiger2012.concity USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.metdiv ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.metdiv o SET fulltext_col = to_tsvector('english', (
-    name || ' ' ||
-    '31400US' || geoid));
-CREATE INDEX metdiv_idx_fulltext ON tiger2012.metdiv USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.necta ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.necta o SET fulltext_col = to_tsvector('english', (
-    name || ' ' ||
-    '35000US' || geoid));
-CREATE INDEX necta_idx_fulltext ON tiger2012.necta USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.nectadiv ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.nectadiv o SET fulltext_col = to_tsvector('english', (
-    name || ' ' ||
-    '35500US' || geoid));
-CREATE INDEX nectadiv_idx_fulltext ON tiger2012.nectadiv USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.submcd ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.submcd o SET fulltext_col = to_tsvector('english', (SELECT
-    t.name || ' ' ||
-    county.name || ' ' ||
-    state.name || ' ' ||
-    state.stusps || ' ' ||
-    '06700US' || t.geoid FROM tiger2012.submcd t JOIN tiger2012.state state USING (statefp) JOIN tiger2012.county county USING (statefp, countyfp) WHERE t.gid=o.gid));
-CREATE INDEX submcd_idx_fulltext ON tiger2012.submcd USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.tbg ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.tbg o SET fulltext_col = to_tsvector('english', (SELECT
-    t.namelsad || ' ' ||
-    aiannh.namelsad || ' ' ||
-    '25800US' || t.geoid FROM tiger2012.tbg t JOIN tiger2012.aiannh aiannh ON (t.aiannhce=aiannh.aiannhce AND aiannh.classfp='R') WHERE t.gid=o.gid));
-CREATE INDEX tbg_idx_fulltext ON tiger2012.tbg USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.ttract ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.ttract o SET fulltext_col = to_tsvector('english', (SELECT
-    t.name || ' ' ||
-    aiannh.namelsad || ' ' ||
-    '25600US' || t.geoid FROM tiger2012.ttract t JOIN tiger2012.aiannh aiannh ON (t.aiannhce=aiannh.aiannhce AND aiannh.classfp='R') WHERE t.gid=o.gid));
-CREATE INDEX ttract_idx_fulltext ON tiger2012.ttract USING gin(fulltext_col);
-
--- Not indexing blocks because there are millions of them and very few people will search (in theory)
-ALTER TABLE tiger2012.tabblock ADD COLUMN fulltext_col tsvector;
--- UPDATE tiger2012.tabblock o SET fulltext_col = to_tsvector('english', (
---     name || ' ' ||
---     '10100US' || geoid));
--- CREATE INDEX tabblock_idx_fulltext ON tiger2012.tabblock USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.tract ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.tract o SET fulltext_col = to_tsvector('english', (
-    name || ' ' ||
-    '14000US' || geoid));
-CREATE INDEX tract_idx_fulltext ON tiger2012.tract USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.uac ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.uac o SET fulltext_col = to_tsvector('english', (
-    name10 || ' ' ||
-    '40000US' || geoid10));
-CREATE INDEX uac_idx_fulltext ON tiger2012.uac USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.unsd ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.unsd o SET fulltext_col = to_tsvector('english', (SELECT
-    t.name || ' ' ||
-    s.stusps || ' ' ||
-    s.name || ' ' ||
-    '97000US' || t.geoid FROM tiger2012.unsd t JOIN tiger2012.state s USING (statefp) WHERE t.gid=o.gid));
-CREATE INDEX unsd_idx_fulltext ON tiger2012.unsd USING gin(fulltext_col);
-
-ALTER TABLE tiger2012.vtd ADD COLUMN fulltext_col tsvector;
-UPDATE tiger2012.vtd o SET fulltext_col = to_tsvector('english', (SELECT
-    t.name10 || ' ' ||
-    county.name || ' ' ||
-    state.name || ' ' ||
-    state.stusps || ' ' ||
-    '70000US' || t.geoid10 FROM tiger2012.vtd t JOIN tiger2012.state state ON (t.statefp10=state.statefp) JOIN tiger2012.county county ON (t.statefp10=county.statefp AND t.countyfp10=county.countyfp) WHERE t.gid=o.gid));
-CREATE INDEX vtd_idx_fulltext ON tiger2012.vtd USING gin(fulltext_col);
+-- Drop fulltext_col columns
+ALTER TABLE tiger2012.cbsa DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.cd DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.county DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.csa DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.place DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.state DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.elsd DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.scsd DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.zcta5 DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.cousub DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.puma DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.sldl DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.sldu DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.aiannh DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.aits DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.anrc DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.bg DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.cnecta DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.concity DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.metdiv DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.necta DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.nectadiv DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.submcd DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.tbg DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.ttract DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.tabblock DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.tract DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.uac DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.unsd DROP COLUMN IF EXISTS fulltext_col CASCADE;
+ALTER TABLE tiger2012.vtd DROP COLUMN IF EXISTS fulltext_col CASCADE;
 
 -- Add in geoid indexes
 CREATE INDEX cbsa_idx_geoid ON tiger2012.cbsa (geoid);
@@ -342,38 +188,90 @@ ALTER TABLE tiger2012.uac OWNER TO census;
 ALTER TABLE tiger2012.unsd OWNER TO census;
 ALTER TABLE tiger2012.vtd OWNER TO census;
 
--- Create a unified table for all census shapes
+-- Create a unified table for all census names -> geoid
+DROP TABLE IF EXISTS tiger2012.census_name_lookup;
+CREATE TABLE tiger2012.census_name_lookup (
+    display_name varchar,
+    prefix_match_name varchar,
+    sumlevel varchar(3),
+    geoid varchar,
+    full_geoid varchar(20)
+);
+
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        name,
+        name,
+        '040',
+        geoid,
+        '04000US' || geoid
+    FROM tiger2012.state WHERE geoid NOT IN ('60', '66', '69', '78');
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        county.name || ', ' || state.stusps,
+        county.name || ' ' || state.stusps,
+        '050',
+        county.geoid,
+        '05000US' || county.geoid
+    FROM tiger2012.county JOIN tiger2012.state USING (statefp);
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        place.name || ', ' || state.stusps,
+        place.name || ' ' || state.stusps,
+        '160',
+        place.geoid,
+        '16000US' || place.geoid
+    FROM tiger2012.place JOIN tiger2012.state USING (statefp);
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        cousub.namelsad || ', ' || county.name || ', ' || state.stusps,
+        cousub.name || ' ' || state.stusps,
+        '060',
+        cousub.geoid,
+        '06000US' || cousub.geoid
+    FROM tiger2012.cousub JOIN tiger2012.county USING (statefp, countyfp) JOIN tiger2012.state USING (statefp);
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        zcta5.zcta5ce10,
+        zcta5.zcta5ce10,
+        '860',
+        zcta5.geoid10,
+        '86000US' || zcta5.geoid10
+    FROM tiger2012.zcta5;
+CREATE INDEX census_name_lookup_idx_lower ON tiger2012.census_name_lookup ((lower(prefix_match_name)) text_pattern_ops);
+
+-- Create a unified view for all census shapes
 DROP VIEW IF EXISTS tiger2012.census_names;
 CREATE VIEW tiger2012.census_names AS
-SELECT '040' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.state WHERE geoid NOT IN ('60', '66', '69', '78') UNION ALL
-SELECT '050' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.county UNION ALL
-SELECT '160' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.place UNION ALL
-SELECT '060' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.cousub UNION ALL
-SELECT '310' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.cbsa UNION ALL
-SELECT '500' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.cd UNION ALL
-SELECT '330' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.csa UNION ALL
-SELECT '950' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.elsd UNION ALL
-SELECT '960' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.scsd UNION ALL
-SELECT '860' AS sumlevel, geoid10 AS geoid, zcta5ce10 AS name, aland10 AS aland, awater10 AS awater, intptlat10 AS intptlat, intptlon10 AS intptlon, fulltext_col, the_geom FROM tiger2012.zcta5 UNION ALL
-SELECT '795' AS sumlevel, geoid10 AS geoid, namelsad10 AS name, aland10 AS aland, awater10 AS awater, intptlat10 AS intptlat, intptlon10 AS intptlon, fulltext_col, the_geom FROM tiger2012.puma UNION ALL
-SELECT '620' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.sldl UNION ALL
-SELECT '610' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.sldu UNION ALL
-SELECT '250' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.aiannh UNION ALL
-SELECT '251' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.aits UNION ALL
-SELECT '230' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.anrc UNION ALL
-SELECT '150' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.bg UNION ALL
-SELECT '335' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.cnecta UNION ALL
-SELECT '170' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.concity UNION ALL
-SELECT '314' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.metdiv UNION ALL
-SELECT '350' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.necta UNION ALL
-SELECT '355' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.nectadiv UNION ALL
-SELECT '067' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.submcd UNION ALL
-SELECT '258' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.tbg UNION ALL
-SELECT '256' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.ttract UNION ALL
-SELECT '101' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.tabblock UNION ALL
-SELECT '140' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.tract UNION ALL
-SELECT '400' AS sumlevel, geoid10 AS geoid, namelsad10 AS name, aland10 AS aland, awater10 AS awater, intptlat10 AS intptlat, intptlon10 AS intptlon, fulltext_col, the_geom FROM tiger2012.uac UNION ALL
-SELECT '970' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, fulltext_col, the_geom FROM tiger2012.unsd UNION ALL
-SELECT '700' AS sumlevel, geoid10 AS geoid, namelsad10 AS name, aland10 AS aland, awater10 AS awater, intptlat10 AS intptlat, intptlon10 AS intptlon, fulltext_col, the_geom FROM tiger2012.vtd UNION ALL
-SELECT '010' AS sumlevel, '' AS geoid, 'United States' AS name, 9158687485691 AS aland, 698638462086 AS awater, '+40.0' AS intptlat, '-99.8' AS intptlon, to_tsvector('english', 'united states') AS fulltext_col, null AS the_geom;
+SELECT '040' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.state WHERE geoid NOT IN ('60', '66', '69', '78') UNION ALL
+SELECT '050' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.county UNION ALL
+SELECT '160' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.place UNION ALL
+SELECT '060' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.cousub UNION ALL
+SELECT '310' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.cbsa UNION ALL
+SELECT '500' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.cd UNION ALL
+SELECT '330' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.csa UNION ALL
+SELECT '950' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.elsd UNION ALL
+SELECT '960' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.scsd UNION ALL
+SELECT '860' AS sumlevel, geoid10 AS geoid, zcta5ce10 AS name, aland10 AS aland, awater10 AS awater, intptlat10 AS intptlat, intptlon10 AS intptlon, the_geom FROM tiger2012.zcta5 UNION ALL
+SELECT '795' AS sumlevel, geoid10 AS geoid, namelsad10 AS name, aland10 AS aland, awater10 AS awater, intptlat10 AS intptlat, intptlon10 AS intptlon, the_geom FROM tiger2012.puma UNION ALL
+SELECT '620' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.sldl UNION ALL
+SELECT '610' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.sldu UNION ALL
+SELECT '250' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.aiannh UNION ALL
+SELECT '251' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.aits UNION ALL
+SELECT '230' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.anrc UNION ALL
+SELECT '150' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.bg UNION ALL
+SELECT '335' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.cnecta UNION ALL
+SELECT '170' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.concity UNION ALL
+SELECT '314' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.metdiv UNION ALL
+SELECT '350' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.necta UNION ALL
+SELECT '355' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.nectadiv UNION ALL
+SELECT '067' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.submcd UNION ALL
+SELECT '258' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.tbg UNION ALL
+SELECT '256' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.ttract UNION ALL
+SELECT '101' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.tabblock UNION ALL
+SELECT '140' AS sumlevel, geoid, namelsad AS name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.tract UNION ALL
+SELECT '400' AS sumlevel, geoid10 AS geoid, namelsad10 AS name, aland10 AS aland, awater10 AS awater, intptlat10 AS intptlat, intptlon10 AS intptlon, the_geom FROM tiger2012.uac UNION ALL
+SELECT '970' AS sumlevel, geoid, name, aland, awater, intptlat, intptlon, the_geom FROM tiger2012.unsd UNION ALL
+SELECT '700' AS sumlevel, geoid10 AS geoid, namelsad10 AS name, aland10 AS aland, awater10 AS awater, intptlat10 AS intptlat, intptlon10 AS intptlon, the_geom FROM tiger2012.vtd UNION ALL
+SELECT '010' AS sumlevel, '' AS geoid, 'United States' AS name, 9158687485691 AS aland, 698638462086 AS awater, '+40.0' AS intptlat, '-99.8' AS intptlon, null AS the_geom;
 ALTER VIEW tiger2012.census_names OWNER TO census;
