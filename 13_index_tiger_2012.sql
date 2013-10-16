@@ -156,6 +156,37 @@ CREATE INDEX uac_idx_geoid10 ON tiger2012.uac (geoid10);
 CREATE INDEX unsd_idx_geoid ON tiger2012.unsd (geoid);
 CREATE INDEX vtd_idx_geoid10 ON tiger2012.vtd (geoid10);
 
+CREATE INDEX cbsa_idx_namelsad_lower ON tiger2012.cbsa ((lower(namelsad)) text_pattern_ops);
+CREATE INDEX cd_idx_namelsad_lower ON tiger2012.cd ((lower(namelsad)) text_pattern_ops);
+CREATE INDEX county_idx_namelsad_lower ON tiger2012.county ((lower(namelsad)) text_pattern_ops);
+CREATE INDEX csa_idx_namelsad_lower ON tiger2012.csa ((lower(namelsad)) text_pattern_ops);
+CREATE INDEX place_idx_namelsad_lower ON tiger2012.place ((lower(namelsad)) text_pattern_ops);
+CREATE INDEX state_idx_name_lower ON tiger2012.state ((lower(name)) text_pattern_ops);
+CREATE INDEX elsd_idx_name_lower ON tiger2012.elsd ((lower(name)) text_pattern_ops);
+CREATE INDEX scsd_idx_name_lower ON tiger2012.scsd ((lower(name)) text_pattern_ops);
+CREATE INDEX zcta5_idx_zcta5ce10_lower ON tiger2012.zcta5 ((lower(zcta5ce10)) text_pattern_ops);
+CREATE INDEX cousub_idx_namelsad_lower ON tiger2012.cousub ((lower(namelsad)) text_pattern_ops);
+CREATE INDEX puma_idx_namelsad10_lower ON tiger2012.puma ((lower(namelsad10)) text_pattern_ops);
+CREATE INDEX sldl_idx_namelsad_lower ON tiger2012.sldl ((lower(namelsad)) text_pattern_ops);
+CREATE INDEX sldu_idx_namelsad_lower ON tiger2012.sldu ((lower(namelsad)) text_pattern_ops);
+CREATE INDEX aiannh_idx_namelsad_lower ON tiger2012.aiannh ((lower(namelsad)) text_pattern_ops);
+CREATE INDEX aits_idx_namelsad_lower ON tiger2012.aits ((lower(namelsad)) text_pattern_ops);
+CREATE INDEX anrc_idx_namelsad_lower ON tiger2012.anrc ((lower(namelsad)) text_pattern_ops);
+CREATE INDEX bg_idx_namelsad_lower ON tiger2012.bg ((lower(namelsad)) text_pattern_ops);
+CREATE INDEX cnecta_idx_namelsad_lower ON tiger2012.cnecta ((lower(namelsad)) text_pattern_ops);
+CREATE INDEX concity_idx_namelsad_lower ON tiger2012.concity ((lower(namelsad)) text_pattern_ops);
+CREATE INDEX metdiv_idx_namelsad_lower ON tiger2012.metdiv ((lower(namelsad)) text_pattern_ops);
+CREATE INDEX necta_idx_namelsad_lower ON tiger2012.necta ((lower(namelsad)) text_pattern_ops);
+CREATE INDEX nectadiv_idx_namelsad_lower ON tiger2012.nectadiv ((lower(namelsad)) text_pattern_ops);
+CREATE INDEX submcd_idx_namelsad_lower ON tiger2012.submcd ((lower(namelsad)) text_pattern_ops);
+CREATE INDEX tbg_idx_namelsad_lower ON tiger2012.tbg ((lower(namelsad)) text_pattern_ops);
+CREATE INDEX ttract_idx_namelsad_lower ON tiger2012.ttract ((lower(namelsad)) text_pattern_ops);
+CREATE INDEX tabblock_idx_name_lower ON tiger2012.tabblock ((lower(name)) text_pattern_ops);
+CREATE INDEX tract_idx_namelsad_lower ON tiger2012.tract ((lower(namelsad)) text_pattern_ops);
+CREATE INDEX uac_idx_namelsad10_lower ON tiger2012.uac ((lower(namelsad10)) text_pattern_ops);
+CREATE INDEX unsd_idx_name_lower ON tiger2012.unsd ((lower(name)) text_pattern_ops);
+CREATE INDEX vtd_idx_namelsad10_lower ON tiger2012.vtd ((lower(namelsad10)) text_pattern_ops);
+
 -- Change ownership on the TIGER tables
 ALTER TABLE tiger2012.cbsa OWNER TO census;
 ALTER TABLE tiger2012.cd OWNER TO census;
