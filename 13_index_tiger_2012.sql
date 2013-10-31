@@ -267,7 +267,7 @@ INSERT INTO tiger2012.census_name_lookup
         place.the_geom
     FROM tiger2012.place LEFT OUTER JOIN acs2011_5yr.b01003 ON (('16000US' || place.geoid) = b01003.geoid) JOIN tiger2012.state USING (statefp);
 INSERT INTO tiger2012.census_name_lookup VALUES (
-        'New York, NY', 'new york city ny', '160', '3651000', '16000US3651000', 30, 8128980, null);
+        'New York city, NY', 'new york city ny', '160', '3651000', '16000US3651000', 30, 8128980, null);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         cousub.namelsad || ', ' || county.namelsad || ', ' || state.stusps,
