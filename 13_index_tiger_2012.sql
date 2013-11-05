@@ -167,8 +167,8 @@ CREATE TABLE tiger2012.census_name_lookup (
     full_geoid varchar(40),
     priority smallint,
     population int,
-    aland int,
-    awater int
+    aland decimal(15),
+    awater decimal(15)
 );
 SELECT AddGeometryColumn('tiger2012', 'census_name_lookup', 'the_geom', 4326, 'MULTIPOLYGON', 2);
 
@@ -218,7 +218,7 @@ INSERT INTO tiger2012.census_name_lookup
     FROM tiger2012.place LEFT OUTER JOIN acs2011_5yr.b01003 ON (('16000US' || place.geoid) = b01003.geoid) JOIN tiger2012.state USING (statefp)
     WHERE state.geoid NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2012.census_name_lookup VALUES (
-        'New York city, NY', 'new york city ny', '160', '3651000', '16000US3651000', 30, 8128980, 783934135, 429462763, null);
+        'New York city, NY', 'New York city', 'new york city ny', '160', '3651000', '16000US3651000', 30, 8128980, 783934135, 429462763, null);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         cousub.namelsad || ', ' || county.namelsad || ', ' || state.stusps,
@@ -258,6 +258,8 @@ INSERT INTO tiger2012.census_name_lookup
         '31000US' || cbsa.geoid,
         60,
         b01003.b01003001,
+        cbsa.aland,
+        cbsa.awater,
         cbsa.the_geom
     FROM tiger2012.cbsa LEFT OUTER JOIN acs2011_5yr.b01003 ON (('31000US' || cbsa.geoid) = b01003.geoid);
 INSERT INTO tiger2012.census_name_lookup
