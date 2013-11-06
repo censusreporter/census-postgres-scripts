@@ -189,28 +189,13 @@ INSERT INTO tiger2012.census_name_lookup
     WHERE state.geoid NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2012.census_name_lookup
     SELECT
-        county.namelsad || ', ' || state.stusps,
-        county.namelsad,
-        county.namelsad || ' ' || state.stusps,
-        '050',
-        county.geoid,
-        '05000US' || county.geoid,
-        20,
-        b01003.b01003001,
-        county.aland,
-        county.awater,
-        county.the_geom
-    FROM tiger2012.county LEFT OUTER JOIN acs2011_5yr.b01003 ON (('05000US' || county.geoid) = b01003.geoid) JOIN tiger2012.state USING (statefp)
-    WHERE state.geoid NOT IN ('60', '66', '69', '78');
-INSERT INTO tiger2012.census_name_lookup
-    SELECT
-        place.namelsad || ', ' || state.stusps,
+        place.name || ', ' || state.stusps,
         place.name,
         place.name || ' ' || state.stusps,
         '160',
         place.geoid,
         '16000US' || place.geoid,
-        30,
+        20,
         b01003.b01003001,
         place.aland,
         place.awater,
@@ -218,7 +203,22 @@ INSERT INTO tiger2012.census_name_lookup
     FROM tiger2012.place LEFT OUTER JOIN acs2011_5yr.b01003 ON (('16000US' || place.geoid) = b01003.geoid) JOIN tiger2012.state USING (statefp)
     WHERE state.geoid NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2012.census_name_lookup VALUES (
-        'New York city, NY', 'New York city', 'new york city ny', '160', '3651000', '16000US3651000', 30, 8128980, 783934135, 429462763, null);
+        'New York city, NY', 'New York city', 'new york city ny', '160', '3651000', '16000US3651000', 20, 8128980, 783934135, 429462763, null);
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        county.namelsad || ', ' || state.stusps,
+        county.namelsad,
+        county.namelsad || ' ' || state.stusps,
+        '050',
+        county.geoid,
+        '05000US' || county.geoid,
+        30,
+        b01003.b01003001,
+        county.aland,
+        county.awater,
+        county.the_geom
+    FROM tiger2012.county LEFT OUTER JOIN acs2011_5yr.b01003 ON (('05000US' || county.geoid) = b01003.geoid) JOIN tiger2012.state USING (statefp)
+    WHERE state.geoid NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         cousub.namelsad || ', ' || county.namelsad || ', ' || state.stusps,
@@ -608,9 +608,9 @@ INSERT INTO tiger2012.census_name_lookup
         '',
         '01000US',
         5,
-        null,
-        null,
-        null,
+        306603772,
+        9158687485691,
+        698638462086,
         null;
 CREATE INDEX census_name_lookup_idx_lower ON tiger2012.census_name_lookup ((lower(prefix_match_name)) text_pattern_ops);
 CREATE INDEX census_name_lookup_idx_geom ON tiger2012.census_name_lookup USING GIST(the_geom);
