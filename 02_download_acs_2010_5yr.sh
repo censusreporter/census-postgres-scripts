@@ -8,14 +8,15 @@ sudo chown ubuntu /mnt/tmp
 cd /mnt/tmp
 mkdir -p acs2010_5yr
 cd acs2010_5yr
-sudo apt-get -y install unzip
-curl -O "http://www2.census.gov/acs2010_5yr/summaryfile/2006-2010_ACSSF_All_In_2_Giant_Files(Experienced-Users-Only)/All_Geographies_Not_Tracts_Block_Groups.zip"
-tar -zxvf All_Geographies_Not_Tracts_Block_Groups.zip
-curl -O "http://www2.census.gov/acs2010_5yr/summaryfile/2006-2010_ACSSF_All_In_2_Giant_Files(Experienced-Users-Only)/Tracts_Block_Groups_Only.zip"
-tar -zxvf Tracts_Block_Groups_Only.zip
-curl -O "http://www2.census.gov/acs2010_5yr/summaryfile/2006-2010_ACSSF_All_In_2_Giant_Files(Experienced-Users-Only)/2010_ACS_Geography_Files.zip"
-unzip 2010_ACS_Geography_Files.zip
-curl -O "http://www2.census.gov/acs2010_5yr/summaryfile/Sequence_Number_and_Table_Number_Lookup.txt"
+sudo apt-get -y install aria2 unzip
+aria2c --dir=/mnt/tmp/acs2010_5yr --max-connection-per-server=5 --force-sequential=true \
+    "http://www2.census.gov/acs2010_5yr/summaryfile/2006-2010_ACSSF_All_In_2_Giant_Files(Experienced-Users-Only)/All_Geographies_Not_Tracts_Block_Groups.zip" \
+    "http://www2.census.gov/acs2010_5yr/summaryfile/2006-2010_ACSSF_All_In_2_Giant_Files(Experienced-Users-Only)/Tracts_Block_Groups_Only.zip" \
+    "http://www2.census.gov/acs2010_5yr/summaryfile/2006-2010_ACSSF_All_In_2_Giant_Files(Experienced-Users-Only)/2010_ACS_Geography_Files.zip" \
+    "http://www2.census.gov/acs2010_5yr/summaryfile/Sequence_Number_and_Table_Number_Lookup.txt"
+tar -zxf All_Geographies_Not_Tracts_Block_Groups.zip
+tar -zxf Tracts_Block_Groups_Only.zip
+unzip -q 2010_ACS_Geography_Files.zip
 
 # The 2010 ACS unzips into deep directory structure,
 # so pull it into something sane
