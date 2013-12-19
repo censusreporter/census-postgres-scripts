@@ -7,7 +7,22 @@ A set of scripts to make it easier to set up [census-postgres](https://github.co
 
 These are the steps I follow when I want to start from scratch and load all ACS releases into the database.
 
-1. Launch a `c1.xlarge` instance using the `ami-a73264ce` AMI, making sure to connect all four of the ephemeral storage to block devices during the setup walkthrough.
+1. Launch a `c1.xlarge` instance using the `ami-a73264ce` AMI, making sure to connect all four of the ephemeral storage to block devices during the setup walkthrough. If you have the [`aws`](http://aws.amazon.com/cli/) command line tool installed and [configured](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html), this command should do it:
+
+    aws ec2 request-spot-instances --dry-run \
+        --spot-price 1.5 \
+        --instance-count 1 \
+        --type c1.xlarge \
+        --launch-specification '{\
+            "ImageId": "ami-a73264ce",\
+            "BlockDeviceMappings": [\
+                {"VirtualName": "ephemeral0", "DeviceName": "/dev/sdb"},\
+                {"VirtualName": "ephemeral1", "DeviceName": "/dev/sdc"},\
+                {"VirtualName": "ephemeral2", "DeviceName": "/dev/sdd"},\
+                {"VirtualName": "ephemeral3", "DeviceName": "/dev/sde"}\
+            ]\
+        }'
+
 2. Connect to it and immediately launch `screen`
 
 ### Set up disk
@@ -63,7 +78,7 @@ Downloads the raw data from the Census Bureau to prepare for insert into the dat
     git clone https://github.com/censusreporter/census-postgres.git
     cd census-postgres-scripts
 
-With this stuff set up we can use the scripts I wrote to download the data from the Census Bureau in a relatively consistent manner. It probably makes sense to run at least some of these in parallel across several screen sessions.
+With this stuff set up we can use the scripts I wrote to download the data from the Census Bureau in a relatively consistent manner. It probably makes sense to run at least some of these in parallel across several screen sessions. If a recent ACS release doesn't show up on this list, [go here]() to create one for the new release before continuing.
 
     ./02_download_acs_2007_1yr.sh
     ./02_download_acs_2007_3yr.sh
@@ -86,7 +101,7 @@ An hour or two and 279GB later you should have a directory at `/mnt/tmp` full of
 
 ### Importing ACS Data
 
-Once we have the ACS data downloaded it's time to actually load that data in to PostgreSQL. Again, since each release is slightly different there's a bunch of scripts I hand-crafted to do this import in a consistent way.
+Once we have the ACS data downloaded it's time to actually load that data in to PostgreSQL. Again, since each release is slightly different there's a bunch of scripts I hand-crafted to do this import in a consistent way. If a recent ACS release doesn't show up on this list, [go here]() to create one for the new release before continuing.
 
     ./03_import_acs_2007_1yr.sh
     ./03_import_acs_2007_3yr.sh
@@ -124,3 +139,8 @@ The geodata part of our APIs comes from the Census Bureau's TIGER 2012 dataset. 
     ./12_download_tiger_2012.sh
     ./13_import_tiger_2012.sh
     ./13_index_tiger_2012.sh
+
+## New ACS Release Actions
+
+What to do when the Census Bureau [releases](http://www.census.gov/acs/www/data_documentation/data_main/) a new set of ACS data.
+
