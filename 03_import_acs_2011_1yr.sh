@@ -40,7 +40,7 @@ fi
 
 # Slurp in the actual data
 echo "Importing geoheader"
-psql -d census -h localhost -U census -v ON_ERROR_STOP=1 -q -f import_geoheader.sql
+sudo -u postgres psql -d census -v ON_ERROR_STOP=1 -q -f import_geoheader.sql
 if [[ $? != 0 ]]; then
     echo "Failed importing geoheader."
     exit 1
@@ -54,7 +54,7 @@ if [[ $? != 0 ]]; then
 fi
 
 echo "Importing sequences"
-psql -d census -h localhost -U census -v ON_ERROR_STOP=1 -q -f import_sequences.sql # This takes ~5 minutes
+sudo -u postgres psql -d census -v ON_ERROR_STOP=1 -q -f import_sequences.sql # This takes ~5 minutes
 if [[ $? != 0 ]]; then
     echo "Failed importing sequences."
     exit 1
