@@ -16,3 +16,4 @@ chown -R postgres:postgres /vol/postgresql
 /etc/init.d/postgresql start
 
 sudo -u postgres psql -c "CREATE ROLE census WITH NOSUPERUSER LOGIN UNENCRYPTED PASSWORD 'censuspassword';"
+sudo -u postgres psql -c "CREATE DATABASE census WITH OWNER census;"
