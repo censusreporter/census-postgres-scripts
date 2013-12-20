@@ -2,7 +2,7 @@
 cd /mnt/tmp/tiger2012
 for i in **/*.zip
 do
-    unzip -n $i -q -d `dirname $i`
+    unzip -q -n $i -d `dirname $i`
 done
 
 sudo -u postgres psql -d census -c "DROP SCHEMA IF EXISTS tiger2012; CREATE SCHEMA tiger2012;"
