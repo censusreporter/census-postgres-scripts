@@ -2,11 +2,11 @@
 cd /mnt/tmp/tiger2012
 for i in **/*.zip
 do
-    unzip -n $i -d `dirname $i`
+    unzip -n $i -q -d `dirname $i`
 done
 
-sudo -u postgres psql -c "DROP SCHEMA IF EXISTS tiger2012; CREATE SCHEMA tiger2012;"
-sudo -u postgres psql -c "ALTER SCHEMA tiger2012 OWNER TO census;"
+sudo -u postgres psql -d census -c "DROP SCHEMA IF EXISTS tiger2012; CREATE SCHEMA tiger2012;"
+sudo -u postgres psql -d census -c "ALTER SCHEMA tiger2012 OWNER TO census;"
 
 for i in CBSA CD COUNTY CSA PLACE STATE ELSD SCSD ZCTA5 COUSUB PUMA SLDL SLDU AIANNH AITS ANRC BG CNECTA CONCITY METDIV NECTA NECTADIV SUBMCD TBG TTRACT TABBLOCK TRACT UAC UNSD VTD
 do
@@ -23,7 +23,7 @@ do
     done
 
     # Then load them in to postgres
-    sudo -u postgres psql -q -f $i.sql
+    psql -d census -h localhost -U census -q -f $i.sql
 
     if [ $? -ne 0 ]
     then
@@ -31,6 +31,3 @@ do
         exit 1
     fi
 done
-
-# Add in the some indexes and alter ownerships
-sudo -u postgres psql -q -f 13_index_tiger_2012.sql
