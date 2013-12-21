@@ -9,6 +9,7 @@ These are the steps I follow when I want to start from scratch and load all ACS 
 
 1. Launch a `c1.xlarge` instance using the `ami-a73264ce` AMI, making sure to connect all four of the ephemeral storage to block devices during the setup walkthrough. If you have the [`aws`](http://aws.amazon.com/cli/) command line tool installed and [configured](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html), this command should do it:
 
+    ```bash
     aws ec2 request-spot-instances --dry-run \
         --spot-price 1.5 \
         --instance-count 1 \
@@ -22,6 +23,7 @@ These are the steps I follow when I want to start from scratch and load all ACS 
                 {"VirtualName": "ephemeral3", "DeviceName": "/dev/sde"}\
             ]\
         }'
+    ```
 
 2. Connect to it and immediately launch `screen`
 
@@ -58,9 +60,15 @@ Installs PostgreSQL 9.1 and puts the data directory on the `/dev/md0` partition 
     /etc/init.d/postgresql start
     exit
 
-Create a user for census data.
+Create a user and database for census data.
 
     sudo -u postgres psql -c "CREATE ROLE census WITH NOSUPERUSER LOGIN UNENCRYPTED PASSWORD 'censuspassword';"
+    sudo -u postgres psql -c "CREATE DATABASE census WITH OWNER census;"
+
+Make login passwordless.
+
+    echo "localhost:5432:census:census:censuspassword" > /home/ubuntu/.pgpass
+    chmod 0600 /home/ubuntu/.pgpass
 
 After this you should be able to connect to your empty PostgreSQL database:
 
@@ -78,7 +86,7 @@ Downloads the raw data from the Census Bureau to prepare for insert into the dat
     git clone https://github.com/censusreporter/census-postgres.git
     cd census-postgres-scripts
 
-With this stuff set up we can use the scripts I wrote to download the data from the Census Bureau in a relatively consistent manner. It probably makes sense to run at least some of these in parallel across several screen sessions. If a recent ACS release doesn't show up on this list, [go here]() to create one for the new release before continuing.
+With this stuff set up we can use the scripts I wrote to download the data from the Census Bureau in a relatively consistent manner. It probably makes sense to run at least some of these in parallel across several screen sessions. If a recent ACS release doesn't show up on this list, follow the [new release checklist](#new-acs-release-actions) to create one for the new release before continuing.
 
     ./02_download_acs_2007_1yr.sh
     ./02_download_acs_2007_3yr.sh
@@ -101,7 +109,7 @@ An hour or two and 279GB later you should have a directory at `/mnt/tmp` full of
 
 ### Importing ACS Data
 
-Once we have the ACS data downloaded it's time to actually load that data in to PostgreSQL. Again, since each release is slightly different there's a bunch of scripts I hand-crafted to do this import in a consistent way. If a recent ACS release doesn't show up on this list, [go here]() to create one for the new release before continuing.
+Once we have the ACS data downloaded it's time to actually load that data in to PostgreSQL. Again, since each release is slightly different there's a bunch of scripts I hand-crafted to do this import in a consistent way. If a recent ACS release doesn't show up on this list, follow the [new release checklist](#new-acs-release-actions) to create one for the new release before continuing.
 
     ./03_import_acs_2007_1yr.sh
     ./03_import_acs_2007_3yr.sh
@@ -127,8 +135,8 @@ We just imported the estimate/error values for the ACS data. We also rely on tab
     cd /home/ubuntu
     git clone https://github.com/censusreporter/census-table-metadata.git
     cd census-table-metadata
-    psql -u census -f census_metadata.sql
-    sudo -u postgres psql -f census_metadata_load.sql
+    psql -U census -d census -h localhost -f census_metadata.sql
+    sudo -u postgres psql -d census -f census_metadata_load.sql
 
 ### Setting up PostGIS and Importing TIGER Geodata
 
@@ -138,7 +146,7 @@ The geodata part of our APIs comes from the Census Bureau's TIGER 2012 dataset. 
     ./11_set_up_postgis.sh
     ./12_download_tiger_2012.sh
     ./13_import_tiger_2012.sh
-    ./13_index_tiger_2012.sh
+    psql -U census -d census -h localhost -f 13_index_tiger_2012.sql
 
 ## New ACS Release Actions
 

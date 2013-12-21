@@ -16,9 +16,8 @@ chown -R postgres:postgres /vol/postgresql
 /etc/init.d/postgresql start
 
 sudo -u postgres psql -c "CREATE ROLE census WITH NOSUPERUSER LOGIN UNENCRYPTED PASSWORD 'censuspassword';"
+sudo -u postgres psql -c "CREATE DATABASE census WITH OWNER census;"
 
 # Make login passwordless
 echo "localhost:5432:census:census:censuspassword" > /home/ubuntu/.pgpass
 chmod 0600 /home/ubuntu/.pgpass
-
-sudo -u postgres psql -c "CREATE DATABASE census WITH OWNER census;"
