@@ -608,10 +608,197 @@ INSERT INTO tiger2012.census_name_lookup
         '',
         '01000US',
         5,
-        306603772,
-        9158687485691,
-        698638462086,
-        null;
+        (SELECT b01003.b01003001 FROM acs2012_5yr.b01003 WHERE geoid='01000US'),
+        (SELECT SUM(aland) FROM tiger2012.state),
+        (SELECT SUM(awater) FROM tiger2012.state),
+        (SELECT ST_Simplify(ST_Union(the_geom), 0.01) FROM tiger2012.state);
+
+---- Divisions
+-- Division 1
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        'New England Division',
+        'New England Division',
+        'new england division',
+        '030',
+        '',
+        '03000US1',
+        310,
+        (SELECT b01003.b01003001 FROM acs2012_5yr.b01003 WHERE geoid = '03000US1'),
+        (SELECT SUM(aland) FROM tiger2012.state WHERE division='1'),
+        (SELECT SUM(awater) FROM tiger2012.state WHERE division='1'),
+        (SELECT ST_Union(the_geom) FROM tiger2012.census_name_lookup WHERE full_geoid IN ('04000US09', '04000US23', '04000US25', '04000US33', '04000US44', '04000US50'));
+-- Division 2
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        'Middle Atlantic Division',
+        'Middle Atlantic Division',
+        'middle atlantic division',
+        '030',
+        '',
+        '03000US2',
+        310,
+        (SELECT b01003.b01003001 FROM acs2012_5yr.b01003 WHERE geoid = '03000US2'),
+        (SELECT SUM(aland) FROM tiger2012.state WHERE division='2'),
+        (SELECT SUM(awater) FROM tiger2012.state WHERE division='2'),
+        (SELECT ST_Multi(ST_Union(the_geom)) FROM tiger2012.census_name_lookup WHERE full_geoid IN ('04000US34', '04000US36', '04000US42'));
+-- Division 3
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        'East North Central Division',
+        'East North Central Division',
+        'east north central division',
+        '030',
+        '',
+        '03000US3',
+        310,
+        (SELECT b01003.b01003001 FROM acs2012_5yr.b01003 WHERE geoid = '03000US3'),
+        (SELECT SUM(aland) FROM tiger2012.state WHERE division='3'),
+        (SELECT SUM(awater) FROM tiger2012.state WHERE division='3'),
+        (SELECT ST_Multi(ST_Union(the_geom)) FROM tiger2012.census_name_lookup WHERE full_geoid IN ('04000US18', '04000US17', '04000US26', '04000US39', '04000US55'));
+-- Division 4
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        'West North Central Division',
+        'West North Central Division',
+        'west north central division',
+        '030',
+        '',
+        '03000US4',
+        310,
+        (SELECT b01003.b01003001 FROM acs2012_5yr.b01003 WHERE geoid = '03000US4'),
+        (SELECT SUM(aland) FROM tiger2012.state WHERE division='4'),
+        (SELECT SUM(awater) FROM tiger2012.state WHERE division='4'),
+        (SELECT ST_Multi(ST_Union(the_geom)) FROM tiger2012.census_name_lookup WHERE full_geoid IN ('04000US19', '04000US20', '04000US27', '04000US29', '04000US31', '04000US38', '04000US46'));
+-- Division 5
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        'South Atlantic Division',
+        'South Atlantic Division',
+        'south atlantic division',
+        '030',
+        '',
+        '03000US5',
+        310,
+        (SELECT b01003.b01003001 FROM acs2012_5yr.b01003 WHERE geoid = '03000US5'),
+        (SELECT SUM(aland) FROM tiger2012.state WHERE division='5'),
+        (SELECT SUM(awater) FROM tiger2012.state WHERE division='5'),
+        (SELECT ST_Multi(ST_Union(the_geom)) FROM tiger2012.census_name_lookup WHERE full_geoid IN ('04000US10', '04000US11', '04000US12', '04000US13', '04000US24', '04000US37', '04000US45', '04000US51', '04000US54'));
+-- Division 6
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        'East South Central Division',
+        'East South Central Division',
+        'east south central division',
+        '030',
+        '',
+        '03000US6',
+        310,
+        (SELECT b01003.b01003001 FROM acs2012_5yr.b01003 WHERE geoid = '03000US6'),
+        (SELECT SUM(aland) FROM tiger2012.state WHERE division='6'),
+        (SELECT SUM(awater) FROM tiger2012.state WHERE division='6'),
+        (SELECT ST_Multi(ST_Union(the_geom)) FROM tiger2012.census_name_lookup WHERE full_geoid IN ('04000US01', '04000US21', '04000US28', '04000US47'));
+-- Division 7
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        'West South Central Division',
+        'West South Central Division',
+        'west south central division',
+        '030',
+        '',
+        '03000US7',
+        310,
+        (SELECT b01003.b01003001 FROM acs2012_5yr.b01003 WHERE geoid = '03000US7'),
+        (SELECT SUM(aland) FROM tiger2012.state WHERE division='7'),
+        (SELECT SUM(awater) FROM tiger2012.state WHERE division='7'),
+        (SELECT ST_Multi(ST_Union(the_geom)) FROM tiger2012.census_name_lookup WHERE full_geoid IN ('04000US05', '04000US22', '04000US40', '04000US48'));
+-- Division 8
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        'Mountain Division',
+        'Mountain Division',
+        'mountain division',
+        '030',
+        '',
+        '03000US8',
+        310,
+        (SELECT b01003.b01003001 FROM acs2012_5yr.b01003 WHERE geoid = '03000US8'),
+        (SELECT SUM(aland) FROM tiger2012.state WHERE division='8'),
+        (SELECT SUM(awater) FROM tiger2012.state WHERE division='8'),
+        (SELECT ST_Multi(ST_Union(the_geom)) FROM tiger2012.census_name_lookup WHERE full_geoid IN ('04000US04', '04000US08', '04000US16', '04000US35', '04000US30', '04000US49', '04000US32', '04000US56'));
+-- Division 9
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        'Pacific Division',
+        'Pacific Division',
+        'pacific division',
+        '030',
+        '',
+        '03000US9',
+        310,
+        (SELECT b01003.b01003001 FROM acs2012_5yr.b01003 WHERE geoid = '03000US9'),
+        (SELECT SUM(aland) FROM tiger2012.state WHERE division='9'),
+        (SELECT SUM(awater) FROM tiger2012.state WHERE division='9'),
+        (SELECT ST_Multi(ST_Union(the_geom)) FROM tiger2012.census_name_lookup WHERE full_geoid IN ('04000US02', '04000US06', '04000US15', '04000US41', '04000US53'));
+
+---- Regions
+-- Region 1
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        'Northeast Region',
+        'Northeast Region',
+        'northeast region',
+        '020',
+        '',
+        '02000US1',
+        320,
+        (SELECT b01003.b01003001 FROM acs2012_5yr.b01003 WHERE geoid = '02000US1'),
+        (SELECT SUM(aland) FROM tiger2012.state WHERE region='1'),
+        (SELECT SUM(awater) FROM tiger2012.state WHERE region='1'),
+        (SELECT ST_Multi(ST_Union(the_geom)) FROM tiger2012.census_name_lookup WHERE full_geoid IN ('03000US1', '03000US2'));
+-- Region 2
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        'Midwest Region',
+        'Midwest Region',
+        'midwest region',
+        '020',
+        '',
+        '02000US2',
+        320,
+        (SELECT b01003.b01003001 FROM acs2012_5yr.b01003 WHERE geoid = '02000US2'),
+        (SELECT SUM(aland) FROM tiger2012.state WHERE region='2'),
+        (SELECT SUM(awater) FROM tiger2012.state WHERE region='2'),
+        (SELECT ST_Multi(ST_Union(the_geom)) FROM tiger2012.census_name_lookup WHERE full_geoid IN ('03000US3', '03000US4'));
+-- Region 3
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        'South Region',
+        'South Region',
+        'south region',
+        '020',
+        '',
+        '02000US3',
+        320,
+        (SELECT b01003.b01003001 FROM acs2012_5yr.b01003 WHERE geoid = '02000US3'),
+        (SELECT SUM(aland) FROM tiger2012.state WHERE region='3'),
+        (SELECT SUM(awater) FROM tiger2012.state WHERE region='3'),
+        (SELECT ST_Multi(ST_Union(the_geom)) FROM tiger2012.census_name_lookup WHERE full_geoid IN ('03000US5', '03000US6', '03000US7'));
+-- Region 4
+INSERT INTO tiger2012.census_name_lookup
+    SELECT
+        'West Region',
+        'West Region',
+        'west region',
+        '020',
+        '',
+        '02000US4',
+        320,
+        (SELECT b01003.b01003001 FROM acs2012_5yr.b01003 WHERE geoid = '02000US4'),
+        (SELECT SUM(aland) FROM tiger2012.state WHERE region='4'),
+        (SELECT SUM(awater) FROM tiger2012.state WHERE region='4'),
+        (SELECT ST_Multi(ST_Union(the_geom)) FROM tiger2012.census_name_lookup WHERE full_geoid IN ('03000US8', '03000US9'));
+
 CREATE INDEX census_name_lookup_idx_lower ON tiger2012.census_name_lookup ((lower(prefix_match_name)) text_pattern_ops);
 CREATE INDEX census_name_lookup_idx_geom ON tiger2012.census_name_lookup USING GIST(the_geom);
 CREATE INDEX census_name_lookup_idx_geoid ON tiger2012.census_name_lookup (full_geoid);
