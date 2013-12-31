@@ -185,7 +185,7 @@ INSERT INTO tiger2012.census_name_lookup
         state.aland,
         state.awater,
         state.the_geom
-    FROM tiger2012.state LEFT OUTER JOIN acs2011_5yr.b01003 ON (('04000US' || state.geoid) = b01003.geoid)
+    FROM tiger2012.state LEFT OUTER JOIN acs2012_5yr.b01003 ON (('04000US' || state.geoid) = b01003.geoid)
     WHERE state.geoid NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2012.census_name_lookup
     SELECT
@@ -200,7 +200,7 @@ INSERT INTO tiger2012.census_name_lookup
         place.aland,
         place.awater,
         place.the_geom
-    FROM tiger2012.place LEFT OUTER JOIN acs2011_5yr.b01003 ON (('16000US' || place.geoid) = b01003.geoid) JOIN tiger2012.state USING (statefp)
+    FROM tiger2012.place LEFT OUTER JOIN acs2012_5yr.b01003 ON (('16000US' || place.geoid) = b01003.geoid) JOIN tiger2012.state USING (statefp)
     WHERE state.geoid NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2012.census_name_lookup VALUES (
         'New York city, NY', 'New York city', 'new york city ny', '160', '3651000', '16000US3651000', 20, 8128980, 783934135, 429462763, null);
@@ -217,7 +217,7 @@ INSERT INTO tiger2012.census_name_lookup
         county.aland,
         county.awater,
         county.the_geom
-    FROM tiger2012.county LEFT OUTER JOIN acs2011_5yr.b01003 ON (('05000US' || county.geoid) = b01003.geoid) JOIN tiger2012.state USING (statefp)
+    FROM tiger2012.county LEFT OUTER JOIN acs2012_5yr.b01003 ON (('05000US' || county.geoid) = b01003.geoid) JOIN tiger2012.state USING (statefp)
     WHERE state.geoid NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2012.census_name_lookup
     SELECT
@@ -232,7 +232,7 @@ INSERT INTO tiger2012.census_name_lookup
         cousub.aland,
         cousub.awater,
         cousub.the_geom
-    FROM tiger2012.cousub LEFT OUTER JOIN acs2011_5yr.b01003 ON (('06000US' || cousub.geoid) = b01003.geoid) JOIN tiger2012.county USING (statefp, countyfp) JOIN tiger2012.state USING (statefp)
+    FROM tiger2012.cousub LEFT OUTER JOIN acs2012_5yr.b01003 ON (('06000US' || cousub.geoid) = b01003.geoid) JOIN tiger2012.county USING (statefp, countyfp) JOIN tiger2012.state USING (statefp)
     WHERE state.geoid NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2012.census_name_lookup
     SELECT
@@ -247,7 +247,7 @@ INSERT INTO tiger2012.census_name_lookup
         zcta5.aland10,
         zcta5.awater10,
         zcta5.the_geom
-    FROM tiger2012.zcta5 LEFT OUTER JOIN acs2011_5yr.b01003 ON (('86000US' || zcta5.geoid10) = b01003.geoid);
+    FROM tiger2012.zcta5 LEFT OUTER JOIN acs2012_5yr.b01003 ON (('86000US' || zcta5.geoid10) = b01003.geoid);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         cbsa.namelsad,
@@ -261,7 +261,7 @@ INSERT INTO tiger2012.census_name_lookup
         cbsa.aland,
         cbsa.awater,
         cbsa.the_geom
-    FROM tiger2012.cbsa LEFT OUTER JOIN acs2011_5yr.b01003 ON (('31000US' || cbsa.geoid) = b01003.geoid);
+    FROM tiger2012.cbsa LEFT OUTER JOIN acs2012_5yr.b01003 ON (('31000US' || cbsa.geoid) = b01003.geoid);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         cd.namelsad || ', ' || state.stusps,
@@ -275,7 +275,7 @@ INSERT INTO tiger2012.census_name_lookup
         cd.aland,
         cd.awater,
         cd.the_geom
-    FROM tiger2012.cd LEFT OUTER JOIN acs2011_5yr.b01003 ON (('50000US' || cd.geoid) = b01003.geoid) JOIN tiger2012.state USING (statefp)
+    FROM tiger2012.cd LEFT OUTER JOIN acs2012_5yr.b01003 ON (('50000US' || cd.geoid) = b01003.geoid) JOIN tiger2012.state USING (statefp)
     WHERE state.geoid NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2012.census_name_lookup
     SELECT
@@ -290,7 +290,7 @@ INSERT INTO tiger2012.census_name_lookup
         csa.aland,
         csa.awater,
         csa.the_geom
-    FROM tiger2012.csa LEFT OUTER JOIN acs2011_5yr.b01003 ON (('33000US' || csa.geoid) = b01003.geoid);
+    FROM tiger2012.csa LEFT OUTER JOIN acs2012_5yr.b01003 ON (('33000US' || csa.geoid) = b01003.geoid);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         elsd.name || ', ' || state.stusps,
@@ -304,7 +304,7 @@ INSERT INTO tiger2012.census_name_lookup
         elsd.aland,
         elsd.awater,
         elsd.the_geom
-    FROM tiger2012.elsd LEFT OUTER JOIN acs2011_5yr.b01003 ON (('95000US' || elsd.geoid) = b01003.geoid) JOIN tiger2012.state USING (statefp);
+    FROM tiger2012.elsd LEFT OUTER JOIN acs2012_5yr.b01003 ON (('95000US' || elsd.geoid) = b01003.geoid) JOIN tiger2012.state USING (statefp);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         scsd.name || ', ' || state.stusps,
@@ -318,7 +318,7 @@ INSERT INTO tiger2012.census_name_lookup
         scsd.aland,
         scsd.awater,
         scsd.the_geom
-    FROM tiger2012.scsd LEFT OUTER JOIN acs2011_5yr.b01003 ON (('96000US' || scsd.geoid) = b01003.geoid) JOIN tiger2012.state USING (statefp);
+    FROM tiger2012.scsd LEFT OUTER JOIN acs2012_5yr.b01003 ON (('96000US' || scsd.geoid) = b01003.geoid) JOIN tiger2012.state USING (statefp);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         puma.namelsad10 || ', ' || state.stusps,
@@ -332,7 +332,7 @@ INSERT INTO tiger2012.census_name_lookup
         puma.aland10,
         puma.awater10,
         puma.the_geom
-    FROM tiger2012.puma LEFT OUTER JOIN acs2011_5yr.b01003 ON (('79500US' || puma.geoid10) = b01003.geoid) JOIN tiger2012.state ON (puma.statefp10=state.statefp);
+    FROM tiger2012.puma LEFT OUTER JOIN acs2012_5yr.b01003 ON (('79500US' || puma.geoid10) = b01003.geoid) JOIN tiger2012.state ON (puma.statefp10=state.statefp);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         sldl.namelsad || ', ' || state.stusps,
@@ -346,7 +346,7 @@ INSERT INTO tiger2012.census_name_lookup
         sldl.aland,
         sldl.awater,
         sldl.the_geom
-    FROM tiger2012.sldl LEFT OUTER JOIN acs2011_5yr.b01003 ON (('62000US' || sldl.geoid) = b01003.geoid) JOIN tiger2012.state USING (statefp);
+    FROM tiger2012.sldl LEFT OUTER JOIN acs2012_5yr.b01003 ON (('62000US' || sldl.geoid) = b01003.geoid) JOIN tiger2012.state USING (statefp);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         sldu.namelsad || ', ' || state.stusps,
@@ -360,7 +360,7 @@ INSERT INTO tiger2012.census_name_lookup
         sldu.aland,
         sldu.awater,
         sldu.the_geom
-    FROM tiger2012.sldu LEFT OUTER JOIN acs2011_5yr.b01003 ON (('61000US' || sldu.geoid) = b01003.geoid) JOIN tiger2012.state USING (statefp);
+    FROM tiger2012.sldu LEFT OUTER JOIN acs2012_5yr.b01003 ON (('61000US' || sldu.geoid) = b01003.geoid) JOIN tiger2012.state USING (statefp);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         aiannh.namelsad,
@@ -374,7 +374,7 @@ INSERT INTO tiger2012.census_name_lookup
         aiannh.aland,
         aiannh.awater,
         aiannh.the_geom
-    FROM tiger2012.aiannh LEFT OUTER JOIN acs2011_5yr.b01003 ON (('25000US' || aiannh.geoid) = b01003.geoid);
+    FROM tiger2012.aiannh LEFT OUTER JOIN acs2012_5yr.b01003 ON (('25000US' || aiannh.geoid) = b01003.geoid);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         aits.namelsad,
@@ -388,7 +388,7 @@ INSERT INTO tiger2012.census_name_lookup
         aits.aland,
         aits.awater,
         aits.the_geom
-    FROM tiger2012.aits LEFT OUTER JOIN acs2011_5yr.b01003 ON (('25100US' || aits.geoid) = b01003.geoid);
+    FROM tiger2012.aits LEFT OUTER JOIN acs2012_5yr.b01003 ON (('25100US' || aits.geoid) = b01003.geoid);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         anrc.namelsad,
@@ -402,7 +402,7 @@ INSERT INTO tiger2012.census_name_lookup
         anrc.aland,
         anrc.awater,
         anrc.the_geom
-    FROM tiger2012.anrc LEFT OUTER JOIN acs2011_5yr.b01003 ON (('23000US' || anrc.geoid) = b01003.geoid);
+    FROM tiger2012.anrc LEFT OUTER JOIN acs2012_5yr.b01003 ON (('23000US' || anrc.geoid) = b01003.geoid);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         bg.namelsad || ', ' || county.name || ', ' || state.stusps,
@@ -416,7 +416,7 @@ INSERT INTO tiger2012.census_name_lookup
         bg.aland,
         bg.awater,
         bg.the_geom
-    FROM tiger2012.bg LEFT OUTER JOIN acs2011_5yr.b01003 ON (('15000US' || bg.geoid) = b01003.geoid) JOIN tiger2012.county USING (statefp, countyfp) JOIN tiger2012.state USING (statefp);
+    FROM tiger2012.bg LEFT OUTER JOIN acs2012_5yr.b01003 ON (('15000US' || bg.geoid) = b01003.geoid) JOIN tiger2012.county USING (statefp, countyfp) JOIN tiger2012.state USING (statefp);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         cnecta.namelsad,
@@ -430,7 +430,7 @@ INSERT INTO tiger2012.census_name_lookup
         cnecta.aland,
         cnecta.awater,
         cnecta.the_geom
-    FROM tiger2012.cnecta LEFT OUTER JOIN acs2011_5yr.b01003 ON (('33500US' || cnecta.geoid) = b01003.geoid);
+    FROM tiger2012.cnecta LEFT OUTER JOIN acs2012_5yr.b01003 ON (('33500US' || cnecta.geoid) = b01003.geoid);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         concity.namelsad || ', ' || state.stusps,
@@ -444,7 +444,7 @@ INSERT INTO tiger2012.census_name_lookup
         concity.aland,
         concity.awater,
         concity.the_geom
-    FROM tiger2012.concity LEFT OUTER JOIN acs2011_5yr.b01003 ON (('17000US' || concity.geoid) = b01003.geoid) JOIN tiger2012.state USING (statefp);
+    FROM tiger2012.concity LEFT OUTER JOIN acs2012_5yr.b01003 ON (('17000US' || concity.geoid) = b01003.geoid) JOIN tiger2012.state USING (statefp);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         metdiv.namelsad,
@@ -458,7 +458,7 @@ INSERT INTO tiger2012.census_name_lookup
         metdiv.aland,
         metdiv.awater,
         metdiv.the_geom
-    FROM tiger2012.metdiv LEFT OUTER JOIN acs2011_5yr.b01003 ON (('31400US' || metdiv.geoid) = b01003.geoid);
+    FROM tiger2012.metdiv LEFT OUTER JOIN acs2012_5yr.b01003 ON (('31400US' || metdiv.geoid) = b01003.geoid);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         necta.namelsad,
@@ -472,7 +472,7 @@ INSERT INTO tiger2012.census_name_lookup
         necta.aland,
         necta.awater,
         necta.the_geom
-    FROM tiger2012.necta LEFT OUTER JOIN acs2011_5yr.b01003 ON (('35000US' || necta.geoid) = b01003.geoid);
+    FROM tiger2012.necta LEFT OUTER JOIN acs2012_5yr.b01003 ON (('35000US' || necta.geoid) = b01003.geoid);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         nectadiv.namelsad,
@@ -486,7 +486,7 @@ INSERT INTO tiger2012.census_name_lookup
         nectadiv.aland,
         nectadiv.awater,
         nectadiv.the_geom
-    FROM tiger2012.nectadiv LEFT OUTER JOIN acs2011_5yr.b01003 ON (('35500US' || nectadiv.geoid) = b01003.geoid);
+    FROM tiger2012.nectadiv LEFT OUTER JOIN acs2012_5yr.b01003 ON (('35500US' || nectadiv.geoid) = b01003.geoid);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         submcd.namelsad,
@@ -500,7 +500,7 @@ INSERT INTO tiger2012.census_name_lookup
         submcd.aland,
         submcd.awater,
         submcd.the_geom
-    FROM tiger2012.submcd LEFT OUTER JOIN acs2011_5yr.b01003 ON (('06700US' || submcd.geoid) = b01003.geoid);
+    FROM tiger2012.submcd LEFT OUTER JOIN acs2012_5yr.b01003 ON (('06700US' || submcd.geoid) = b01003.geoid);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         tbg.namelsad,
@@ -514,7 +514,7 @@ INSERT INTO tiger2012.census_name_lookup
         tbg.aland,
         tbg.awater,
         tbg.the_geom
-    FROM tiger2012.tbg LEFT OUTER JOIN acs2011_5yr.b01003 ON (('25800US' || tbg.geoid) = b01003.geoid);
+    FROM tiger2012.tbg LEFT OUTER JOIN acs2012_5yr.b01003 ON (('25800US' || tbg.geoid) = b01003.geoid);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         ttract.namelsad,
@@ -528,7 +528,7 @@ INSERT INTO tiger2012.census_name_lookup
         ttract.aland,
         ttract.awater,
         ttract.the_geom
-    FROM tiger2012.ttract LEFT OUTER JOIN acs2011_5yr.b01003 ON (('25600US' || ttract.geoid) = b01003.geoid);
+    FROM tiger2012.ttract LEFT OUTER JOIN acs2012_5yr.b01003 ON (('25600US' || ttract.geoid) = b01003.geoid);
 -- Don't include blocks because there's no ACS data for it.
 -- INSERT INTO tiger2012.census_name_lookup
 --     SELECT
@@ -556,7 +556,7 @@ INSERT INTO tiger2012.census_name_lookup
         tract.aland,
         tract.awater,
         tract.the_geom
-    FROM tiger2012.tract LEFT OUTER JOIN acs2011_5yr.b01003 ON (('14000US' || tract.geoid) = b01003.geoid) JOIN tiger2012.county USING (statefp, countyfp) JOIN tiger2012.state USING (statefp);
+    FROM tiger2012.tract LEFT OUTER JOIN acs2012_5yr.b01003 ON (('14000US' || tract.geoid) = b01003.geoid) JOIN tiger2012.county USING (statefp, countyfp) JOIN tiger2012.state USING (statefp);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         uac.namelsad10,
@@ -570,7 +570,7 @@ INSERT INTO tiger2012.census_name_lookup
         uac.aland10,
         uac.awater10,
         uac.the_geom
-    FROM tiger2012.uac LEFT OUTER JOIN acs2011_5yr.b01003 ON (('40000US' || uac.geoid10) = b01003.geoid);
+    FROM tiger2012.uac LEFT OUTER JOIN acs2012_5yr.b01003 ON (('40000US' || uac.geoid10) = b01003.geoid);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         unsd.name || ', ' || state.stusps,
@@ -584,7 +584,7 @@ INSERT INTO tiger2012.census_name_lookup
         unsd.aland,
         unsd.awater,
         unsd.the_geom
-    FROM tiger2012.unsd LEFT OUTER JOIN acs2011_5yr.b01003 ON (('97000US' || unsd.geoid) = b01003.geoid) JOIN tiger2012.state USING (statefp);
+    FROM tiger2012.unsd LEFT OUTER JOIN acs2012_5yr.b01003 ON (('97000US' || unsd.geoid) = b01003.geoid) JOIN tiger2012.state USING (statefp);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         vtd.name10 || ', ' || state.stusps,
@@ -598,7 +598,7 @@ INSERT INTO tiger2012.census_name_lookup
         vtd.aland10,
         vtd.awater10,
         vtd.the_geom
-    FROM tiger2012.vtd LEFT OUTER JOIN acs2011_5yr.b01003 ON (('70000US' || vtd.geoid10) = b01003.geoid) JOIN tiger2012.state ON (vtd.statefp10=state.statefp);
+    FROM tiger2012.vtd LEFT OUTER JOIN acs2012_5yr.b01003 ON (('70000US' || vtd.geoid10) = b01003.geoid) JOIN tiger2012.state ON (vtd.statefp10=state.statefp);
 INSERT INTO tiger2012.census_name_lookup
     SELECT
         'United States',
