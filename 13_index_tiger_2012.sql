@@ -1,129 +1,3 @@
--- Drop old indexes if they're there
-DROP INDEX IF EXISTS tiger2012.cbsa_idx_namelsad_lower;
-DROP INDEX IF EXISTS tiger2012.cd_idx_namelsad_lower;
-DROP INDEX IF EXISTS tiger2012.county_idx_namelsad_lower;
-DROP INDEX IF EXISTS tiger2012.csa_idx_namelsad_lower;
-DROP INDEX IF EXISTS tiger2012.place_idx_namelsad_lower;
-DROP INDEX IF EXISTS tiger2012.state_idx_name_lower;
-DROP INDEX IF EXISTS tiger2012.elsd_idx_name_lower;
-DROP INDEX IF EXISTS tiger2012.scsd_idx_name_lower;
-DROP INDEX IF EXISTS tiger2012.zcta5_idx_zcta5ce10_lower;
-DROP INDEX IF EXISTS tiger2012.cousub_idx_namelsad_lower;
-DROP INDEX IF EXISTS tiger2012.puma_idx_namelsad10_lower;
-DROP INDEX IF EXISTS tiger2012.sldl_idx_namelsad_lower;
-DROP INDEX IF EXISTS tiger2012.sldu_idx_namelsad_lower;
-DROP INDEX IF EXISTS tiger2012.aiannh_idx_namelsad_lower;
-DROP INDEX IF EXISTS tiger2012.aits_idx_namelsad_lower;
-DROP INDEX IF EXISTS tiger2012.anrc_idx_namelsad_lower;
-DROP INDEX IF EXISTS tiger2012.bg_idx_namelsad_lower;
-DROP INDEX IF EXISTS tiger2012.cnecta_idx_namelsad_lower;
-DROP INDEX IF EXISTS tiger2012.concity_idx_namelsad_lower;
-DROP INDEX IF EXISTS tiger2012.metdiv_idx_namelsad_lower;
-DROP INDEX IF EXISTS tiger2012.necta_idx_namelsad_lower;
-DROP INDEX IF EXISTS tiger2012.nectadiv_idx_namelsad_lower;
-DROP INDEX IF EXISTS tiger2012.submcd_idx_namelsad_lower;
-DROP INDEX IF EXISTS tiger2012.tbg_idx_namelsad_lower;
-DROP INDEX IF EXISTS tiger2012.ttract_idx_namelsad_lower;
-DROP INDEX IF EXISTS tiger2012.tabblock_idx_name_lower;
-DROP INDEX IF EXISTS tiger2012.tract_idx_namelsad_lower;
-DROP INDEX IF EXISTS tiger2012.uac_idx_namelsad10_lower;
-DROP INDEX IF EXISTS tiger2012.unsd_idx_name_lower;
-DROP INDEX IF EXISTS tiger2012.vtd_idx_namelsad10_lower;
-
-DROP INDEX IF EXISTS tiger2012.cbsa_idx_lower;
-DROP INDEX IF EXISTS tiger2012.cd_idx_lower;
-DROP INDEX IF EXISTS tiger2012.county_idx_lower;
-DROP INDEX IF EXISTS tiger2012.csa_idx_lower;
-DROP INDEX IF EXISTS tiger2012.place_idx_lower;
-DROP INDEX IF EXISTS tiger2012.state_idx_lower;
-DROP INDEX IF EXISTS tiger2012.elsd_idx_lower;
-DROP INDEX IF EXISTS tiger2012.scsd_idx_lower;
-DROP INDEX IF EXISTS tiger2012.zcta5_idx_lower;
-DROP INDEX IF EXISTS tiger2012.cousub_idx_lower;
-DROP INDEX IF EXISTS tiger2012.puma_idx_lower;
-DROP INDEX IF EXISTS tiger2012.sldl_idx_lower;
-DROP INDEX IF EXISTS tiger2012.sldu_idx_lower;
-DROP INDEX IF EXISTS tiger2012.aiannh_idx_lower;
-DROP INDEX IF EXISTS tiger2012.aits_idx_lower;
-DROP INDEX IF EXISTS tiger2012.anrc_idx_lower;
-DROP INDEX IF EXISTS tiger2012.bg_idx_lower;
-DROP INDEX IF EXISTS tiger2012.cnecta_idx_lower;
-DROP INDEX IF EXISTS tiger2012.concity_idx_lower;
-DROP INDEX IF EXISTS tiger2012.metdiv_idx_lower;
-DROP INDEX IF EXISTS tiger2012.necta_idx_lower;
-DROP INDEX IF EXISTS tiger2012.nectadiv_idx_lower;
-DROP INDEX IF EXISTS tiger2012.submcd_idx_lower;
-DROP INDEX IF EXISTS tiger2012.tbg_idx_lower;
-DROP INDEX IF EXISTS tiger2012.ttract_idx_lower;
-DROP INDEX IF EXISTS tiger2012.tabblock_idx_lower;
-DROP INDEX IF EXISTS tiger2012.tract_idx_lower;
-DROP INDEX IF EXISTS tiger2012.uac_idx_lower;
-DROP INDEX IF EXISTS tiger2012.unsd_idx_lower;
-DROP INDEX IF EXISTS tiger2012.vtd_idx_lower;
-
-DROP INDEX IF EXISTS tiger2012.cbsa_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.cd_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.county_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.csa_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.place_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.state_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.elsd_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.scsd_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.zcta5_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.cousub_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.puma_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.sldl_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.sldu_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.aiannh_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.aits_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.anrc_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.bg_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.cnecta_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.concity_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.metdiv_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.necta_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.nectadiv_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.submcd_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.tbg_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.ttract_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.tabblock_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.tract_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.uac_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.unsd_idx_fulltext;
-DROP INDEX IF EXISTS tiger2012.vtd_idx_fulltext;
-
--- Drop fulltext_col columns
-ALTER TABLE tiger2012.cbsa DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.cd DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.county DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.csa DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.place DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.state DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.elsd DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.scsd DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.zcta5 DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.cousub DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.puma DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.sldl DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.sldu DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.aiannh DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.aits DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.anrc DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.bg DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.cnecta DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.concity DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.metdiv DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.necta DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.nectadiv DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.submcd DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.tbg DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.ttract DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.tabblock DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.tract DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.uac DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.unsd DROP COLUMN IF EXISTS fulltext_col CASCADE;
-ALTER TABLE tiger2012.vtd DROP COLUMN IF EXISTS fulltext_col CASCADE;
-
 -- Change ownership on the TIGER tables
 ALTER TABLE tiger2012.cbsa OWNER TO census;
 ALTER TABLE tiger2012.cd OWNER TO census;
@@ -802,3 +676,206 @@ INSERT INTO tiger2012.census_name_lookup
 CREATE INDEX census_name_lookup_idx_lower ON tiger2012.census_name_lookup ((lower(prefix_match_name)) text_pattern_ops);
 CREATE INDEX census_name_lookup_idx_geom ON tiger2012.census_name_lookup USING GIST(the_geom);
 CREATE INDEX census_name_lookup_idx_geoid ON tiger2012.census_name_lookup (full_geoid);
+
+CREATE TABLE tiger2012.census_geo_containment (
+    child_geoid varchar(40),
+    parent_geoid varchar(40),
+    percent_covered real
+);
+-- Places (160) in Counties (050)
+INSERT INTO tiger2012.census_geo_containment (
+    SELECT
+        '16000US' || place.geoid AS child_geoid,
+        '05000US' || county.geoid AS parent_geoid,
+        ST_Area(ST_Intersection(place.the_geom,county.the_geom))/ST_Area(place.the_geom)*100 as percent_covered
+    FROM tiger2012.place
+    JOIN tiger2012.county ON ST_Intersects(place.the_geom, county.the_geom)
+    WHERE
+        ST_Area(ST_Intersection(place.the_geom,county.the_geom))/ST_Area(place.the_geom) > 0
+    ORDER BY
+        child_geoid ASC,
+        ST_Area(ST_Intersection(place.the_geom,county.the_geom)) DESC
+);
+-- ZCTA5s (860) in Counties (050)
+INSERT INTO tiger2012.census_geo_containment (
+    SELECT
+        '86000US' || zcta5.geoid10 AS child_geoid,
+        '05000US' || county.geoid AS parent_geoid,
+        ST_Area(ST_Intersection(zcta5.the_geom,county.the_geom))/ST_Area(zcta5.the_geom)*100 as percent_covered
+    FROM tiger2012.zcta5
+    JOIN tiger2012.county ON ST_Intersects(zcta5.the_geom, county.the_geom)
+    WHERE
+        ST_IsValid(zcta5.the_geom) AND
+        ST_Area(ST_Intersection(zcta5.the_geom,county.the_geom))/ST_Area(zcta5.the_geom) > 0
+    ORDER BY
+        child_geoid ASC,
+        ST_Area(ST_Intersection(zcta5.the_geom,county.the_geom)) DESC
+);
+-- Elementary school districts (950) in Counties (050)
+INSERT INTO tiger2012.census_geo_containment (
+    SELECT
+        '95000US' || elsd.geoid AS child_geoid,
+        '05000US' || county.geoid AS parent_geoid,
+        ST_Area(ST_Intersection(elsd.the_geom,county.the_geom))/ST_Area(elsd.the_geom)*100 as percent_covered
+    FROM tiger2012.elsd
+    JOIN tiger2012.county ON ST_Intersects(elsd.the_geom, county.the_geom)
+    WHERE
+        ST_IsValid(elsd.the_geom) AND
+        ST_Area(ST_Intersection(elsd.the_geom,county.the_geom))/ST_Area(elsd.the_geom) > 0
+    ORDER BY
+        child_geoid ASC,
+        ST_Area(ST_Intersection(elsd.the_geom,county.the_geom)) DESC
+);
+-- Secondary school districts (960) in Counties (050)
+INSERT INTO tiger2012.census_geo_containment (
+    SELECT
+        '96000US' || scsd.geoid AS child_geoid,
+        '05000US' || county.geoid AS parent_geoid,
+        ST_Area(ST_Intersection(scsd.the_geom,county.the_geom))/ST_Area(scsd.the_geom)*100 as percent_covered
+    FROM tiger2012.scsd
+    JOIN tiger2012.county ON ST_Intersects(scsd.the_geom, county.the_geom)
+    WHERE
+        ST_IsValid(scsd.the_geom) AND
+        ST_Area(ST_Intersection(scsd.the_geom,county.the_geom))/ST_Area(scsd.the_geom) > 0
+    ORDER BY
+        child_geoid ASC,
+        ST_Area(ST_Intersection(scsd.the_geom,county.the_geom)) DESC
+);
+-- Unified school districts (970) in Counties (050)
+INSERT INTO tiger2012.census_geo_containment (
+    SELECT
+        '97000US' || unsd.geoid AS child_geoid,
+        '05000US' || county.geoid AS parent_geoid,
+        ST_Area(ST_Intersection(unsd.the_geom,county.the_geom))/ST_Area(unsd.the_geom)*100 as percent_covered
+    FROM tiger2012.unsd
+    JOIN tiger2012.county ON ST_Intersects(unsd.the_geom, county.the_geom)
+    WHERE
+        ST_IsValid(unsd.the_geom) AND
+        ST_Area(ST_Intersection(unsd.the_geom,county.the_geom))/ST_Area(unsd.the_geom) > 0
+    ORDER BY
+        child_geoid ASC,
+        ST_Area(ST_Intersection(unsd.the_geom,county.the_geom)) DESC
+);
+-- VTD (700) in Counties (050)
+INSERT INTO tiger2012.census_geo_containment (
+    SELECT
+        '70000US' || vtd.geoid10 AS child_geoid,
+        '05000US' || county.geoid AS parent_geoid,
+        ST_Area(ST_Intersection(vtd.the_geom,county.the_geom))/ST_Area(vtd.the_geom)*100 as percent_covered
+    FROM tiger2012.vtd
+    JOIN tiger2012.county ON ST_Intersects(vtd.the_geom, county.the_geom)
+    WHERE
+        ST_IsValid(vtd.the_geom) AND
+        ST_Area(ST_Intersection(vtd.the_geom,county.the_geom))/ST_Area(vtd.the_geom) > 0
+    ORDER BY
+        child_geoid ASC,
+        ST_Area(ST_Intersection(vtd.the_geom,county.the_geom)) DESC
+);
+-- VTD (700) in States (040)
+INSERT INTO tiger2012.census_geo_containment (
+    SELECT
+        '70000US' || vtd.geoid10 AS child_geoid,
+        '04000US' || state.geoid AS parent_geoid,
+        ST_Area(ST_Intersection(vtd.the_geom,state.the_geom))/ST_Area(vtd.the_geom)*100 as percent_covered
+    FROM tiger2012.vtd
+    JOIN tiger2012.state ON ST_Intersects(vtd.the_geom, state.the_geom)
+    WHERE
+        ST_IsValid(vtd.the_geom) AND
+        ST_Area(ST_Intersection(vtd.the_geom,state.the_geom))/ST_Area(vtd.the_geom) > 0
+    ORDER BY
+        child_geoid ASC,
+        ST_Area(ST_Intersection(vtd.the_geom,state.the_geom)) DESC
+);
+-- Places (160) in CBSA (310)
+INSERT INTO tiger2012.census_geo_containment (
+    SELECT
+        '16000US' || place.geoid AS child_geoid,
+        '31000US' || cbsa.geoid AS parent_geoid,
+        ST_Area(ST_Intersection(place.the_geom,cbsa.the_geom))/ST_Area(place.the_geom)*100 as percent_covered
+    FROM tiger2012.place
+    JOIN tiger2012.cbsa ON ST_Intersects(place.the_geom, cbsa.the_geom)
+    WHERE
+        ST_IsValid(place.the_geom) AND
+        ST_Area(ST_Intersection(place.the_geom,cbsa.the_geom))/ST_Area(place.the_geom) > 0
+    ORDER BY
+        child_geoid ASC,
+        ST_Area(ST_Intersection(place.the_geom,cbsa.the_geom)) DESC
+);
+-- ZCTA5s (860) in CBSA (310)
+INSERT INTO tiger2012.census_geo_containment (
+    SELECT
+        '86000US' || zcta5.geoid10 AS child_geoid,
+        '31000US' || cbsa.geoid AS parent_geoid,
+        ST_Area(ST_Intersection(zcta5.the_geom,cbsa.the_geom))/ST_Area(zcta5.the_geom)*100 as percent_covered
+    FROM tiger2012.zcta5
+    JOIN tiger2012.cbsa ON ST_Intersects(zcta5.the_geom, cbsa.the_geom)
+    WHERE
+        ST_IsValid(zcta5.the_geom) AND
+        ST_Area(ST_Intersection(zcta5.the_geom,cbsa.the_geom))/ST_Area(zcta5.the_geom) > 0
+    ORDER BY
+        child_geoid ASC,
+        ST_Area(ST_Intersection(zcta5.the_geom,cbsa.the_geom)) DESC
+);
+-- ZCTA5s (860) in States (040)
+INSERT INTO tiger2012.census_geo_containment (
+    SELECT
+        '86000US' || zcta5.geoid10 AS child_geoid,
+        '04000US' || state.geoid AS parent_geoid,
+        ST_Area(ST_Intersection(zcta5.the_geom,state.the_geom))/ST_Area(zcta5.the_geom)*100 as percent_covered
+    FROM tiger2012.zcta5
+    JOIN tiger2012.state ON ST_Intersects(zcta5.the_geom, state.the_geom)
+    WHERE
+        ST_IsValid(zcta5.the_geom) AND
+        ST_Area(ST_Intersection(zcta5.the_geom,state.the_geom))/ST_Area(zcta5.the_geom) > 0
+    ORDER BY
+        child_geoid ASC,
+        ST_Area(ST_Intersection(zcta5.the_geom,state.the_geom)) DESC
+);
+-- CBSAs(310) in States (040)
+INSERT INTO tiger2012.census_geo_containment (
+    SELECT
+        '31000US' || cbsa.geoid AS child_geoid,
+        '04000US' || state.geoid AS parent_geoid,
+        ST_Area(ST_Intersection(cbsa.the_geom,state.the_geom))/ST_Area(cbsa.the_geom)*100 as percent_covered
+    FROM tiger2012.cbsa
+    JOIN tiger2012.state ON ST_Intersects(cbsa.the_geom, state.the_geom)
+    WHERE
+        ST_IsValid(cbsa.the_geom) AND
+        ST_Area(ST_Intersection(cbsa.the_geom,state.the_geom))/ST_Area(cbsa.the_geom) > 0
+    ORDER BY
+        child_geoid ASC,
+        ST_Area(ST_Intersection(cbsa.the_geom,state.the_geom)) DESC
+);
+-- Tracts (140) in Places (160)
+INSERT INTO tiger2012.census_geo_containment (
+    SELECT
+        '14000US' || tract.geoid AS child_geoid,
+        '16000US' || place.geoid AS parent_geoid,
+        ST_Area(ST_Intersection(tract.the_geom,place.the_geom))/ST_Area(tract.the_geom)*100 as percent_covered
+    FROM tiger2012.tract
+    JOIN tiger2012.place ON ST_Intersects(tract.the_geom, place.the_geom)
+    WHERE
+        ST_IsValid(tract.the_geom) AND
+        ST_Area(ST_Intersection(tract.the_geom,place.the_geom))/ST_Area(tract.the_geom) > 0
+    ORDER BY
+        child_geoid ASC,
+        ST_Area(ST_Intersection(tract.the_geom,place.the_geom)) DESC
+);
+-- Block Groups (150) in Places (160)
+INSERT INTO tiger2012.census_geo_containment (
+    SELECT
+        '15000US' || bg.geoid AS child_geoid,
+        '16000US' || place.geoid AS parent_geoid,
+        ST_Area(ST_Intersection(bg.the_geom,place.the_geom))/ST_Area(bg.the_geom)*100 as percent_covered
+    FROM tiger2012.bg
+    JOIN tiger2012.place ON ST_Intersects(bg.the_geom, place.the_geom)
+    WHERE
+        ST_IsValid(bg.the_geom) AND
+        ST_Area(ST_Intersection(bg.the_geom,place.the_geom))/ST_Area(bg.the_geom) > 0
+    ORDER BY
+        child_geoid ASC,
+        ST_Area(ST_Intersection(bg.the_geom,place.the_geom)) DESC
+);
+
+CREATE INDEX census_geo_containment_idx_child_geoid ON tiger2012.census_geo_containment (child_geoid);
+CREATE INDEX census_geo_containment_idx_parent_geoid ON tiger2012.census_geo_containment (parent_geoid);
