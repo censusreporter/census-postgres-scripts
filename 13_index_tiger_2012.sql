@@ -30,6 +30,9 @@ ALTER TABLE tiger2012.uac OWNER TO census;
 ALTER TABLE tiger2012.unsd OWNER TO census;
 ALTER TABLE tiger2012.vtd OWNER TO census;
 
+-- OGR needs select on geography_columns to do it's thing
+GRANT SELECT ON geography_columns TO census;
+
 -- Create a unified table for all census names -> geoid
 DROP TABLE IF EXISTS tiger2012.census_name_lookup;
 CREATE TABLE tiger2012.census_name_lookup (
