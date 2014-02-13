@@ -831,7 +831,7 @@ INSERT INTO tiger2012.census_geo_containment (
         child_geoid ASC,
         ST_Area(ST_Intersection(zcta5.the_geom,state.the_geom)) DESC
 );
--- CBSAs(310) in States (040)
+-- CBSAs (310) in States (040)
 INSERT INTO tiger2012.census_geo_containment (
     SELECT
         '31000US' || cbsa.geoid AS child_geoid,
@@ -845,6 +845,21 @@ INSERT INTO tiger2012.census_geo_containment (
     ORDER BY
         child_geoid ASC,
         ST_Area(ST_Intersection(cbsa.the_geom,state.the_geom)) DESC
+);
+-- CBSAs (310) in CSAs (330)
+INSERT INTO tiger2012.census_geo_containment (
+    SELECT
+        '31000US' || cbsa.geoid AS child_geoid,
+        '33000US' || csa.geoid AS parent_geoid,
+        ST_Area(ST_Intersection(cbsa.the_geom,csa.the_geom))/ST_Area(cbsa.the_geom)*100 as percent_covered
+    FROM tiger2012.cbsa
+    JOIN tiger2012.csa ON ST_Intersects(cbsa.the_geom, csa.the_geom)
+    WHERE
+        ST_IsValid(cbsa.the_geom) AND
+        ST_Area(ST_Intersection(cbsa.the_geom,csa.the_geom))/ST_Area(cbsa.the_geom) > 0
+    ORDER BY
+        child_geoid ASC,
+        ST_Area(ST_Intersection(cbsa.the_geom,csa.the_geom)) DESC
 );
 -- Tracts (140) in Places (160)
 INSERT INTO tiger2012.census_geo_containment (
