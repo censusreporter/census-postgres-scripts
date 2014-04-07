@@ -909,6 +909,21 @@ INSERT INTO tiger2012.census_geo_containment (
         child_geoid ASC,
         ST_Area(ST_Intersection(bg.the_geom,place.the_geom)) DESC
 );
+-- NECTAs (350) in States (040)
+INSERT INTO tiger2012.census_geo_containment (
+    SELECT
+        '35000US' || necta.geoid AS child_geoid,
+        '04000US' || state.geoid AS parent_geoid,
+        ST_Area(ST_Intersection(necta.the_geom,state.the_geom))/ST_Area(necta.the_geom)*100 as percent_covered
+    FROM tiger2012.necta
+    JOIN tiger2012.state ON ST_Intersects(necta.the_geom, state.the_geom)
+    WHERE
+        ST_IsValid(necta.the_geom) AND
+        ST_Area(ST_Intersection(necta.the_geom,state.the_geom))/ST_Area(necta.the_geom) > 0
+    ORDER BY
+        child_geoid ASC,
+        ST_Area(ST_Intersection(necta.the_geom,state.the_geom)) DESC
+);
 
 CREATE INDEX census_geo_containment_idx_child_geoid ON tiger2012.census_geo_containment (child_geoid);
 CREATE INDEX census_geo_containment_idx_parent_geoid ON tiger2012.census_geo_containment (parent_geoid);
