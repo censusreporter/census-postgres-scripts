@@ -759,36 +759,6 @@ INSERT INTO tiger2012.census_geo_containment (
         child_geoid ASC,
         ST_Area(ST_Intersection(unsd.the_geom,county.the_geom)) DESC
 );
--- VTD (700) in Counties (050)
-INSERT INTO tiger2012.census_geo_containment (
-    SELECT
-        '70000US' || vtd.geoid10 AS child_geoid,
-        '05000US' || county.geoid AS parent_geoid,
-        ST_Area(ST_Intersection(vtd.the_geom,county.the_geom))/ST_Area(vtd.the_geom)*100 as percent_covered
-    FROM tiger2012.vtd
-    JOIN tiger2012.county ON ST_Intersects(vtd.the_geom, county.the_geom)
-    WHERE
-        ST_IsValid(vtd.the_geom) AND
-        ST_Area(ST_Intersection(vtd.the_geom,county.the_geom))/ST_Area(vtd.the_geom) > 0
-    ORDER BY
-        child_geoid ASC,
-        ST_Area(ST_Intersection(vtd.the_geom,county.the_geom)) DESC
-);
--- VTD (700) in States (040)
-INSERT INTO tiger2012.census_geo_containment (
-    SELECT
-        '70000US' || vtd.geoid10 AS child_geoid,
-        '04000US' || state.geoid AS parent_geoid,
-        ST_Area(ST_Intersection(vtd.the_geom,state.the_geom))/ST_Area(vtd.the_geom)*100 as percent_covered
-    FROM tiger2012.vtd
-    JOIN tiger2012.state ON ST_Intersects(vtd.the_geom, state.the_geom)
-    WHERE
-        ST_IsValid(vtd.the_geom) AND
-        ST_Area(ST_Intersection(vtd.the_geom,state.the_geom))/ST_Area(vtd.the_geom) > 0
-    ORDER BY
-        child_geoid ASC,
-        ST_Area(ST_Intersection(vtd.the_geom,state.the_geom)) DESC
-);
 -- Places (160) in CBSA (310)
 INSERT INTO tiger2012.census_geo_containment (
     SELECT
