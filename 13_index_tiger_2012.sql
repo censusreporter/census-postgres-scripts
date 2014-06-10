@@ -789,6 +789,29 @@ INSERT INTO tiger2012.census_geo_containment (
         child_geoid ASC,
         ST_Area(ST_Intersection(zcta5.the_geom,cbsa.the_geom)) DESC
 );
+-- Counties (050) in CBSA (310)
+-- Counties in CBSA are definitional, so we don't have to use TIGER
+INSERT INTO tiger2012.census_geo_containment (
+    SELECT
+        '05000US' || g.state || g.county AS child_geoid,
+        '31000US' || g.cbsa AS parent_geoid,
+        100 as percent_covered
+    FROM acs2012_5yr.geoheader g
+    WHERE g.sumlevel = '313'
+)
+
+-- CBSA (310) in CSA (330)
+-- CBSA in CSA is definitional so we don't have to use TIGER
+INSERT INTO tiger2012.census_geo_containment (
+    SELECT
+        '31000US' || g.cbsa AS child_geoid,
+        '33000US' || g.csa AS parent_geoid,
+        100 as percent_covered
+    FROM acs2012_5yr.geoheader g
+    WHERE g.sumlevel = '332'
+)
+
+
 -- ZCTA5s (860) in States (040)
 INSERT INTO tiger2012.census_geo_containment (
     SELECT
