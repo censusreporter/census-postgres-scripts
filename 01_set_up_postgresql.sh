@@ -7,7 +7,7 @@ fi
 
 # This assumes you ran step 00 (attach an EBS)
 
-apt-get update && sudo apt-get install -y postgresql-9.1 postgresql-9.1-postgis
+apt-get update && apt-get install -y postgresql-9.1 postgresql-9.1-postgis
 /etc/init.d/postgresql stop
 mkdir /vol/postgresql
 sed -i "s/data_directory = '\/var\/lib\/postgresql\/9.1\/main'/data_directory = '\/vol\/postgresql\/9.1\/main'/" /etc/postgresql/9.1/main/postgresql.conf
