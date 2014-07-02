@@ -683,6 +683,7 @@ CREATE INDEX census_name_lookup_idx_lower ON tiger2012.census_name_lookup ((lowe
 CREATE INDEX census_name_lookup_idx_geom ON tiger2012.census_name_lookup USING GIST(the_geom);
 CREATE INDEX census_name_lookup_idx_geoid ON tiger2012.census_name_lookup (full_geoid);
 
+DROP TABLE IF EXISTS tiger2012.census_geo_containment;
 CREATE TABLE tiger2012.census_geo_containment (
     child_geoid varchar(40),
     parent_geoid varchar(40),
