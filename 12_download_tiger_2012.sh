@@ -8,7 +8,7 @@ wget --recursive --continue --accept=*.zip \
     ftp://ftp2.census.gov/geo/tiger/TIGER2012/COUNTY/ \
     ftp://ftp2.census.gov/geo/tiger/TIGER2012/STATE/ \
     ftp://ftp2.census.gov/geo/tiger/TIGER2012/CBSA/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/CD/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2013/CD/ \
     ftp://ftp2.census.gov/geo/tiger/TIGER2012/CSA/ \
     ftp://ftp2.census.gov/geo/tiger/TIGER2012/PLACE/ \
     ftp://ftp2.census.gov/geo/tiger/TIGER2012/ELSD/ \
@@ -16,8 +16,8 @@ wget --recursive --continue --accept=*.zip \
     ftp://ftp2.census.gov/geo/tiger/TIGER2012/ZCTA5/ \
     ftp://ftp2.census.gov/geo/tiger/TIGER2012/COUSUB/ \
     ftp://ftp2.census.gov/geo/tiger/TIGER2012/PUMA/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/SLDL/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2012/SLDU/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2013/SLDL/ \
+    ftp://ftp2.census.gov/geo/tiger/TIGER2013/SLDU/ \
     ftp://ftp2.census.gov/geo/tiger/TIGER2012/AIANNH/ \
     ftp://ftp2.census.gov/geo/tiger/TIGER2012/AITS/ \
     ftp://ftp2.census.gov/geo/tiger/TIGER2012/ANRC/ \
