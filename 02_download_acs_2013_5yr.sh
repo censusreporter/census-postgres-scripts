@@ -18,6 +18,8 @@ tar -xzf All_Geographies_Not_Tracts_Block_Groups.tar.gz
 tar -xzf Tracts_Block_Groups_Only.tar.gz
 unzip -q 2013_ACS_Geography_Files.zip
 
+mv /mnt/tmp/acs2013_5yr/tab4/sumfile/prod/2009thru2013/geo /mnt/tmp/acs2013_5yr/geog
+
 # Let the Postgres user access this data
 chmod 777 /mnt/tmp/acs2013_5yr/geog /mnt/tmp/acs2013_5yr/group1 /mnt/tmp/acs2013_5yr/group2
 chmod 644 /mnt/tmp/acs2013_5yr/geog/* /mnt/tmp/acs2013_5yr/group1/* /mnt/tmp/acs2013_5yr/group2/*
