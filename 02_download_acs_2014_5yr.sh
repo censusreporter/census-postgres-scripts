@@ -17,3 +17,5 @@ aria2c --dir=/mnt/tmp/acs2014_5yr --max-connection-per-server=5 --force-sequenti
 tar -xzf All_Geographies_Not_Tracts_Block_Groups.tar.gz
 tar -xzf Tracts_Block_Groups_Only.tar.gz
 unzip -q 2014_ACS_Geography_Files.zip
+
+mv ACS_5yr_Seq_Table_Number_Lookup.txt Sequence_Number_and_Table_Number_Lookup.txt
