@@ -60,7 +60,7 @@ if [[ $? != 0 ]]; then
 fi
 
 echo "Importing sequences"
-for s in $(seq -f "%04g" 1 165)
+for s in $(seq -f "%04g" 1 169)
 do
     echo "Importing sequence $s"
     cat /mnt/tmp/acs2013_3yr/e20133[a-z][a-z]${s}*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2013_3yr.tmp_seq${s} FROM STDIN WITH CSV ENCODING 'latin1';"
