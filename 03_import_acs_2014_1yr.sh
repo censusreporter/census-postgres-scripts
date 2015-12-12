@@ -45,14 +45,14 @@ fi
 
 # Slurp in the actual data
 echo "Importing geoheader"
-sudo -u postgres psql -d census -v ON_ERROR_STOP=1 -q -f import_geoheader.sql
+cat /mnt/tmp/acs2014_1yr/g20141*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2014_1yr.tmp_geoheader FROM STDIN WITH ENCODING 'latin1';"
 if [[ $? != 0 ]]; then
     echo "Failed importing geoheader."
     exit 1
 fi
 
 echo "Parsing geoheader"
-cat /mnt/tmp/acs2014_1yr/g20141*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2014_1yr.tmp_geoheader FROM STDIN WITH ENCODING 'latin1';"
+psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -f parse_tmp_geoheader.sql
 if [[ $? != 0 ]]; then
     echo "Failed parsing geoheader."
     exit 1
