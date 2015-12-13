@@ -45,7 +45,6 @@ fi
 
 # Slurp in the actual data
 echo "Importing geoheader"
-sudo -u postgres psql -d census -v ON_ERROR_STOP=1 -q -f import_geoheader.sql
 cat /mnt/tmp/acs2013_3yr/g20133*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2013_3yr.tmp_geoheader FROM STDIN WITH ENCODING 'latin1';"
 if [[ $? != 0 ]]; then
     echo "Failed importing geoheader."
