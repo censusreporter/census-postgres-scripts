@@ -1,12 +1,18 @@
 #!/bin/bash
 cd /mnt/tmp/tiger2013
+
+if [ -z $PGHOST ]; then
+    echo "You must set PGHOST environment variable to the hostname of the PostgreSQL server to operate on."
+    exit 1
+fi
+
 for i in **/*.zip
 do
     unzip -q -n $i -d `dirname $i`
 done
 
-sudo -u postgres psql -d census -c "DROP SCHEMA IF EXISTS tiger2013; CREATE SCHEMA tiger2013;"
-sudo -u postgres psql -d census -c "ALTER SCHEMA tiger2013 OWNER TO census;"
+psql -h $PGHOST -d census -c "DROP SCHEMA IF EXISTS tiger2013; CREATE SCHEMA tiger2013;"
+psql -h $PGHOST -d census -c "ALTER SCHEMA tiger2013 OWNER TO census;"
 
 for i in CBSA CD COUNTY CSA PLACE STATE ELSD SCSD ZCTA5 COUSUB PUMA SLDL SLDU AIANNH AITS ANRC BG CNECTA CONCITY METDIV NECTA NECTADIV SUBMCD TBG TTRACT TABBLOCK TRACT UAC UNSD VTD
 do
@@ -23,7 +29,7 @@ do
     done
 
     # Then load them in to postgres
-    psql -d census -h localhost -U census -q -f $i.sql
+    psql -d census -h $PGHOST -U census -q -f $i.sql
 
     if [ $? -ne 0 ]
     then
