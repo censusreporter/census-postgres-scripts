@@ -682,6 +682,7 @@ INSERT INTO tiger2012.census_name_lookup
 CREATE INDEX census_name_lookup_idx_lower ON tiger2012.census_name_lookup ((lower(prefix_match_name)) text_pattern_ops);
 CREATE INDEX census_name_lookup_idx_geom ON tiger2012.census_name_lookup USING GIST(the_geom);
 CREATE INDEX census_name_lookup_idx_geoid ON tiger2012.census_name_lookup (full_geoid);
+CREATE INDEX census_name_lookup_idx_sumlevel ON tiger2012.census_name_lookup(sumlevel);
 
 DROP TABLE IF EXISTS tiger2012.census_geo_containment;
 CREATE TABLE tiger2012.census_geo_containment (
