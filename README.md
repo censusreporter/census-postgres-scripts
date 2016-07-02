@@ -13,8 +13,8 @@ These are the steps I follow when I want to start from scratch and load all ACS 
     aws ec2 request-spot-instances --dry-run \
         --spot-price 1.5 \
         --instance-count 1 \
-        --type c1.xlarge \
         --launch-specification '{\
+            "InstanceType": "c1.xlarge",\
             "ImageId": "ami-a73264ce",\
             "BlockDeviceMappings": [\
                 {"VirtualName": "ephemeral0", "DeviceName": "/dev/sdb"},\

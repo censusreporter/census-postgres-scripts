@@ -11,8 +11,8 @@ sudo apt-get -y install git
 git clone git://github.com/censusreporter/census-postgres.git
 
 # Create the schema
-cd /home/ubuntu/census-postgres/acs2013_3yr
-psql -d census -h $PGHOST -U census -c "DROP SCHEMA IF EXISTS acs2013_3yr CASCADE; CREATE SCHEMA acs2013_3yr;"
+cd /home/ubuntu/census-postgres/acs2014_5yr
+psql -d census -h $PGHOST -U census -c "DROP SCHEMA IF EXISTS acs2014_5yr CASCADE; CREATE SCHEMA acs2014_5yr;"
 
 # Create import tables
 echo "Creating geoheader"
@@ -44,8 +44,9 @@ if [[ $? != 0 ]]; then
 fi
 
 # Slurp in the actual data
+# We're doing the COPY FROM STDIN so we don't have to be a psql superuser
 echo "Importing geoheader"
-cat /mnt/tmp/acs2013_3yr/g20133*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2013_3yr.tmp_geoheader FROM STDIN WITH ENCODING 'latin1';"
+cat /mnt/tmp/acs2014_5yr/g20145*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2014_5yr.tmp_geoheader FROM STDIN WITH ENCODING 'latin1';"
 if [[ $? != 0 ]]; then
     echo "Failed importing geoheader."
     exit 1
@@ -58,16 +59,25 @@ if [[ $? != 0 ]]; then
     exit 1
 fi
 
-echo "Importing sequences"
-for s in $(seq -f "%04g" 1 169)
+for s in $(seq -f "%04g" 1 121)
 do
     echo "Importing sequence $s"
-    cat /mnt/tmp/acs2013_3yr/e20133[a-z][a-z]${s}*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2013_3yr.tmp_seq${s} FROM STDIN WITH CSV ENCODING 'latin1';"
+    cat /mnt/tmp/acs2014_5yr/tab4/sumfile/prod/2010thru2014/group1/e20145[a-z][a-z]${s}*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2014_5yr.tmp_seq${s} FROM STDIN WITH CSV ENCODING 'latin1';"
     if [[ $? != 0 ]]; then
         echo "Failed importing sequences."
         exit 1
     fi
-    cat /mnt/tmp/acs2013_3yr/m20133[a-z][a-z]${s}*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2013_3yr.tmp_seq${s}_moe FROM STDIN WITH CSV ENCODING 'latin1';"
+    cat /mnt/tmp/acs2014_5yr/tab4/sumfile/prod/2010thru2014/group2/e20145[a-z][a-z]${s}*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2014_5yr.tmp_seq${s} FROM STDIN WITH CSV ENCODING 'latin1';"
+    if [[ $? != 0 ]]; then
+        echo "Failed importing sequences."
+        exit 1
+    fi
+    cat /mnt/tmp/acs2014_5yr/tab4/sumfile/prod/2010thru2014/group1/m20145[a-z][a-z]${s}*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2014_5yr.tmp_seq${s}_moe FROM STDIN WITH CSV ENCODING 'latin1';"
+    if [[ $? != 0 ]]; then
+        echo "Failed importing sequences."
+        exit 1
+    fi
+    cat /mnt/tmp/acs2014_5yr/tab4/sumfile/prod/2010thru2014/group2/m20145[a-z][a-z]${s}*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2014_5yr.tmp_seq${s}_moe FROM STDIN WITH CSV ENCODING 'latin1';"
     if [[ $? != 0 ]]; then
         echo "Failed importing sequences."
         exit 1

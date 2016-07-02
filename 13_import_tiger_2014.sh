@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /mnt/tmp/tiger2013
+cd /mnt/tmp/tiger2014
 
 if [ -z $PGHOST ]; then
     echo "You must set PGHOST environment variable to the hostname of the PostgreSQL server to operate on."
@@ -11,21 +11,21 @@ do
     unzip -q -n $i -d `dirname $i`
 done
 
-psql -h $PGHOST -d census -c "DROP SCHEMA IF EXISTS tiger2013; CREATE SCHEMA tiger2013;"
-psql -h $PGHOST -d census -c "ALTER SCHEMA tiger2013 OWNER TO census;"
+psql -h $PGHOST -d census -c "DROP SCHEMA IF EXISTS tiger2014; CREATE SCHEMA tiger2014;"
+psql -h $PGHOST -d census -c "ALTER SCHEMA tiger2014 OWNER TO census;"
 
-for i in CBSA CD COUNTY CSA PLACE STATE ELSD SCSD ZCTA5 COUSUB PUMA SLDL SLDU AIANNH AITS ANRC BG CNECTA CONCITY METDIV NECTA NECTADIV SUBMCD TBG TTRACT TABBLOCK TRACT UAC UNSD VTD
+for i in CBSA CD COUNTY CSA PLACE STATE ELSD SCSD ZCTA5 COUSUB PUMA SLDL SLDU AIANNH AITS ANRC BG CNECTA CONCITY METDIV NECTA NECTADIV SUBMCD TBG TTRACT TABBLOCK TRACT UAC UNSD
 do
     # Pick one of the shapefiles to build schema with
     one_shapefile=`ls -a $i/*.shp | head -n 1`
 
     # Start by preparing the table
-    shp2pgsql -W "latin1" -s 4326 -p -I $one_shapefile tiger2013.$i > $i.sql
+    shp2pgsql -W "latin1" -s 4326 -p -I $one_shapefile tiger2014.$i > $i.sql
 
     # Then append all the geometries
     for j in $i/*.shp
     do
-        shp2pgsql -W "latin1" -s 4326 -a $j tiger2013.$i >> $i.sql
+        shp2pgsql -W "latin1" -s 4326 -a $j tiger2014.$i >> $i.sql
     done
 
     # Then load them in to postgres
