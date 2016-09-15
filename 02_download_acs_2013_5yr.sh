@@ -8,7 +8,7 @@ sudo chown ubuntu /mnt/tmp
 cd /mnt/tmp
 mkdir -p acs2013_5yr
 cd acs2013_5yr
-sudo apt-get -y install aria2 unzip
+sudo apt-get -y install unzip aria2
 aria2c --dir=/mnt/tmp/acs2013_5yr --max-connection-per-server=5 --force-sequential=true --file-allocation=none \
     "http://www2.census.gov/acs2013_5yr/summaryfile/2009-2013_ACSSF_All_In_2_Giant_Files(Experienced-Users-Only)/All_Geographies_Not_Tracts_Block_Groups.tar.gz" \
     "http://www2.census.gov/acs2013_5yr/summaryfile/2009-2013_ACSSF_All_In_2_Giant_Files(Experienced-Users-Only)/Tracts_Block_Groups_Only.tar.gz" \

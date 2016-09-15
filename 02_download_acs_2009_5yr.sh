@@ -8,7 +8,7 @@ sudo chown ubuntu /mnt/tmp
 cd /mnt/tmp
 mkdir -p acs2009_5yr/group{1,2}
 cd acs2009_5yr/group1
-sudo apt-get -y install aria2 unzip
+sudo apt-get -y install unzip aria2
 aria2c --dir=/mnt/tmp/acs2009_5yr --max-connection-per-server=5 --force-sequential=true \
     "http://www2.census.gov/acs2009_5yr/summaryfile/2005-2009_ACSSF_All_In_2_Giant_Files(Experienced-Users-Only)/All_Geographies_Not_Tracts_Block_Groups.zip" \
     "http://www2.census.gov/acs2009_5yr/summaryfile/2005-2009_ACSSF_All_In_2_Giant_Files(Experienced-Users-Only)/Tracts_Block_Groups_Only.zip" \
