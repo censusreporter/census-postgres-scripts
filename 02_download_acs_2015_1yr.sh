@@ -13,3 +13,4 @@ aria2c --dir=/mnt/tmp/acs2015_1yr --max-connection-per-server=5 --force-sequenti
     "http://www2.census.gov/programs-surveys/acs/summary_file/2015/data/1_year_entire_sf/All_Geographies.zip" \
     "http://www2.census.gov/programs-surveys/acs/summary_file/2015/documentation/user_tools/ACS_1yr_Seq_Table_Number_Lookup.txt"
 unzip -q All_Geographies.zip
+mv /mnt/tmp/acs2015_1yr/ACS_1yr_Seq_Table_Number_Lookup.txt /mnt/tmp/acs2015_1yr/Sequence_Number_and_Table_Number_Lookup.txt
