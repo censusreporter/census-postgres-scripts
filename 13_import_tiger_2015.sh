@@ -1,6 +1,9 @@
 #!/bin/bash
 cd /mnt/tmp/tiger2015
 
+# For shp2pgsql
+sudo apt-get install -y postgis
+
 if [ -z $PGHOST ]; then
     echo "You must set PGHOST environment variable to the hostname of the PostgreSQL server to operate on."
     exit 1
@@ -11,8 +14,8 @@ do
     unzip -q -n $i -d `dirname $i`
 done
 
-psql -h $PGHOST -d census -c "DROP SCHEMA IF EXISTS tiger2015; CREATE SCHEMA tiger2015;"
-psql -h $PGHOST -d census -c "ALTER SCHEMA tiger2015 OWNER TO census;"
+psql -d census -U census -v ON_ERROR_STOP=1 -q -c "DROP SCHEMA IF EXISTS tiger2015; CREATE SCHEMA tiger2015;"
+psql -d census -U census -v ON_ERROR_STOP=1 -q -c "ALTER SCHEMA tiger2015 OWNER TO census;"
 
 for i in CBSA CD COUNTY CSA PLACE STATE ELSD SCSD ZCTA5 COUSUB PUMA SLDL SLDU AIANNH AITS ANRC BG CNECTA CONCITY METDIV NECTA NECTADIV SUBMCD TBG TTRACT TABBLOCK TRACT UAC UNSD
 do
@@ -29,7 +32,7 @@ do
     done
 
     # Then load them in to postgres
-    psql -d census -h $PGHOST -U census -q -f $i.sql
+    psql -d census -U census -v ON_ERROR_STOP=1 -q -f $i.sql
 
     if [ $? -ne 0 ]
     then
