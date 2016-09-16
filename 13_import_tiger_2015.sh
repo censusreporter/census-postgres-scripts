@@ -9,16 +9,16 @@ if [ -z $PGHOST ]; then
     exit 1
 fi
 
-for i in **/*.zip
-do
-    unzip -q -n $i -d `dirname $i`
-done
-
 psql -d census -U census -v ON_ERROR_STOP=1 -q -c "DROP SCHEMA IF EXISTS tiger2015; CREATE SCHEMA tiger2015;"
 psql -d census -U census -v ON_ERROR_STOP=1 -q -c "ALTER SCHEMA tiger2015 OWNER TO census;"
 
 for i in CBSA CD COUNTY CSA PLACE STATE ELSD SCSD ZCTA5 COUSUB PUMA SLDL SLDU AIANNH AITS ANRC BG CNECTA CONCITY METDIV NECTA NECTADIV SUBMCD TBG TTRACT TABBLOCK TRACT UAC UNSD
 do
+    for j in **/*.zip
+    do
+        unzip -q -n $j -d `dirname $i`
+    done
+
     # Pick one of the shapefiles to build schema with
     one_shapefile=`ls -a $i/*.shp | head -n 1`
 
@@ -39,4 +39,6 @@ do
         echo "Couldn't import $i.sql."
         exit 1
     fi
+
+    rm -f $i.sql
 done
