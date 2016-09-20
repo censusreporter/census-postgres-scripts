@@ -3,11 +3,17 @@ census-postgres scripts
 
 A set of scripts to make it easier to set up [census-postgres](https://github.com/censusreporter/census-postgres) on an Amazon EC2 instance.
 
+## Use Existing Data
+
+If you just want to use American Community Survey data on your own PostgreSQL machine, it's recommended to use the dumps that Census Reporter provides. [Read more about those dumps in our Tumblr post](http://censusreporter.tumblr.com/post/73727555158/easier-access-to-acs-data).
+
+Use the next section only if want to go through the process of rebuilding these data dumps from scratch.
+
 ## From Scratch
 
 These are the steps I follow when I want to start from scratch and load all ACS releases into the database.
 
-1. Launch a `c1.xlarge` instance using the `ami-a73264ce` AMI, making sure to connect all four of the ephemeral storage to block devices during the setup walkthrough. If you have the [`aws`](http://aws.amazon.com/cli/) command line tool installed and [configured](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html), this command should do it:
+1. Launch a `c1.xlarge` instance using the [most recent Ubuntu 14.04 image](https://cloud-images.ubuntu.com/locator/), making sure to connect all four of the ephemeral storage to block devices during the setup walkthrough. If you have the [`aws`](http://aws.amazon.com/cli/) command line tool installed and [configured](http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html), this command should do it:
 
     ```bash
     aws ec2 request-spot-instances --dry-run \
@@ -15,7 +21,7 @@ These are the steps I follow when I want to start from scratch and load all ACS 
         --instance-count 1 \
         --launch-specification '{\
             "InstanceType": "c1.xlarge",\
-            "ImageId": "ami-a73264ce",\
+            "ImageId": "ami-xxxxxxx",\
             "BlockDeviceMappings": [\
                 {"VirtualName": "ephemeral0", "DeviceName": "/dev/sdb"},\
                 {"VirtualName": "ephemeral1", "DeviceName": "/dev/sdc"},\
