@@ -46,7 +46,7 @@ fi
 # Slurp in the actual data
 # We're doing the COPY FROM STDIN so we don't have to be a psql superuser
 echo "Importing geoheader"
-cat /mnt/tmp/acs2016_5yr/g20165*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2016_5yr.tmp_geoheader FROM STDIN WITH ENCODING 'latin1';"
+cat /mnt/tmp/acs2016_5yr/geo/g20165*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2016_5yr.tmp_geoheader FROM STDIN WITH ENCODING 'latin1';"
 if [[ $? != 0 ]]; then
     echo "Failed importing geoheader."
     exit 1
