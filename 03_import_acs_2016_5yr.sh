@@ -62,22 +62,22 @@ fi
 for s in $(seq -f "%04g" 1 122)
 do
     echo "Importing sequence $s"
-    cat /mnt/tmp/acs2016_5yr/group1/e20165[a-z][a-z]${s}*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2016_5yr.tmp_seq${s} FROM STDIN WITH CSV ENCODING 'latin1';"
+    cat /mnt/tmp/acs2016_5yr/data/tab4/sumfile/prod/2012thru2016/group1/e20165[a-z][a-z]${s}*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2016_5yr.tmp_seq${s} FROM STDIN WITH CSV ENCODING 'latin1';"
     if [[ $? != 0 ]]; then
         echo "Failed importing sequences."
         exit 1
     fi
-    cat /mnt/tmp/acs2016_5yr/group2/e20165[a-z][a-z]${s}*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2016_5yr.tmp_seq${s} FROM STDIN WITH CSV ENCODING 'latin1';"
+    cat /mnt/tmp/acs2016_5yr/data/tab4/sumfile/prod/2012thru2016/group2/e20165[a-z][a-z]${s}*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2016_5yr.tmp_seq${s} FROM STDIN WITH CSV ENCODING 'latin1';"
     if [[ $? != 0 ]]; then
         echo "Failed importing sequences."
         exit 1
     fi
-    cat /mnt/tmp/acs2016_5yr/group1/m20165[a-z][a-z]${s}*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2016_5yr.tmp_seq${s}_moe FROM STDIN WITH CSV ENCODING 'latin1';"
+    cat /mnt/tmp/acs2016_5yr/data/tab4/sumfile/prod/2012thru2016/group1/m20165[a-z][a-z]${s}*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2016_5yr.tmp_seq${s}_moe FROM STDIN WITH CSV ENCODING 'latin1';"
     if [[ $? != 0 ]]; then
         echo "Failed importing sequences."
         exit 1
     fi
-    cat /mnt/tmp/acs2016_5yr/group2/m20165[a-z][a-z]${s}*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2016_5yr.tmp_seq${s}_moe FROM STDIN WITH CSV ENCODING 'latin1';"
+    cat /mnt/tmp/acs2016_5yr/data/tab4/sumfile/prod/2012thru2016/group2/m20165[a-z][a-z]${s}*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2016_5yr.tmp_seq${s}_moe FROM STDIN WITH CSV ENCODING 'latin1';"
     if [[ $? != 0 ]]; then
         echo "Failed importing sequences."
         exit 1
