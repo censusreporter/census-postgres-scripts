@@ -4,34 +4,35 @@ mkdir -p /mnt/tmp/tiger2016
 
 wget --recursive --continue --accept=*.zip \
      --no-parent --cut-dirs=3 --no-host-directories \
+     -e robots=off \
      --directory-prefix=/mnt/tmp/tiger2016 \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/COUNTY/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/STATE/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/CBSA/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/CD/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/CSA/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/PLACE/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/ELSD/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/SCSD/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/ZCTA5/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/COUSUB/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/PUMA/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/SLDL/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/SLDU/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/AIANNH/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/AITS/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/ANRC/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/BG/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/CNECTA/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/CONCITY/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/METDIV/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/NECTA/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/NECTADIV/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/SUBMCD/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/TBG/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/TTRACT/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/TABBLOCK/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/TRACT/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/UAC/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/UNSD/ \
-    ftp://ftp2.census.gov/geo/tiger/TIGER2016/VTD/
+    https://www2.census.gov/geo/tiger/TIGER2016/COUNTY/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/STATE/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/CBSA/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/CD/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/CSA/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/PLACE/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/ELSD/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/SCSD/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/ZCTA5/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/COUSUB/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/PUMA/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/SLDL/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/SLDU/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/AIANNH/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/AITS/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/ANRC/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/BG/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/CNECTA/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/CONCITY/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/METDIV/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/NECTA/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/NECTADIV/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/SUBMCD/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/TBG/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/TTRACT/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/TABBLOCK/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/TRACT/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/UAC/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/UNSD/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/VTD/
