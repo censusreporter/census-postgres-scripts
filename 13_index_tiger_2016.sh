@@ -24,7 +24,6 @@ ALTER TABLE tiger2016.nectadiv OWNER TO census;
 ALTER TABLE tiger2016.submcd OWNER TO census;
 ALTER TABLE tiger2016.tbg OWNER TO census;
 ALTER TABLE tiger2016.ttract OWNER TO census;
-ALTER TABLE tiger2016.tabblock OWNER TO census;
 ALTER TABLE tiger2016.tract OWNER TO census;
 ALTER TABLE tiger2016.uac OWNER TO census;
 ALTER TABLE tiger2016.unsd OWNER TO census;
@@ -406,20 +405,6 @@ INSERT INTO tiger2016.census_name_lookup
         ttract.awater,
         ttract.geom
     FROM tiger2016.ttract LEFT OUTER JOIN acs2014_5yr.b01003 ON (('25600US' || ttract.geoid) = b01003.geoid);
--- Don't include blocks because there's no ACS data for it.
--- INSERT INTO tiger2016.census_name_lookup
---     SELECT
---         tabblock.name || ', ' || county.name || ', ' || state.stusps,
---         null,
---         '101',
---         tabblock.geoid,
---         '10100US' || tabblock.geoid,
---         260,
---         NULL,
---         NULL,
---         NULL,
---         tabblock.geom
---     FROM tiger2016.tabblock JOIN tiger2016.county USING (statefp, countyfp) JOIN tiger2016.state USING (statefp);
 INSERT INTO tiger2016.census_name_lookup
     SELECT
         tract.namelsad || ', ' || county.name || ', ' || state.stusps,
