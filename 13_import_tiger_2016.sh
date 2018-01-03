@@ -14,6 +14,7 @@ psql -d census -U census -v ON_ERROR_STOP=1 -q -c "ALTER SCHEMA tiger2016 OWNER 
 
 for i in /mnt/tmp/tiger2016/{CBSA,CD,COUNTY,CSA,PLACE,STATE,ELSD,SCSD,ZCTA5,COUSUB,PUMA,SLDL,SLDU,AIANNH,AITS,ANRC,BG,CNECTA,CONCITY,METDIV,NECTA,NECTADIV,SUBMCD,TBG,TTRACT,TRACT,UAC,UNSD}
 do
+    tablename=$(basename $i)
     for j in $i/*.zip
     do
         unzip -q -n $j -d $i
@@ -23,17 +24,17 @@ do
     one_shapefile=`ls -a $i/*.shp | head -n 1`
 
     # Start by preparing the table
-    shp2pgsql -W "latin1" -s 4326 -p -I $one_shapefile tiger2016.$i | psql -d census -U census -v ON_ERROR_STOP=1 -q
+    shp2pgsql -W "latin1" -s 4326 -p -I $one_shapefile tiger2016.$tablename | psql -d census -U census -v ON_ERROR_STOP=1 -q
 
     # Then append all the geometries
     for j in $i/*.shp
     do
-        shp2pgsql -W "latin1" -s 4326 -a $j tiger2016.$i | psql -d census -U census -v ON_ERROR_STOP=1 -q
+        shp2pgsql -W "latin1" -s 4326 -a $j tiger2016.$tablename | psql -d census -U census -v ON_ERROR_STOP=1 -q
     done
 
     if [ $? -ne 0 ]
     then
-        echo "Couldn't import $i.sql."
+        echo "Couldn't import ${i}.sql."
         exit 1
     fi
 
