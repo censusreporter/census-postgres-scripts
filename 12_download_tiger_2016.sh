@@ -7,7 +7,7 @@ wget --recursive --continue --accept=*.zip \
      -e robots=off \
      --directory-prefix=/mnt/tmp/tiger2016 \
     https://www2.census.gov/geo/tiger/TIGER2016/AIANNH/ \
-    https://www2.census.gov/geo/tiger/TIGER2016/AITS/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/AITSN/ \
     https://www2.census.gov/geo/tiger/TIGER2016/ANRC/ \
     https://www2.census.gov/geo/tiger/TIGER2016/BG/ \
     https://www2.census.gov/geo/tiger/TIGER2016/CBSA/ \

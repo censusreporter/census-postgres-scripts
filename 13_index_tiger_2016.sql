@@ -13,7 +13,7 @@ ALTER TABLE tiger2016.puma OWNER TO census;
 ALTER TABLE tiger2016.sldl OWNER TO census;
 ALTER TABLE tiger2016.sldu OWNER TO census;
 ALTER TABLE tiger2016.aiannh OWNER TO census;
-ALTER TABLE tiger2016.aits OWNER TO census;
+ALTER TABLE tiger2016.aitsn OWNER TO census;
 ALTER TABLE tiger2016.anrc OWNER TO census;
 ALTER TABLE tiger2016.bg OWNER TO census;
 ALTER TABLE tiger2016.cnecta OWNER TO census;
@@ -252,18 +252,18 @@ INSERT INTO tiger2016.census_name_lookup
     FROM tiger2016.aiannh LEFT OUTER JOIN acs2014_5yr.b01003 ON (('25000US' || aiannh.geoid) = b01003.geoid);
 INSERT INTO tiger2016.census_name_lookup
     SELECT
-        aits.namelsad,
-        aits.namelsad,
-        aits.namelsad,
+        aitsn.namelsad,
+        aitsn.namelsad,
+        aitsn.namelsad,
         '251',
-        aits.geoid,
-        '25100US' || aits.geoid,
+        aitsn.geoid,
+        '25100US' || aitsn.geoid,
         150,
         b01003.b01003001,
-        aits.aland,
-        aits.awater,
-        aits.geom
-    FROM tiger2016.aits LEFT OUTER JOIN acs2014_5yr.b01003 ON (('25100US' || aits.geoid) = b01003.geoid);
+        aitsn.aland,
+        aitsn.awater,
+        aitsn.geom
+    FROM tiger2016.aitsn LEFT OUTER JOIN acs2014_5yr.b01003 ON (('25100US' || aitsn.geoid) = b01003.geoid);
 INSERT INTO tiger2016.census_name_lookup
     SELECT
         anrc.namelsad,
