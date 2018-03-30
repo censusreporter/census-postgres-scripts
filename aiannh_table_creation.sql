@@ -1,16 +1,16 @@
-CREATE TABLE tiger2014.aiannh252 AS (
+CREATE TABLE tiger2016.aiannh252 AS (
     SELECT gid, aiannhce, aiannhns, geoid, name, namelsad, lsad, classfp,
            comptyp, aiannhr, mtfcc, funcstat, aland, awater,
            intptlat, intptlon, geom
-    FROM tiger2014.aiannh
+    FROM tiger2016.aiannh
     WHERE comptyp = 'R'
 );
 
-CREATE TABLE tiger2014.aiannh254 AS (
+CREATE TABLE tiger2016.aiannh254 AS (
     SELECT gid, aiannhce, aiannhns, geoid, name, namelsad, lsad, classfp,
            comptyp, aiannhr, mtfcc, funcstat, aland, awater,
            intptlat, intptlon, geom
-    FROM tiger2014.aiannh
+    FROM tiger2016.aiannh
     WHERE comptyp = 'T'
 );
 
@@ -24,7 +24,7 @@ CREATE TABLE tiger2014.aiannh254 AS (
 -- The three parts of the query (separated by UNIONs) get areas for which there
 -- is both an 'R' and a 'T' (and combines their entries), areas for which 
 -- there is only an 'R', and areas for which there is only a 'T', in order.
-CREATE TABLE tiger2014.aiannh250 AS (
+CREATE TABLE tiger2016.aiannh250 AS (
     SELECT r.aiannhce as aiannhce,
            r.aiannhns as aiannhns,
            r.aiannhce as geoid,
@@ -40,48 +40,48 @@ CREATE TABLE tiger2014.aiannh250 AS (
            ST_X(ST_Centroid(ST_Union(r.geom, t.geom)))::VARCHAR as intptlon,
            ST_Multi(ST_Union(r.geom, t.geom)) as geom
     FROM
-        (SELECT * FROM tiger2014.aiannh WHERE comptyp = 'R') r,
-        (SELECT * FROM tiger2014.aiannh WHERE comptyp = 'T') t
+        (SELECT * FROM tiger2016.aiannh WHERE comptyp = 'R') r,
+        (SELECT * FROM tiger2016.aiannh WHERE comptyp = 'T') t
         WHERE r.aiannhce = t.aiannhce
 
     UNION
 
     SELECT aiannhce, aiannhns, aiannhce as geoid, name, namelsad, comptyp, 
            aiannhr, funcstat, aland, awater, intptlat, intptlon, geom
-    FROM tiger2014.aiannh
+    FROM tiger2016.aiannh
     WHERE comptyp = 'R'
     AND aiannhce NOT IN (
-        SELECT aiannhce FROM tiger2014.aiannh WHERE comptyp = 'T'
+        SELECT aiannhce FROM tiger2016.aiannh WHERE comptyp = 'T'
         )
 
     UNION
 
     SELECT aiannhce, aiannhns, aiannhce as geoid, name, namelsad, comptyp, 
            aiannhr, funcstat, aland, awater, intptlat, intptlon, geom
-    FROM tiger2014.aiannh
+    FROM tiger2016.aiannh
     WHERE comptyp = 'T'
     AND aiannhce NOT IN (
-        SELECT aiannhce FROM tiger2014.aiannh WHERE comptyp = 'R'
+        SELECT aiannhce FROM tiger2016.aiannh WHERE comptyp = 'R'
         )
 );
 
 -- One row gives problems with the matching; fix that name manually
-UPDATE tiger2014.aiannh250 
+UPDATE tiger2016.aiannh250 
 SET namelsad = 'Pojoaque Pueblo and Off-Reservation Trust Land'
 WHERE name = 'Pojoaque';
 
 -- Remove old entries
-DELETE FROM tiger2014.census_name_lookup
+DELETE FROM tiger2016.census_name_lookup
 WHERE sumlevel = '250';
 
-DELETE FROM tiger2014.census_name_lookup
+DELETE FROM tiger2016.census_name_lookup
 WHERE sumlevel = '252';
 
-DELETE FROM tiger2014.census_name_lookup
+DELETE FROM tiger2016.census_name_lookup
 WHERE sumlevel = '254';
 
 -- Add the 250 sumlevel entries
-INSERT INTO tiger2014.census_name_lookup
+INSERT INTO tiger2016.census_name_lookup
     SELECT aiannh250.namelsad AS display_name,
            aiannh250.namelsad AS simple_name,
            aiannh250.namelsad AS prefix_match_name,
@@ -93,12 +93,12 @@ INSERT INTO tiger2014.census_name_lookup
            aiannh250.aland AS aland,
            aiannh250.awater AS awater,
            aiannh250.geom AS geom
-    FROM tiger2014.aiannh250
-    LEFT OUTER JOIN acs2014_5yr.b01003
+    FROM tiger2016.aiannh250
+    LEFT OUTER JOIN acs2016_5yr.b01003
     ON ('25000US' || aiannh250.geoid) = b01003.geoid;
 
 -- Add the 252 sumlevel entries
-INSERT INTO tiger2014.census_name_lookup
+INSERT INTO tiger2016.census_name_lookup
     SELECT aiannh252.namelsad AS display_name,
            aiannh252.namelsad AS simple_name,
            aiannh252.namelsad AS prefix_match_name,
@@ -110,12 +110,12 @@ INSERT INTO tiger2014.census_name_lookup
            aiannh252.aland AS aland,
            aiannh252.awater AS awater,
            aiannh252.geom AS geom
-    FROM tiger2014.aiannh252
-    LEFT OUTER JOIN acs2014_5yr.b01003
+    FROM tiger2016.aiannh252
+    LEFT OUTER JOIN acs2016_5yr.b01003
     ON ('25200US' || aiannh252.geoid) = b01003.geoid;
 
 -- Add the 254 sumlevel entries
-INSERT INTO tiger2014.census_name_lookup
+INSERT INTO tiger2016.census_name_lookup
     SELECT aiannh254.namelsad AS display_name,
            aiannh254.namelsad AS simple_name,
            aiannh254.namelsad AS prefix_match_name,
@@ -127,6 +127,6 @@ INSERT INTO tiger2014.census_name_lookup
            aiannh254.aland AS aland,
            aiannh254.awater AS awater,
            aiannh254.geom AS geom
-    FROM tiger2014.aiannh254
-    LEFT OUTER JOIN acs2014_5yr.b01003
+    FROM tiger2016.aiannh254
+    LEFT OUTER JOIN acs2016_5yr.b01003
     ON ('25400US' || aiannh254.geoid) = b01003.geoid;
