@@ -28,6 +28,7 @@ wget --recursive --continue --accept=*.zip \
     https://www2.census.gov/geo/tiger/TIGER2016/SLDU/ \
     https://www2.census.gov/geo/tiger/TIGER2016/STATE/ \
     https://www2.census.gov/geo/tiger/TIGER2016/SUBMCD/ \
+    https://www2.census.gov/geo/tiger/TIGER2016/TABBLOCK/
     https://www2.census.gov/geo/tiger/TIGER2016/TBG/ \
     https://www2.census.gov/geo/tiger/TIGER2016/TRACT/ \
     https://www2.census.gov/geo/tiger/TIGER2016/TTRACT/ \
