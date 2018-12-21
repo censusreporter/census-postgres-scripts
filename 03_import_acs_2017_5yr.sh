@@ -46,7 +46,7 @@ fi
 # Slurp in the actual data
 # We're doing the COPY FROM STDIN so we don't have to be a psql superuser
 echo "Importing geoheader"
-cat /mnt/tmp/acs2017_5yr/geo/g20175*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2017_5yr.tmp_geoheader FROM STDIN WITH ENCODING 'latin1';"
+cat /mnt/tmp/acs2017_5yr/all_geographies_not_tracts_block_groups/g20175*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2017_5yr.tmp_geoheader FROM STDIN WITH ENCODING 'latin1';"
 if [[ $? != 0 ]]; then
     echo "Failed importing geoheader."
     exit 1
@@ -62,22 +62,22 @@ fi
 for s in $(seq -f "%04g" 1 133)
 do
     echo "Importing sequence $s"
-    cat /mnt/tmp/acs2017_5yr/data/tab4/sumfile/prod/2012thru2017/group1/e20175[a-z][a-z]${s}*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2017_5yr.tmp_seq${s} FROM STDIN WITH CSV ENCODING 'latin1';"
+    cat /mnt/tmp/acs2017_5yr/tracts_block_groups_only/e20175[a-z][a-z]${s}*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2017_5yr.tmp_seq${s} FROM STDIN WITH CSV ENCODING 'latin1';"
     if [[ $? != 0 ]]; then
         echo "Failed importing sequences."
         exit 1
     fi
-    cat /mnt/tmp/acs2017_5yr/data/tab4/sumfile/prod/2012thru2017/group2/e20175[a-z][a-z]${s}*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2017_5yr.tmp_seq${s} FROM STDIN WITH CSV ENCODING 'latin1';"
+    cat /mnt/tmp/acs2017_5yr/tracts_block_groups_only/m20175[a-z][a-z]${s}*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2017_5yr.tmp_seq${s}_moe FROM STDIN WITH CSV ENCODING 'latin1';"
     if [[ $? != 0 ]]; then
         echo "Failed importing sequences."
         exit 1
     fi
-    cat /mnt/tmp/acs2017_5yr/data/tab4/sumfile/prod/2012thru2017/group1/m20175[a-z][a-z]${s}*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2017_5yr.tmp_seq${s}_moe FROM STDIN WITH CSV ENCODING 'latin1';"
+    cat /mnt/tmp/acs2017_5yr/all_geographies_not_tracts_block_groups/e20175[a-z][a-z]${s}*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2017_5yr.tmp_seq${s} FROM STDIN WITH CSV ENCODING 'latin1';"
     if [[ $? != 0 ]]; then
         echo "Failed importing sequences."
         exit 1
     fi
-    cat /mnt/tmp/acs2017_5yr/data/tab4/sumfile/prod/2012thru2017/group2/m20175[a-z][a-z]${s}*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2017_5yr.tmp_seq${s}_moe FROM STDIN WITH CSV ENCODING 'latin1';"
+    cat /mnt/tmp/acs2017_5yr/all_geographies_not_tracts_block_groups/m20175[a-z][a-z]${s}*txt | psql -d census -h $PGHOST -U census -v ON_ERROR_STOP=1 -q -c "COPY acs2017_5yr.tmp_seq${s}_moe FROM STDIN WITH CSV ENCODING 'latin1';"
     if [[ $? != 0 ]]; then
         echo "Failed importing sequences."
         exit 1
