@@ -154,6 +154,25 @@ The geodata part of our APIs comes from the Census Bureau's TIGER 2012 dataset. 
     ./13_import_tiger_2012.sh
     psql -U census -d census -h localhost -f 13_index_tiger_2012.sql
 
+#### Native areas
+
+TIGER data for American Indian geographies is a bit different from others.  This script makes the necessary database adjustments so that Census Reporter can treat them equally
+
+    cd /home/ubuntu/census-postgres-scripts
+    psql -U census -d census -h localhost -f 14_aiannh_tables_2017.sql
+
+#### Geocontainment
+
+Census Reporter uses GIS analysis when necessary to identify parent/child relationships between geographies. (see 13_import_tiger_) However, in some cases, other data is available to handle containment more accurately.
+
+##### CBSAs
+
+CBSAs are delineated explicitly as one or more counties. Because the location of the delineation files seems unreliable, we advise generating the SQL separately as needed, using `geocontainment_scripts/cbsa_containment.py` and moving the created SQL script to the root of this repository. If the delineations haven't changed, then the script can just be copied and the schema year updated.
+
+    cd /home/ubuntu/census-postgres-scripts
+    psql -U census -d census -h localhost -f 15_cbsa_geocontainment_2018.sql
+
+
 ## New ACS Release Actions
 
 What to do when the Census Bureau [releases](http://www.census.gov/acs/www/data_documentation/data_main/) a new set of ACS data.
