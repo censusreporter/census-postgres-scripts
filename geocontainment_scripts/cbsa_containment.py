@@ -90,6 +90,8 @@ for row in rows:
     if county:
         to_insert.append((cbsa, county, 100))
 
+to_insert = set(to_insert)
+
 with open(SQL_FILE, 'w') as f:
     f.write(f"""BEGIN;
 
