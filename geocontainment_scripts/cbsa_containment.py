@@ -103,6 +103,10 @@ DELETE from {FQ_TABLE_NAME}
     WHERE parent_geoid like '33000US%'
     AND child_geoid like '05000US%';
 
+DELETE from {FQ_TABLE_NAME}
+    WHERE parent_geoid like '33000US%'
+    AND child_geoid like '31000US%';
+
 INSERT INTO {FQ_TABLE_NAME}
     (parent_geoid, child_geoid, percent_covered)
 VALUES
