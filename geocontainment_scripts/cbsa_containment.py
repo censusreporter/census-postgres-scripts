@@ -22,7 +22,7 @@ data pipeline.
 import requests
 import xlrd
 
-DELINEATION_URL = 'https://www2.census.gov/programs-surveys/metro-micro/geographies/reference-files/2018/delineation-files/list1_Sep_2018.xls'
+DELINEATION_URL = 'https://www2.census.gov/programs-surveys/metro-micro/geographies/reference-files/2018/delineation-files/list1.xls'
 SCHEMA_YEAR="2018"
 SQL_FILE = f"15_cbsa_geocontainment_{SCHEMA_YEAR}.sql"
 FQ_TABLE_NAME = f'tiger{SCHEMA_YEAR}.census_geo_containment'
@@ -84,8 +84,9 @@ for row in rows:
         county = ''
 
     if csa:
-        to_insert.append((csa, cbsa, 100))
-        to_insert.append((csa, county, 100))
+        if not cbsa == '12740' and not csa == '162':  # specific error case found in Census delineation file
+            to_insert.append((csa, cbsa, 100))
+            to_insert.append((csa, county, 100))
 
     if county:
         to_insert.append((cbsa, county, 100))
