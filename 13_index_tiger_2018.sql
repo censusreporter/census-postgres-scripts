@@ -505,7 +505,7 @@ INSERT INTO tiger2018.census_name_lookup
         (SELECT b01003.b01003001 FROM acs2017_5yr.b01003 WHERE geoid = '03000US3'),
         (SELECT SUM(aland) FROM tiger2018.state WHERE division='3'),
         (SELECT SUM(awater) FROM tiger2018.state WHERE division='3'),
-        (SELECT ST_Multi(ST_Union(geom)) FROM tiger2018.census_name_lookup WHERE full_geoid IN ('04000US18', '04000US18', '04000US26', '04000US39', '04000US55'));
+        (SELECT ST_Multi(ST_Union(geom)) FROM tiger2018.census_name_lookup WHERE full_geoid IN ('04000US17', '04000US18', '04000US26', '04000US39', '04000US55'));
 -- Division 4
 INSERT INTO tiger2018.census_name_lookup
     SELECT
