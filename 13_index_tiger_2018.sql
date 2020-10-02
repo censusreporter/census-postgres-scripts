@@ -86,7 +86,7 @@ INSERT INTO tiger2018.census_name_lookup
         '170',
         concity.geoid,
         '17000US' || concity.geoid,
-        25,
+        15,
         b01003.b01003001,
         concity.aland,
         concity.awater,
