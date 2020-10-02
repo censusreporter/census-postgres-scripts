@@ -80,6 +80,23 @@ INSERT INTO tiger2018.census_name_lookup
 
 INSERT INTO tiger2018.census_name_lookup
     SELECT
+        concity.name || ', ' || state.stusps,
+        concity.name,
+        concity.name || ' ' || state.stusps,
+        '170',
+        concity.geoid,
+        '17000US' || concity.geoid,
+        25,
+        b01003.b01003001,
+        concity.aland,
+        concity.awater,
+        concity.geom
+    FROM tiger2018.concity LEFT OUTER JOIN acs2017_5yr.b01003 ON (('17000US' || concity.geoid) = b01003.geoid) JOIN tiger2018.state USING (statefp)
+    WHERE state.geoid NOT IN ('60', '66', '69', '78');
+
+
+INSERT INTO tiger2018.census_name_lookup
+    SELECT
         county.namelsad || ', ' || state.stusps,
         county.namelsad,
         county.namelsad || ' ' || state.stusps,
