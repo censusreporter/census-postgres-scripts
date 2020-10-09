@@ -33,5 +33,4 @@ wget --recursive --continue --accept=*.zip \
     https://www2.census.gov/geo/tiger/TIGER2019/TTRACT/ \
     https://www2.census.gov/geo/tiger/TIGER2019/UAC/ \
     https://www2.census.gov/geo/tiger/TIGER2019/UNSD/ \
-    https://www2.census.gov/geo/tiger/TIGER2019/VTD/ \
     https://www2.census.gov/geo/tiger/TIGER2019/ZCTA5/
