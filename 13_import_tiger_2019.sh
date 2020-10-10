@@ -26,17 +26,27 @@ do
     # Start by preparing the table
     shp2pgsql -W "latin1" -s 4326 -p -I $one_shapefile tiger2019.$tablename | psql -d census -U census -v ON_ERROR_STOP=1 -q
 
+    if [ $? -ne 0 ]
+    then
+        echo "Couldn't prep table from ${one_shapefile}"
+        exit 1
+    fi
+
     # Then append all the geometries
     for j in $i/*.shp
     do
         shp2pgsql -W "latin1" -s 4326 -a $j tiger2019.$tablename | psql -d census -U census -v ON_ERROR_STOP=1 -q
+
+        if [ $? -ne 0 ]
+        then
+            echo "Couldn't import ${j}"
+            exit 1
+        fi
     done
 
-    if [ $? -ne 0 ]
-    then
-        echo "Couldn't import ${i}.sql."
-        exit 1
-    fi
+    # Make sure the geometries in that table we just imported are valid
+    psql -d census -U census -v ON_ERROR_STOP=1 -q -c "UPDATE tiger2019.${tablename} SET geom=ST_MakeValid(geom) WHERE NOT ST_IsValid(geom);"
 
-    rm -f $i.sql
+    # Delete the unzipped stuff to save room
+    find $i -type f ! -name '*.zip' -delete
 done
