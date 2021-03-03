@@ -320,7 +320,7 @@ INSERT INTO tiger2019.census_name_lookup
         concity.aland,
         concity.awater,
         concity.geom
-    FROM tiger2019.concity LEFT OUTER JOIN acs2018_5yr.b01003 ON (('19000US' || concity.geoid) = b01003.geoid) JOIN tiger2019.state USING (statefp);
+    FROM tiger2019.concity LEFT OUTER JOIN acs2018_5yr.b01003 ON (('17000US' || concity.geoid) = b01003.geoid) JOIN tiger2019.state USING (statefp);
 INSERT INTO tiger2019.census_name_lookup
     SELECT
         metdiv.namelsad,
