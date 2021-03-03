@@ -312,15 +312,15 @@ INSERT INTO tiger2019.census_name_lookup
         concity.namelsad || ', ' || state.stusps,
         concity.namelsad,
         concity.name || ' ' || state.stusps,
-        '190',
+        '170',
         concity.geoid,
-        '19000US' || concity.geoid,
+        '17000US' || concity.geoid,
         190,
         b01003.b01003001,
         concity.aland,
         concity.awater,
         concity.geom
-    FROM tiger2019.concity LEFT OUTER JOIN acs2018_5yr.b01003 ON (('19000US' || concity.geoid) = b01003.geoid) JOIN tiger2019.state USING (statefp);
+    FROM tiger2019.concity LEFT OUTER JOIN acs2018_5yr.b01003 ON (('17000US' || concity.geoid) = b01003.geoid) JOIN tiger2019.state USING (statefp);
 INSERT INTO tiger2019.census_name_lookup
     SELECT
         metdiv.namelsad,
