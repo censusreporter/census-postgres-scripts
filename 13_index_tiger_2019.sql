@@ -477,7 +477,12 @@ INSERT INTO tiger2019.census_name_lookup
         (SELECT b01003.b01003001 FROM acs2018_5yr.b01003 WHERE geoid = '03000US1'),
         (SELECT SUM(aland) FROM tiger2019.state WHERE division='1'),
         (SELECT SUM(awater) FROM tiger2019.state WHERE division='1'),
-        (SELECT ST_Union(geom) FROM tiger2019.census_name_lookup WHERE full_geoid IN ('04000US09', '04000US23', '04000US25', '04000US33', '04000US44', '04000US50'));
+        (SELECT ST_Multi(ST_Union(tiger2019.census_name_lookup.geom)) 
+            FROM tiger2019.census_name_lookup,
+                 tiger2019.state
+             WHERE tiger2019.state.division = '1'
+                   AND tiger2019.census_name_lookup.sumlevel = '040'
+                   AND  tiger2019.census_name_lookup.geoid = tiger2019.state.geoid);
 -- Division 2
 INSERT INTO tiger2019.census_name_lookup
     SELECT
@@ -488,10 +493,12 @@ INSERT INTO tiger2019.census_name_lookup
         '',
         '03000US2',
         310,
-        (SELECT b01003.b01003001 FROM acs2018_5yr.b01003 WHERE geoid = '03000US2'),
-        (SELECT SUM(aland) FROM tiger2019.state WHERE division='2'),
-        (SELECT SUM(awater) FROM tiger2019.state WHERE division='2'),
-        (SELECT ST_Multi(ST_Union(geom)) FROM tiger2019.census_name_lookup WHERE full_geoid IN ('04000US34', '04000US36', '04000US42'));
+        (SELECT ST_Multi(ST_Union(tiger2019.census_name_lookup.geom)) 
+            FROM tiger2019.census_name_lookup,
+                 tiger2019.state
+             WHERE tiger2019.state.division = '2'
+                   AND tiger2019.census_name_lookup.sumlevel = '040'
+                   AND  tiger2019.census_name_lookup.geoid = tiger2019.state.geoid);
 -- Division 3
 INSERT INTO tiger2019.census_name_lookup
     SELECT
@@ -505,7 +512,12 @@ INSERT INTO tiger2019.census_name_lookup
         (SELECT b01003.b01003001 FROM acs2018_5yr.b01003 WHERE geoid = '03000US3'),
         (SELECT SUM(aland) FROM tiger2019.state WHERE division='3'),
         (SELECT SUM(awater) FROM tiger2019.state WHERE division='3'),
-        (SELECT ST_Multi(ST_Union(geom)) FROM tiger2019.census_name_lookup WHERE full_geoid IN ('04000US17', '04000US19', '04000US26', '04000US39', '04000US55'));
+        (SELECT ST_Multi(ST_Union(tiger2019.census_name_lookup.geom)) 
+            FROM tiger2019.census_name_lookup,
+                 tiger2019.state
+             WHERE tiger2019.state.division = '3'
+                   AND tiger2019.census_name_lookup.sumlevel = '040'
+                   AND  tiger2019.census_name_lookup.geoid = tiger2019.state.geoid);
 -- Division 4
 INSERT INTO tiger2019.census_name_lookup
     SELECT
@@ -519,7 +531,12 @@ INSERT INTO tiger2019.census_name_lookup
         (SELECT b01003.b01003001 FROM acs2018_5yr.b01003 WHERE geoid = '03000US4'),
         (SELECT SUM(aland) FROM tiger2019.state WHERE division='4'),
         (SELECT SUM(awater) FROM tiger2019.state WHERE division='4'),
-        (SELECT ST_Multi(ST_Union(geom)) FROM tiger2019.census_name_lookup WHERE full_geoid IN ('04000US19', '04000US20', '04000US27', '04000US29', '04000US31', '04000US38', '04000US46'));
+        (SELECT ST_Multi(ST_Union(tiger2019.census_name_lookup.geom)) 
+            FROM tiger2019.census_name_lookup,
+                 tiger2019.state
+             WHERE tiger2019.state.division = '4'
+                   AND tiger2019.census_name_lookup.sumlevel = '040'
+                   AND  tiger2019.census_name_lookup.geoid = tiger2019.state.geoid);
 -- Division 5
 INSERT INTO tiger2019.census_name_lookup
     SELECT
@@ -533,7 +550,12 @@ INSERT INTO tiger2019.census_name_lookup
         (SELECT b01003.b01003001 FROM acs2018_5yr.b01003 WHERE geoid = '03000US5'),
         (SELECT SUM(aland) FROM tiger2019.state WHERE division='5'),
         (SELECT SUM(awater) FROM tiger2019.state WHERE division='5'),
-        (SELECT ST_Multi(ST_Union(geom)) FROM tiger2019.census_name_lookup WHERE full_geoid IN ('04000US10', '04000US11', '04000US12', '04000US13', '04000US24', '04000US37', '04000US45', '04000US51', '04000US54'));
+        (SELECT ST_Multi(ST_Union(tiger2019.census_name_lookup.geom)) 
+            FROM tiger2019.census_name_lookup,
+                 tiger2019.state
+             WHERE tiger2019.state.division = '5'
+                   AND tiger2019.census_name_lookup.sumlevel = '040'
+                   AND  tiger2019.census_name_lookup.geoid = tiger2019.state.geoid);
 -- Division 6
 INSERT INTO tiger2019.census_name_lookup
     SELECT
@@ -547,7 +569,12 @@ INSERT INTO tiger2019.census_name_lookup
         (SELECT b01003.b01003001 FROM acs2018_5yr.b01003 WHERE geoid = '03000US6'),
         (SELECT SUM(aland) FROM tiger2019.state WHERE division='6'),
         (SELECT SUM(awater) FROM tiger2019.state WHERE division='6'),
-        (SELECT ST_Multi(ST_Union(geom)) FROM tiger2019.census_name_lookup WHERE full_geoid IN ('04000US01', '04000US21', '04000US28', '04000US47'));
+        (SELECT ST_Multi(ST_Union(tiger2019.census_name_lookup.geom)) 
+            FROM tiger2019.census_name_lookup,
+                 tiger2019.state
+             WHERE tiger2019.state.division = '6'
+                   AND tiger2019.census_name_lookup.sumlevel = '040'
+                   AND  tiger2019.census_name_lookup.geoid = tiger2019.state.geoid);
 -- Division 7
 INSERT INTO tiger2019.census_name_lookup
     SELECT
@@ -561,7 +588,12 @@ INSERT INTO tiger2019.census_name_lookup
         (SELECT b01003.b01003001 FROM acs2018_5yr.b01003 WHERE geoid = '03000US7'),
         (SELECT SUM(aland) FROM tiger2019.state WHERE division='7'),
         (SELECT SUM(awater) FROM tiger2019.state WHERE division='7'),
-        (SELECT ST_Multi(ST_Union(geom)) FROM tiger2019.census_name_lookup WHERE full_geoid IN ('04000US05', '04000US22', '04000US40', '04000US48'));
+        (SELECT ST_Multi(ST_Union(tiger2019.census_name_lookup.geom)) 
+            FROM tiger2019.census_name_lookup,
+                 tiger2019.state
+             WHERE tiger2019.state.division = '7'
+                   AND tiger2019.census_name_lookup.sumlevel = '040'
+                   AND  tiger2019.census_name_lookup.geoid = tiger2019.state.geoid);
 -- Division 8
 INSERT INTO tiger2019.census_name_lookup
     SELECT
@@ -575,7 +607,12 @@ INSERT INTO tiger2019.census_name_lookup
         (SELECT b01003.b01003001 FROM acs2018_5yr.b01003 WHERE geoid = '03000US8'),
         (SELECT SUM(aland) FROM tiger2019.state WHERE division='8'),
         (SELECT SUM(awater) FROM tiger2019.state WHERE division='8'),
-        (SELECT ST_Multi(ST_Union(geom)) FROM tiger2019.census_name_lookup WHERE full_geoid IN ('04000US04', '04000US08', '04000US16', '04000US35', '04000US30', '04000US49', '04000US32', '04000US56'));
+        (SELECT ST_Multi(ST_Union(tiger2019.census_name_lookup.geom)) 
+            FROM tiger2019.census_name_lookup,
+                 tiger2019.state
+             WHERE tiger2019.state.division = '8'
+                   AND tiger2019.census_name_lookup.sumlevel = '040'
+                   AND  tiger2019.census_name_lookup.geoid = tiger2019.state.geoid);
 -- Division 9
 INSERT INTO tiger2019.census_name_lookup
     SELECT
@@ -589,7 +626,12 @@ INSERT INTO tiger2019.census_name_lookup
         (SELECT b01003.b01003001 FROM acs2018_5yr.b01003 WHERE geoid = '03000US9'),
         (SELECT SUM(aland) FROM tiger2019.state WHERE division='9'),
         (SELECT SUM(awater) FROM tiger2019.state WHERE division='9'),
-        (SELECT ST_Multi(ST_Union(geom)) FROM tiger2019.census_name_lookup WHERE full_geoid IN ('04000US02', '04000US06', '04000US15', '04000US41', '04000US53'));
+        (SELECT ST_Multi(ST_Union(tiger2019.census_name_lookup.geom)) 
+            FROM tiger2019.census_name_lookup,
+                 tiger2019.state
+             WHERE tiger2019.state.division = '9'
+                   AND tiger2019.census_name_lookup.sumlevel = '040'
+                   AND  tiger2019.census_name_lookup.geoid = tiger2019.state.geoid);
 
 ---- Regions
 -- Region 1
@@ -605,7 +647,12 @@ INSERT INTO tiger2019.census_name_lookup
         (SELECT b01003.b01003001 FROM acs2018_5yr.b01003 WHERE geoid = '02000US1'),
         (SELECT SUM(aland) FROM tiger2019.state WHERE region='1'),
         (SELECT SUM(awater) FROM tiger2019.state WHERE region='1'),
-        (SELECT ST_Multi(ST_Union(geom)) FROM tiger2019.census_name_lookup WHERE full_geoid IN ('03000US1', '03000US2'));
+        (SELECT ST_Multi(ST_Union(tiger2019.census_name_lookup.geom)) 
+            FROM tiger2019.census_name_lookup,
+                 tiger2019.state
+             WHERE tiger2019.state.region = '1'
+                   AND tiger2019.census_name_lookup.sumlevel = '040'
+                   AND  tiger2019.census_name_lookup.geoid = tiger2019.state.geoid);
 -- Region 2
 INSERT INTO tiger2019.census_name_lookup
     SELECT
@@ -619,7 +666,12 @@ INSERT INTO tiger2019.census_name_lookup
         (SELECT b01003.b01003001 FROM acs2018_5yr.b01003 WHERE geoid = '02000US2'),
         (SELECT SUM(aland) FROM tiger2019.state WHERE region='2'),
         (SELECT SUM(awater) FROM tiger2019.state WHERE region='2'),
-        (SELECT ST_Multi(ST_Union(geom)) FROM tiger2019.census_name_lookup WHERE full_geoid IN ('03000US3', '03000US4'));
+        (SELECT ST_Multi(ST_Union(tiger2019.census_name_lookup.geom)) 
+            FROM tiger2019.census_name_lookup,
+                 tiger2019.state
+             WHERE tiger2019.state.region = '2'
+                   AND tiger2019.census_name_lookup.sumlevel = '040'
+                   AND  tiger2019.census_name_lookup.geoid = tiger2019.state.geoid);
 -- Region 3
 INSERT INTO tiger2019.census_name_lookup
     SELECT
@@ -633,7 +685,12 @@ INSERT INTO tiger2019.census_name_lookup
         (SELECT b01003.b01003001 FROM acs2018_5yr.b01003 WHERE geoid = '02000US3'),
         (SELECT SUM(aland) FROM tiger2019.state WHERE region='3'),
         (SELECT SUM(awater) FROM tiger2019.state WHERE region='3'),
-        (SELECT ST_Multi(ST_Union(geom)) FROM tiger2019.census_name_lookup WHERE full_geoid IN ('03000US5', '03000US6', '03000US7'));
+        (SELECT ST_Multi(ST_Union(tiger2019.census_name_lookup.geom)) 
+            FROM tiger2019.census_name_lookup,
+                 tiger2019.state
+             WHERE tiger2019.state.region = '3'
+                   AND tiger2019.census_name_lookup.sumlevel = '040'
+                   AND  tiger2019.census_name_lookup.geoid = tiger2019.state.geoid);
 -- Region 4
 INSERT INTO tiger2019.census_name_lookup
     SELECT
@@ -647,7 +704,12 @@ INSERT INTO tiger2019.census_name_lookup
         (SELECT b01003.b01003001 FROM acs2018_5yr.b01003 WHERE geoid = '02000US4'),
         (SELECT SUM(aland) FROM tiger2019.state WHERE region='4'),
         (SELECT SUM(awater) FROM tiger2019.state WHERE region='4'),
-        (SELECT ST_Multi(ST_Union(geom)) FROM tiger2019.census_name_lookup WHERE full_geoid IN ('03000US8', '03000US9'));
+        (SELECT ST_Multi(ST_Union(tiger2019.census_name_lookup.geom)) 
+            FROM tiger2019.census_name_lookup,
+                 tiger2019.state
+             WHERE tiger2019.state.region = '4'
+                   AND tiger2019.census_name_lookup.sumlevel = '040'
+                   AND  tiger2019.census_name_lookup.geoid = tiger2019.state.geoid);
 
 CREATE INDEX census_name_lookup_idx_lower ON tiger2019.census_name_lookup ((lower(prefix_match_name)) text_pattern_ops);
 CREATE INDEX census_name_lookup_idx_geom ON tiger2019.census_name_lookup USING GIST(geom);
