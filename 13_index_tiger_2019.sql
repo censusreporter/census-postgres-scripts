@@ -493,6 +493,9 @@ INSERT INTO tiger2019.census_name_lookup
         '',
         '03000US2',
         310,
+        (SELECT b01003.b01003001 FROM acs2018_5yr.b01003 WHERE geoid = '03000US2'),
+        (SELECT SUM(aland) FROM tiger2019.state WHERE division='2'),
+        (SELECT SUM(awater) FROM tiger2019.state WHERE division='2'),
         (SELECT ST_Multi(ST_Union(tiger2019.census_name_lookup.geom)) 
             FROM tiger2019.census_name_lookup,
                  tiger2019.state
