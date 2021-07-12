@@ -23,7 +23,7 @@ do
     one_shapefile=`ls -a $i/*.shp | head -n 1`
 
     # Start by preparing the table
-    shp2pgsql -W "latin1" -s 4326 -p -I $one_shapefile tiger2010.$tablename | psql -d census -U census -v ON_ERROR_STOP=1 -q
+    shp2pgsql -W "latin1" -s 4326 -p -I $one_shapefile tiger2010.$tablename | psql -v ON_ERROR_STOP=1 -q
 
     if [ $? -ne 0 ]
     then
@@ -34,7 +34,7 @@ do
     # Then append all the geometries
     for j in $i/*.shp
     do
-        shp2pgsql -W "latin1" -s 4326 -a $j tiger2010.$tablename | psql -d census -U census -v ON_ERROR_STOP=1 -q
+        shp2pgsql -W "latin1" -s 4326 -a $j tiger2010.$tablename | psql -v ON_ERROR_STOP=1 -q
 
         if [ $? -ne 0 ]
         then
@@ -44,7 +44,7 @@ do
     done
 
     # Make sure the geometries in that table we just imported are valid
-    psql -d census -U census -v ON_ERROR_STOP=1 -q -c "UPDATE tiger2010.${tablename} SET geom=ST_MakeValid(geom) WHERE NOT ST_IsValid(geom);"
+    psql -v ON_ERROR_STOP=1 -q -c "UPDATE tiger2010.${tablename} SET geom=ST_MakeValid(geom) WHERE NOT ST_IsValid(geom);"
 
     # Delete the unzipped stuff to save room
     find $i -type f ! -name '*.zip' -delete
