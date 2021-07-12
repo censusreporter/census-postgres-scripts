@@ -11,7 +11,7 @@ fi
 
 psql -v ON_ERROR_STOP=1 -q -c "DROP SCHEMA IF EXISTS tiger2010 CASCADE; CREATE SCHEMA tiger2010;"
 
-for i in /home/ubuntu/data/tiger2010/{TABBLOCK}
+for i in /home/ubuntu/data/tiger2010/{TABBLOCK,}
 do
     tablename=$(basename $i)
     for j in $i/*.zip
