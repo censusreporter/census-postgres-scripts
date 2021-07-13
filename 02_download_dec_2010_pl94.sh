@@ -2,6 +2,7 @@
 
 # Download Decennial 2010 Census Redistricting data (PL94-171)
 mkdir -p /home/ubuntu/data/dec2010_pl94
+cd /home/ubuntu/data/dec2010_pl94
 
 # reject us2010.npl.zip as we only care about blocks and don't need state-spanning geographies
 wget --recursive --continue --accept=*.zip --reject=us2010.npl.zip \

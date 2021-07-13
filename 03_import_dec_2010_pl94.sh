@@ -10,6 +10,8 @@ cd /home/ubuntu
 sudo apt-get -y install csvkit
 git clone git://github.com/censusreporter/census-postgres.git
 
+DATA_DIR=/home/ubuntu/data/dec2010_pl94
+
 # Create the schema
 cd /home/ubuntu/census-postgres/dec2010_pl94
 psql -v ON_ERROR_STOP=1 -q -c "DROP SCHEMA IF EXISTS dec2010_pl94 CASCADE; CREATE SCHEMA dec2010_pl94;"
@@ -36,24 +38,32 @@ if [[ $? != 0 ]]; then
     exit 1
 fi
 
-for i in `ls /home/ubuntu/data/dec2010_pl94/*zip`; do
-    unzip $i
+for i in `ls ${DATA_DIR}/*zip`; do
+    unzip -d ${DATA_DIR} $i
 done
 
 # Slurp in the actual data
 # We're doing the COPY FROM STDIN so we don't have to be a psql superuser
+# Only load blocks (SUMLEV 750)
 echo "Importing geoheader"
-for i in `ls /home/ubuntu/data/dec2010_pl94/*geo2010.pl`; do
-    cat $i | in2csv -s census2010_geo_schema.csv | psql -v ON_ERROR_STOP=1 -q -c "COPY dec2010_pl94.geoheader FROM STDIN WITH CSV HEADER ENCODING 'latin1';"
+for i in `ls ${DATA_DIR}/*geo2010.pl`; do
+    echo `basename $i`
+    cat $i | in2csv -s census2010_geo_schema.csv | csvgrep -c SUMLEV -m 750 | psql -v ON_ERROR_STOP=1 -q -c "COPY dec2010_pl94.geoheader FROM STDIN WITH CSV HEADER ENCODING 'latin1';"
     if [[ $? != 0 ]]; then
         echo "Failed importing geoheader $i."
         exit 1
     fi
 done
 
+# old geoheader files didn't include geoids so create a column. 
+# Since we only loaded blocks we can use one method to populate geoid value.
+psql -v ON_ERROR_STOP=1 -q -c "ALTER TABLE dec2010_pl94.geoheader add column GEOID varchar(16);"
+psql -v ON_ERROR_STOP=1 -q -c "UPDATE dec2010_pl94.geoheader set geoid = state || county || tract || block;"
+psql -v ON_ERROR_STOP=1 -q -c "CREATE INDEX geoheader_geoid_idx on dec2010_pl94.geoheader (GEOID);"
+
 echo "Importing sequence 0001"
-for i in $(ls *12010.pl); do
-    cat $i | psql -v ON_ERROR_STOP=1 -q -c "COPY dec2010_pl94.tmp_seq0001 FROM STDIN WITH CSV ENCODING 'latin1';"
+for i in $(ls ${DATA_DIR}/*12010.pl); do
+    cat $i | psql -v ON_ERROR_STOP=1 -q -c "COPY dec2010_pl94.seq0001 FROM STDIN WITH CSV ENCODING 'latin1';"
     if [[ $? != 0 ]]; then
         echo "Failed importing sequences $i."
         exit 1
@@ -61,8 +71,8 @@ for i in $(ls *12010.pl); do
 done;
 
 echo "Importing sequence 0002"
-for i in $(ls *22010.pl); do
-    cat $i | psql -v ON_ERROR_STOP=1 -q -c "COPY dec2010_pl94.tmp_seq0002 FROM STDIN WITH CSV ENCODING 'latin1';"
+for i in $(ls ${DATA_DIR}/*22010.pl); do
+    cat $i | psql -v ON_ERROR_STOP=1 -q -c "COPY dec2010_pl94.seq0002 FROM STDIN WITH CSV ENCODING 'latin1';"
     if [[ $? != 0 ]]; then
         echo "Failed importing sequences $i."
         exit 1
@@ -73,5 +83,5 @@ echo "Creating views"
 psql -v ON_ERROR_STOP=1 -q -f select_into_views.sql
 if [[ $? != 0 ]]; then
     echo "Failed creating views."
-    exit 1
+    # exit 1
 fi
