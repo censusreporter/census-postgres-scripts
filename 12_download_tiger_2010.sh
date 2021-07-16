@@ -9,3 +9,6 @@ wget --recursive --continue --accept=tl_2010_??_tabblock10.zip \
      -e robots=off \
      --directory-prefix=/home/ubuntu/data/tiger2010 \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2010/TABBLOCK/2010/
+
+mv /home/ubuntu/data/tiger2010/TABBLOCK/2010/*.zip /home/ubuntu/data/tiger2010/TABBLOCK
+rmdir /home/ubuntu/data/tiger2010/TABBLOCK/2010

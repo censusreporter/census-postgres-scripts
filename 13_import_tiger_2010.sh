@@ -11,7 +11,7 @@ fi
 
 psql -v ON_ERROR_STOP=1 -q -c "DROP SCHEMA IF EXISTS tiger2010 CASCADE; CREATE SCHEMA tiger2010;"
 
-for i in /home/ubuntu/data/tiger2010/TABBLOCK/2010 # not a list but easier to keep it like other tiger importers
+for i in /home/ubuntu/data/tiger2010/TABBLOCK # not a list but easier to keep it like other tiger importers
 do
     tablename=$(basename $i)
     for j in $i/*.zip
