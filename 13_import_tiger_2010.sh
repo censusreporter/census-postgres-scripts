@@ -11,7 +11,7 @@ fi
 
 psql -v ON_ERROR_STOP=1 -q -c "DROP SCHEMA IF EXISTS tiger2010 CASCADE; CREATE SCHEMA tiger2010;"
 
-for i in /home/ubuntu/data/tiger2010/TABBLOCK # not a list but easier to keep it like other tiger importers
+for i in /home/ubuntu/data/tiger2010/TABBLOCK/2010 # not a list but easier to keep it like other tiger importers
 do
     tablename=$(basename $i)
     for j in $i/*.zip
@@ -34,6 +34,7 @@ do
     # Then append all the geometries
     for j in $i/*.shp
     do
+        echo $j
         shp2pgsql -W "latin1" -s 4326 -a $j tiger2010.$tablename | psql -v ON_ERROR_STOP=1 -q
 
         if [ $? -ne 0 ]
