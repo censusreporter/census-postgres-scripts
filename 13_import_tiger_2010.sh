@@ -50,4 +50,4 @@ do
     find $i -type f ! -name '*.zip' -delete
 done
 
-psql -v ON_ERROR_STOP=1 -q -c "CREATE INDEX tabblock_geoid10_idx ON tiger2010.tabblock (geoid10);" 
+psql -v ON_ERROR_STOP=1 -q -c "CREATE UNIQUE INDEX tabblock_geoid10_idx ON tiger2010.tabblock (geoid10);" 

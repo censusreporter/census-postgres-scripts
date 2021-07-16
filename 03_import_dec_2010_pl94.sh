@@ -57,24 +57,28 @@ done
 
 # old geoheader files didn't include geoids so create a column. 
 # Since we only loaded blocks we can use one method to populate geoid value.
-psql -v ON_ERROR_STOP=1 -q -c "ALTER TABLE dec2010_pl94.geoheader add column GEOID varchar(16);"
+psql -v ON_ERROR_STOP=1 -q -c "ALTER TABLE dec2010_pl94.geoheader add column GEOID varchar(15);"
+echo "fill GEOID column"
 psql -v ON_ERROR_STOP=1 -q -c "UPDATE dec2010_pl94.geoheader set geoid = state || county || tract || block;"
-psql -v ON_ERROR_STOP=1 -q -c "CREATE INDEX geoheader_geoid_idx on dec2010_pl94.geoheader (GEOID);"
+echo "add index on GEOID"
+psql -v ON_ERROR_STOP=1 -q -c "CREATE UNIQUE INDEX geoheader_geoid_idx on dec2010_pl94.geoheader (GEOID);"
 
 echo "Importing sequence 0001"
 for i in $(ls ${DATA_DIR}/*12010.pl); do
+    echo `basename $i`
     cat $i | psql -v ON_ERROR_STOP=1 -q -c "COPY dec2010_pl94.seq0001 FROM STDIN WITH CSV ENCODING 'latin1';"
     if [[ $? != 0 ]]; then
-        echo "Failed importing sequences $i."
+        echo "Failed importing sequence 0001 $i."
         exit 1
     fi
 done;
 
 echo "Importing sequence 0002"
 for i in $(ls ${DATA_DIR}/*22010.pl); do
+    echo `basename $i`
     cat $i | psql -v ON_ERROR_STOP=1 -q -c "COPY dec2010_pl94.seq0002 FROM STDIN WITH CSV ENCODING 'latin1';"
     if [[ $? != 0 ]]; then
-        echo "Failed importing sequences $i."
+        echo "Failed importing sequence 0002 $i."
         exit 1
     fi
 done;
