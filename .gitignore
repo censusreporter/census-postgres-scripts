@@ -1,1 +1,4 @@
 .vscode
+geocontainment_scripts/*bz2
+geocontainment_scripts/*gz
+*.ipynb
