@@ -31,10 +31,12 @@ do
         exit 1
     fi
 
+    echo "Created table blocks.$tablename"
+
     # Then append all the geometries
     for j in $i/*.shp
     do
-        echo $j
+        echo "importing $j to blocks.$tablename"
         shp2pgsql -W "latin1" -s 4326 -a $j blocks.$tablename | psql -v ON_ERROR_STOP=1 -q
 
         if [ $? -ne 0 ]
