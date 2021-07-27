@@ -83,9 +83,9 @@ for i in $(ls ${DATA_DIR}/*22010.pl); do
     fi
 done;
 
-echo "Creating views"
-psql -v ON_ERROR_STOP=1 -q -f select_into_views.sql
+echo "Creating real tables from import tables"
+psql -v ON_ERROR_STOP=1 -q -f select_seq_into_tables.sql
 if [[ $? != 0 ]]; then
-    echo "Failed creating views."
+    echo "Failed creating real tables from import tables."
     # exit 1
 fi
