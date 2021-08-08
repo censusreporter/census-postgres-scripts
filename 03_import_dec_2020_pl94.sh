@@ -34,8 +34,8 @@ done
 echo "Importing geoheader"
 for i in `ls ${DATA_DIR}/*geo2020.pl`; do
     echo `basename $i`
-    # expecting pipe delimited, no header row
-    cat $i | csvgrep -H -d \| -c 3 -m 750 | psql -v ON_ERROR_STOP=1 -q -c "COPY dec2020_pl94.geoheader FROM STDIN WITH CSV DELIMITER '|' HEADER ENCODING 'latin1';"
+    # expecting pipe delimited, no header row - but after csvgrep, delim is comma and header has been added
+    cat $i | csvgrep -H -d \| -c 3 -m 750 | psql -v ON_ERROR_STOP=1 -q -c "COPY dec2020_pl94.geoheader FROM STDIN WITH CSV HEADER ENCODING 'latin1';"
     if [[ $? != 0 ]]; then
         echo "Failed importing geoheader $i."
         exit 1
@@ -47,7 +47,7 @@ done
 echo "Importing sequence 0001"
 for i in $(ls ${DATA_DIR}/*12020.pl); do
     echo `basename $i`
-    cat $i | psql -v ON_ERROR_STOP=1 -q -c "COPY dec2020_pl94.seq0001 FROM STDIN WITH CSV ENCODING 'latin1';"
+    cat $i | psql -v ON_ERROR_STOP=1 -q -c "COPY dec2020_pl94.seq0001 FROM STDIN WITH CSV DELIMITER '|' ENCODING 'latin1';"
     if [[ $? != 0 ]]; then
         echo "Failed importing sequence 0001 $i."
         exit 1
@@ -57,7 +57,7 @@ done;
 echo "Importing sequence 0002"
 for i in $(ls ${DATA_DIR}/*22020.pl); do
     echo `basename $i`
-    cat $i | psql -v ON_ERROR_STOP=1 -q -c "COPY dec2020_pl94.seq0002 FROM STDIN WITH CSV ENCODING 'latin1';"
+    cat $i | psql -v ON_ERROR_STOP=1 -q -c "COPY dec2020_pl94.seq0002 FROM STDIN WITH CSV DELIMITER '|' ENCODING 'latin1';"
     if [[ $? != 0 ]]; then
         echo "Failed importing sequence 0002 $i."
         exit 1
@@ -67,7 +67,7 @@ done;
 echo "Importing sequence 0003"
 for i in $(ls ${DATA_DIR}/*32020.pl); do
     echo `basename $i`
-    cat $i | psql -v ON_ERROR_STOP=1 -q -c "COPY dec2020_pl94.seq0003 FROM STDIN WITH CSV ENCODING 'latin1';"
+    cat $i | psql -v ON_ERROR_STOP=1 -q -c "COPY dec2020_pl94.seq0003 FROM STDIN WITH CSV DELIMITER '|' ENCODING 'latin1';"
     if [[ $? != 0 ]]; then
         echo "Failed importing sequence 0003 $i."
         exit 1
