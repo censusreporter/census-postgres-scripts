@@ -9,4 +9,4 @@ wget --recursive --continue --accept=*.zip --reject=us2020.npl.zip \
      --no-parent --cut-dirs=3 --no-host-directories \
      -e robots=off \
      --directory-prefix=/home/ubuntu/data/dec2020_pl94 \
-    https://census-backup.b-cdn.net/census_2020/01-Redistricting_File--PL_94-171/
+    https://www2.census.gov/programs-surveys/decennial/2020/data/01-Redistricting_File--PL_94-171/
