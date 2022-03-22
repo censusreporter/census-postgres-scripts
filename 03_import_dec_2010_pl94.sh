@@ -61,7 +61,8 @@ psql -v ON_ERROR_STOP=1 -q -c "ALTER TABLE dec2010_pl94.geoheader add column GEO
 echo "fill GEOID column"
 psql -v ON_ERROR_STOP=1 -q -c "UPDATE dec2010_pl94.geoheader set geoid = state || county || tract || block;"
 echo "add index on GEOID"
-psql -v ON_ERROR_STOP=1 -q -c "CREATE UNIQUE INDEX geoheader_geoid_idx on dec2010_pl94.geoheader (GEOID);"
+psql -v ON_ERROR_STOP=1 -q -c "CREATE UNIQUE INDEX geoheader_geoid_idx ON dec2010_pl94.geoheader(GEOID);"
+psql -v ON_ERROR_STOP=1 -q -c "CREATE INDEX dec2010_geoheader_state_place_idx ON dec2010_pl94.geoheader(state,place);"
 
 echo "Importing sequence 0001"
 for i in $(ls ${DATA_DIR}/*12010.pl); do

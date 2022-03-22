@@ -43,6 +43,10 @@ for i in `ls ${DATA_DIR}/*geo2020.pl`; do
 done
 
 # 2020 geoheader files include geoids so don't create a column. 
+psql -v ON_ERROR_STOP=1 -q -c "CREATE UNIQUE INDEX geoheader_geoid_idx ON dec2020_pl94.geoheader(GEOID);"
+psql -v ON_ERROR_STOP=1 -q -c "CREATE INDEX dec2020_geoheader_state_place_idx ON dec2020_pl94.geoheader(state,place);"
+
+
 
 echo "Importing sequence 0001"
 for i in $(ls ${DATA_DIR}/*12020.pl); do
