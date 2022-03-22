@@ -23,7 +23,7 @@ import requests
 import xlrd
 
 DELINEATION_URL = 'https://www2.census.gov/programs-surveys/metro-micro/geographies/reference-files/2018/delineation-files/list1_Sep_2018.xls'
-SCHEMA_YEAR="2019"
+SCHEMA_YEAR="2020"
 SQL_FILE = f"15_cbsa_geocontainment_{SCHEMA_YEAR}.sql"
 FQ_TABLE_NAME = f'tiger{SCHEMA_YEAR}.census_geo_containment'
 
