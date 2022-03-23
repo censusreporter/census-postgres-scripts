@@ -1,11 +1,11 @@
 # Download census-y TIGER data
 
-mkdir -p /mnt/tmp/tiger2020
+mkdir -p /home/ubuntu/data/tiger2020
 
 wget --recursive --continue --accept=*.zip \
      --no-parent --cut-dirs=3 --no-host-directories \
      -e robots=off \
-     --directory-prefix=/mnt/tmp/tiger2020 \
+     --directory-prefix=/home/ubuntu/data/tiger2020 \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2020/AIANNH/ \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2020/AITSN/ \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2020/ANRC/ \
