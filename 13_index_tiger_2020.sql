@@ -30,6 +30,8 @@ ALTER TABLE tiger2020.unsd OWNER TO census;
 -- OGR needs select on geography_columns to do it's thing
 GRANT SELECT ON geography_columns TO census;
 
+BEGIN;
+
 -- Create a unified table for all census names -> geoid
 DROP TABLE IF EXISTS tiger2020.census_name_lookup;
 CREATE TABLE tiger2020.census_name_lookup (
@@ -856,3 +858,5 @@ INSERT INTO tiger2020.census_geo_containment (
 
 CREATE INDEX census_geo_containment_idx_child_geoid ON tiger2020.census_geo_containment (child_geoid);
 CREATE INDEX census_geo_containment_idx_parent_geoid ON tiger2020.census_geo_containment (parent_geoid);
+
+COMMIT;
