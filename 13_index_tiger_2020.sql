@@ -641,6 +641,7 @@ CREATE INDEX census_name_lookup_idx_geom ON tiger2020.census_name_lookup USING G
 CREATE INDEX census_name_lookup_idx_geoid ON tiger2020.census_name_lookup (full_geoid);
 CREATE INDEX census_name_lookup_idx_sumlevel ON tiger2020.census_name_lookup(sumlevel);
 
+DROP TABLE IF EXISTS tiger2020.census_geo_containment;
 CREATE TABLE tiger2020.census_geo_containment (
     child_geoid varchar(40),
     parent_geoid varchar(40),
