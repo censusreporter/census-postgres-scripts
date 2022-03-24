@@ -21,7 +21,6 @@ ALTER TABLE tiger2020.concity OWNER TO census;
 ALTER TABLE tiger2020.metdiv OWNER TO census;
 ALTER TABLE tiger2020.necta OWNER TO census;
 ALTER TABLE tiger2020.nectadiv OWNER TO census;
-ALTER TABLE tiger2020.submcd OWNER TO census;
 ALTER TABLE tiger2020.tbg OWNER TO census;
 ALTER TABLE tiger2020.ttract OWNER TO census;
 ALTER TABLE tiger2020.tract OWNER TO census;
@@ -363,20 +362,6 @@ INSERT INTO tiger2020.census_name_lookup
         nectadiv.awater,
         nectadiv.geom
     FROM tiger2020.nectadiv LEFT OUTER JOIN acs2020_5yr.b01003 ON (('35500US' || nectadiv.geoid) = b01003.geoid);
-INSERT INTO tiger2020.census_name_lookup
-    SELECT
-        submcd.namelsad,
-        submcd.namelsad,
-        submcd.name,
-        '067',
-        submcd.geoid,
-        '06700US' || submcd.geoid,
-        230,
-        b01003.b01003001,
-        submcd.aland,
-        submcd.awater,
-        submcd.geom
-    FROM tiger2020.submcd LEFT OUTER JOIN acs2020_5yr.b01003 ON (('06700US' || submcd.geoid) = b01003.geoid);
 INSERT INTO tiger2020.census_name_lookup
     SELECT
         tbg.namelsad,
