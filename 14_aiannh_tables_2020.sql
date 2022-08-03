@@ -1,3 +1,6 @@
+-- TODO: In the future, consider breaking out the CREATE TABLE components
+-- and running them before 13_index_tiger_2020.sql and then moving the 
+-- census_name_lookup indexing to live alongside the related code in 13_index_tiger_2020
 CREATE TABLE tiger2020.aiannh252 AS (
     SELECT gid, aiannhce, aiannhns, geoid, name, namelsad, lsad, classfp,
            comptyp, aiannhr, mtfcc, funcstat, aland, awater,
@@ -72,13 +75,7 @@ WHERE name = 'Pojoaque';
 
 -- Remove old entries
 DELETE FROM tiger2020.census_name_lookup
-WHERE sumlevel = '250';
-
-DELETE FROM tiger2020.census_name_lookup
-WHERE sumlevel = '252';
-
-DELETE FROM tiger2020.census_name_lookup
-WHERE sumlevel = '254';
+WHERE sumlevel in ('250', '251', '252', '254');
 
 -- Add the 250 sumlevel entries
 INSERT INTO tiger2020.census_name_lookup
@@ -96,6 +93,23 @@ INSERT INTO tiger2020.census_name_lookup
     FROM tiger2020.aiannh250
     LEFT OUTER JOIN acs2020_5yr.b01003
     ON ('25000US' || aiannh250.geoid) = b01003.geoid;
+
+-- Add the 251 sumlevel entries
+INSERT INTO tiger2020.census_name_lookup
+    SELECT
+        aitsn.namelsad,
+        aitsn.namelsad,
+        aitsn.namelsad,
+        '251',
+        aitsn.geoid,
+        '25100US' || aitsn.geoid,
+        150,
+        b01003.b01003001,
+        aitsn.aland,
+        aitsn.awater,
+        aitsn.geom
+    FROM tiger2020.aitsn LEFT OUTER JOIN acs2020_5yr.b01003 ON (('25100US' || aitsn.geoid) = b01003.geoid);
+
 
 -- Add the 252 sumlevel entries
 INSERT INTO tiger2020.census_name_lookup

@@ -237,34 +237,13 @@ INSERT INTO tiger2020.census_name_lookup
         sldu.awater,
         sldu.geom
     FROM tiger2020.sldu LEFT OUTER JOIN acs2020_5yr.b01003 ON (('61000US' || sldu.geoid) = b01003.geoid) JOIN tiger2020.state USING (statefp);
-INSERT INTO tiger2020.census_name_lookup
-    SELECT
-        aiannh.namelsad,
-        aiannh.namelsad,
-        aiannh.namelsad,
-        '250',
-        aiannh.geoid,
-        '25000US' || aiannh.geoid,
-        140,
-        b01003.b01003001,
-        aiannh.aland,
-        aiannh.awater,
-        aiannh.geom
-    FROM tiger2020.aiannh LEFT OUTER JOIN acs2020_5yr.b01003 ON (('25000US' || aiannh.geoid) = b01003.geoid);
-INSERT INTO tiger2020.census_name_lookup
-    SELECT
-        aitsn.namelsad,
-        aitsn.namelsad,
-        aitsn.namelsad,
-        '251',
-        aitsn.geoid,
-        '25100US' || aitsn.geoid,
-        150,
-        b01003.b01003001,
-        aitsn.aland,
-        aitsn.awater,
-        aitsn.geom
-    FROM tiger2020.aitsn LEFT OUTER JOIN acs2020_5yr.b01003 ON (('25100US' || aitsn.geoid) = b01003.geoid);
+
+-- skip AIAN levels 250 and 251 
+-- The TIGER AIANNH shapefile conflates sumlevels 252 and 254
+-- and true 250 is the union of two kinds of rows in AIANNH
+-- and 251 depends upon the corrected 250 for clear names.
+-- this is handled/corrected in 14_aiannh_tables_2020.sql
+
 INSERT INTO tiger2020.census_name_lookup
     SELECT
         anrc.namelsad,
