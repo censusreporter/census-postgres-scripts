@@ -281,7 +281,7 @@ INSERT INTO tiger2020.census_name_lookup
     FROM tiger2020.anrc LEFT OUTER JOIN acs2020_5yr.b01003 ON (('23000US' || anrc.geoid) = b01003.geoid);
 INSERT INTO tiger2020.census_name_lookup
     SELECT
-        bg.namelsad || ', ' || county.name || ', ' || state.stusps,
+        'BG ' || bg.blkgrpce  || ', Tract ' || tract.name || ', ' || county.name || ', ' || state.stusps,
         bg.namelsad,
         null,
         '150',
@@ -292,8 +292,14 @@ INSERT INTO tiger2020.census_name_lookup
         bg.aland,
         bg.awater,
         bg.geom
-    FROM tiger2020.bg LEFT OUTER JOIN acs2020_5yr.b01003 ON (('15000US' || bg.geoid) = b01003.geoid) JOIN tiger2020.county USING (statefp, countyfp) JOIN tiger2020.state USING (statefp)
+    FROM tiger2020.bg
+    LEFT OUTER JOIN acs2020_5yr.b01003 ON (('15000US' || bg.geoid) = b01003.geoid)
+    JOIN tiger2020.county USING (statefp, countyfp)
+    JOIN tiger2020.state USING (statefp)
+    JOIN tiger2020.tract USING (statefp, countyfp, tractce)
     WHERE statefp NOT IN ('60', '66', '69', '78');
+
+
 INSERT INTO tiger2020.census_name_lookup
     SELECT
         cnecta.namelsad,
