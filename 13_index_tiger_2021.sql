@@ -61,7 +61,7 @@ INSERT INTO tiger2021.census_name_lookup
         state.aland,
         state.awater,
         state.geom
-    FROM tiger2021.state LEFT OUTER JOIN acs2021_1yr.b01003 ON (('04000US' || state.geoid) = b01003.geoid)
+    FROM tiger2021.state LEFT OUTER JOIN acs2020_5yr.b01003 ON (('04000US' || state.geoid) = b01003.geoid)
     WHERE state.geoid NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2021.census_name_lookup
     SELECT
