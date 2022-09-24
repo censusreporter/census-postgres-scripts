@@ -200,14 +200,14 @@ INSERT INTO tiger2021.census_name_lookup
         puma.namelsad10,
         puma.namelsad10,
         '795',
-        puma.geoid20,
-        '79500US' || puma.geoid20,
+        puma.geoid10,
+        '79500US' || puma.geoid10,
         110,
         b01003.b01003001,
-        puma.aland20,
-        puma.awater20,
+        puma.aland10,
+        puma.awater10,
         puma.geom
-    FROM tiger2021.puma LEFT OUTER JOIN acs2020_5yr.b01003 ON (('79500US' || puma.geoid20) = b01003.geoid) JOIN tiger2021.state ON (puma.statefp10=state.statefp)
+    FROM tiger2021.puma LEFT OUTER JOIN acs2020_5yr.b01003 ON (('79500US' || puma.geoid10) = b01003.geoid) JOIN tiger2021.state ON (puma.statefp10=state.statefp)
     WHERE statefp NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2021.census_name_lookup
     SELECT
@@ -398,14 +398,14 @@ INSERT INTO tiger2021.census_name_lookup
         uac.name10,
         uac.name10,
         '400',
-        uac.geoid20,
-        '40000US' || uac.geoid20,
+        uac.geoid10,
+        '40000US' || uac.geoid10,
         280,
         b01003.b01003001,
-        uac.aland20,
-        uac.awater20,
+        uac.aland10,
+        uac.awater10,
         uac.geom
-    FROM tiger2021.uac LEFT OUTER JOIN acs2020_5yr.b01003 ON (('40000US' || uac.geoid20) = b01003.geoid);
+    FROM tiger2021.uac LEFT OUTER JOIN acs2020_5yr.b01003 ON (('40000US' || uac.geoid10) = b01003.geoid);
 INSERT INTO tiger2021.census_name_lookup
     SELECT
         unsd.name || ', ' || state.stusps,
