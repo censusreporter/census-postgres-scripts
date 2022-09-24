@@ -33,4 +33,4 @@ wget --recursive --continue --accept=*.zip \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2021/TTRACT/ \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2021/UAC/ \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2021/UNSD/ \
-    https://census-backup.b-cdn.net/geo/tiger/TIGER2021/ZCTA5/
+    https://census-backup.b-cdn.net/geo/tiger/TIGER2021/ZCTA520/
