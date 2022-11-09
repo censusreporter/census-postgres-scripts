@@ -405,7 +405,8 @@ INSERT INTO tiger2020.census_name_lookup
         uac.aland10,
         uac.awater10,
         uac.geom
-    FROM tiger2020.uac LEFT OUTER JOIN acs2020_5yr.b01003 ON (('40000US' || uac.geoid10) = b01003.geoid);
+    FROM tiger2020.uac LEFT OUTER JOIN acs2020_5yr.b01003 ON (('40000US' || uac.geoid10) = b01003.geoid)
+    WHERE RIGHT(uac.name10,2) not IN ('AS','MP','GU','VI'); 
 INSERT INTO tiger2020.census_name_lookup
     SELECT
         unsd.name || ', ' || state.stusps,
