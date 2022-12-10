@@ -59,7 +59,7 @@ if [[ $? != 0 ]]; then
     exit 1
 fi
 
-for s in $(seq -f "%04g" 1 189)
+for s in $(seq -f "%04g" 1 147)
 do
     echo "Importing sequence $s"
     cat /home/ubuntu/data/acs2021_5yr/tracts_block_groups_only/e20215[a-z][a-z]${s}*txt | psql -d censusreporter -h $PGHOST -v ON_ERROR_STOP=1 -q -c "COPY acs2021_5yr.tmp_seq${s} FROM STDIN WITH CSV ENCODING 'latin1';"
