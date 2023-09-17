@@ -56,7 +56,7 @@ fi
 
 # Slurp in the actual data
 echo "Fixing GEO_ID in geoheaders"
-python3 fix_geoids.py ${DATA_DIR}/Geos20221YR.txt
+python3 meta-scripts/fix_geoids.py ${DATA_DIR}/Geos20221YR.txt
 if [[ $? != 0 ]]; then
     echo "Failed fixing geoids."
     exit 1
