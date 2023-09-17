@@ -13,7 +13,7 @@ fi
 psql -v ON_ERROR_STOP=1 -q -c "DROP SCHEMA IF EXISTS tiger2022 CASCADE; CREATE SCHEMA tiger2022;"
 psql -v ON_ERROR_STOP=1 -q -c "ALTER SCHEMA tiger2022 OWNER TO census;"
 
-for i in $DATA_DIR/{AIANNH,AITSN,ANRC,BG,CBSA,CD,CNECTA,CONCITY,COUNTY,COUSUB,CSA,ELSD,METDIV,NECTA,NECTADIV,PLACE,PUMA,SCSD,SLDL,SLDU,STATE,SUBMCD,TBG,TRACT,TTRACT,UAC,UNSD,ZCTA520}
+for i in $DATA_DIR/{AIANNH,AITSN,ANRC,BG,CD,CONCITY,COUNTY,COUSUB,ELSD,PLACE,PUMA,SCSD,SLDL,SLDU,STATE,TBG,TRACT,TTRACT,UAC,UNSD,ZCTA520}
 do
     tablename=$(basename $i)
     for j in $i/*.zip
@@ -25,7 +25,7 @@ do
     one_shapefile=`ls -a $i/*.shp | head -n 1`
 
     # Start by preparing the table
-    shp2pgsql -W "latin1" -s 4326 -p -I $one_shapefile tiger2022.$tablename | psql -v ON_ERROR_STOP=1 -q
+    shp2pgsql -W "utf8" -s 4326 -p -I $one_shapefile tiger2022.$tablename | psql -v ON_ERROR_STOP=1 -q
 
     if [ $? -ne 0 ]
     then
@@ -36,7 +36,7 @@ do
     # Then append all the geometries
     for j in $i/*.shp
     do
-        shp2pgsql -W "latin1" -s 4326 -a $j tiger2022.$tablename | psql -v ON_ERROR_STOP=1 -q
+        shp2pgsql -W "utf8" -s 4326 -a $j tiger2022.$tablename | psql -v ON_ERROR_STOP=1 -q
 
         if [ $? -ne 0 ]
         then
