@@ -1,5 +1,4 @@
 -- Change ownership on the TIGER tables
-ALTER TABLE tiger2022.cbsa OWNER TO census;
 ALTER TABLE tiger2022.cd OWNER TO census;
 ALTER TABLE tiger2022.county OWNER TO census;
 ALTER TABLE tiger2022.place OWNER TO census;
@@ -120,20 +119,6 @@ INSERT INTO tiger2022.census_name_lookup
     FROM tiger2022.zcta520 LEFT OUTER JOIN acs2021_5yr.b01003 ON (('86000US' || zcta520.geoid20) = b01003.geoid);
 INSERT INTO tiger2022.census_name_lookup
     SELECT
-        cbsa.namelsad,
-        cbsa.name,
-        cbsa.name,
-        '310',
-        cbsa.geoid,
-        '31000US' || cbsa.geoid,
-        60,
-        b01003.b01003001,
-        cbsa.aland,
-        cbsa.awater,
-        cbsa.geom
-    FROM tiger2022.cbsa LEFT OUTER JOIN acs2021_5yr.b01003 ON (('31000US' || cbsa.geoid) = b01003.geoid);
-INSERT INTO tiger2022.census_name_lookup
-    SELECT
         cd.namelsad || ', ' || state.stusps,
         cd.namelsad,
         cd.namelsad,
@@ -147,20 +132,6 @@ INSERT INTO tiger2022.census_name_lookup
         cd.geom
     FROM tiger2022.cd LEFT OUTER JOIN acs2021_5yr.b01003 ON (('50000US' || cd.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp)
     WHERE state.geoid NOT IN ('60', '66', '69', '78');
-INSERT INTO tiger2022.census_name_lookup
-    SELECT
-        csa.namelsad,
-        csa.name,
-        csa.name,
-        '330',
-        csa.geoid,
-        '33000US' || csa.geoid,
-        80,
-        b01003.b01003001,
-        csa.aland,
-        csa.awater,
-        csa.geom
-    FROM tiger2022.csa LEFT OUTER JOIN acs2021_5yr.b01003 ON (('33000US' || csa.geoid) = b01003.geoid);
 INSERT INTO tiger2022.census_name_lookup
     SELECT
         elsd.name || ', ' || state.stusps,
@@ -276,20 +247,6 @@ INSERT INTO tiger2022.census_name_lookup
 
 INSERT INTO tiger2022.census_name_lookup
     SELECT
-        cnecta.namelsad,
-        cnecta.namelsad,
-        cnecta.namelsad,
-        '335',
-        cnecta.geoid,
-        '33500US' || cnecta.geoid,
-        190,
-        b01003.b01003001,
-        cnecta.aland,
-        cnecta.awater,
-        cnecta.geom
-    FROM tiger2022.cnecta LEFT OUTER JOIN acs2021_5yr.b01003 ON (('33500US' || cnecta.geoid) = b01003.geoid);
-INSERT INTO tiger2022.census_name_lookup
-    SELECT
         concity.namelsad || ', ' || state.stusps,
         concity.namelsad,
         concity.name || ' ' || state.stusps,
@@ -302,48 +259,6 @@ INSERT INTO tiger2022.census_name_lookup
         concity.awater,
         concity.geom
     FROM tiger2022.concity LEFT OUTER JOIN acs2021_5yr.b01003 ON (('17000US' || concity.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp);
-INSERT INTO tiger2022.census_name_lookup
-    SELECT
-        metdiv.namelsad,
-        metdiv.namelsad,
-        metdiv.name,
-        '314',
-        metdiv.geoid,
-        '31400US' || metdiv.geoid,
-        200,
-        b01003.b01003001,
-        metdiv.aland,
-        metdiv.awater,
-        metdiv.geom
-    FROM tiger2022.metdiv LEFT OUTER JOIN acs2021_5yr.b01003 ON (('31400US' || metdiv.geoid) = b01003.geoid);
-INSERT INTO tiger2022.census_name_lookup
-    SELECT
-        necta.namelsad,
-        necta.namelsad,
-        necta.name,
-        '350',
-        necta.geoid,
-        '35000US' || necta.geoid,
-        210,
-        b01003.b01003001,
-        necta.aland,
-        necta.awater,
-        necta.geom
-    FROM tiger2022.necta LEFT OUTER JOIN acs2021_5yr.b01003 ON (('35000US' || necta.geoid) = b01003.geoid);
-INSERT INTO tiger2022.census_name_lookup
-    SELECT
-        nectadiv.namelsad,
-        nectadiv.namelsad,
-        nectadiv.name,
-        '355',
-        nectadiv.geoid,
-        '35500US' || nectadiv.geoid,
-        220,
-        b01003.b01003001,
-        nectadiv.aland,
-        nectadiv.awater,
-        nectadiv.geom
-    FROM tiger2022.nectadiv LEFT OUTER JOIN acs2021_5yr.b01003 ON (('35500US' || nectadiv.geoid) = b01003.geoid);
 INSERT INTO tiger2022.census_name_lookup
     SELECT
         tbg.namelsad,
@@ -717,21 +632,6 @@ INSERT INTO tiger2022.census_geo_containment (
         child_geoid ASC,
         ST_Area(ST_Intersection(zcta520.geom,state.geom)) DESC
 );
--- CSAs (330) in States (040)
-INSERT INTO tiger2022.census_geo_containment (
-    SELECT
-        '33000US' || csa.geoid AS child_geoid,
-        '04000US' || state.geoid AS parent_geoid,
-        ST_Area(ST_Intersection(csa.geom,state.geom))/ST_Area(csa.geom)*100 as percent_covered
-    FROM tiger2022.csa
-    JOIN tiger2022.state ON ST_Intersects(csa.geom, state.geom)
-    WHERE
-        ST_IsValid(csa.geom) AND
-        ST_Area(ST_Intersection(csa.geom,state.geom))/ST_Area(csa.geom) > 0
-    ORDER BY
-        child_geoid ASC,
-        ST_Area(ST_Intersection(csa.geom,state.geom)) DESC
-);
 -- Tracts (140) in Places (160)
 INSERT INTO tiger2022.census_geo_containment (
     SELECT
@@ -761,21 +661,6 @@ INSERT INTO tiger2022.census_geo_containment (
     ORDER BY
         child_geoid ASC,
         ST_Area(ST_Intersection(bg.geom,place.geom)) DESC
-);
--- NECTAs (350) in States (040)
-INSERT INTO tiger2022.census_geo_containment (
-    SELECT
-        '35000US' || necta.geoid AS child_geoid,
-        '04000US' || state.geoid AS parent_geoid,
-        ST_Area(ST_Intersection(necta.geom,state.geom))/ST_Area(necta.geom)*100 as percent_covered
-    FROM tiger2022.necta
-    JOIN tiger2022.state ON ST_Intersects(necta.geom, state.geom)
-    WHERE
-        ST_IsValid(necta.geom) AND
-        ST_Area(ST_Intersection(necta.geom,state.geom))/ST_Area(necta.geom) > 0
-    ORDER BY
-        child_geoid ASC,
-        ST_Area(ST_Intersection(necta.geom,state.geom)) DESC
 );
 
 CREATE INDEX census_geo_containment_idx_child_geoid ON tiger2022.census_geo_containment (child_geoid);
