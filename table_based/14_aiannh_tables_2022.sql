@@ -91,7 +91,7 @@ INSERT INTO tiger2022.census_name_lookup
            aiannh250.awater AS awater,
            aiannh250.geom AS geom
     FROM tiger2022.aiannh250
-    LEFT OUTER JOIN acs2020_5yr.b01003
+    LEFT OUTER JOIN acs2021_5yr.b01003
     ON ('25000US' || aiannh250.geoid) = b01003.geoid;
 
 -- Add the 251 sumlevel entries
@@ -108,7 +108,7 @@ INSERT INTO tiger2022.census_name_lookup
         aitsn.aland,
         aitsn.awater,
         aitsn.geom
-    FROM tiger2022.aitsn LEFT OUTER JOIN acs2020_5yr.b01003 ON (('25100US' || aitsn.geoid) = b01003.geoid);
+    FROM tiger2022.aitsn LEFT OUTER JOIN acs2021_5yr.b01003 ON (('25100US' || aitsn.geoid) = b01003.geoid);
 
 
 -- Add the 252 sumlevel entries
@@ -125,7 +125,7 @@ INSERT INTO tiger2022.census_name_lookup
            aiannh252.awater AS awater,
            aiannh252.geom AS geom
     FROM tiger2022.aiannh252
-    LEFT OUTER JOIN acs2020_5yr.b01003
+    LEFT OUTER JOIN acs2021_5yr.b01003
     ON ('25200US' || aiannh252.geoid) = b01003.geoid;
 
 -- Add the 254 sumlevel entries
@@ -142,5 +142,5 @@ INSERT INTO tiger2022.census_name_lookup
            aiannh254.awater AS awater,
            aiannh254.geom AS geom
     FROM tiger2022.aiannh254
-    LEFT OUTER JOIN acs2020_5yr.b01003
+    LEFT OUTER JOIN acs2021_5yr.b01003
     ON ('25400US' || aiannh254.geoid) = b01003.geoid;
