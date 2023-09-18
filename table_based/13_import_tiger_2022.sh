@@ -25,7 +25,8 @@ do
     one_shapefile=`ls -a $i/*.shp | head -n 1`
 
     # Start by preparing the table
-    shp2pgsql -W "utf8" -s 4326 -p -I $one_shapefile tiger2022.$tablename | psql -v ON_ERROR_STOP=1 -q
+    # Piping through sed is a workaround for shp2pgsql generating invalid SQL for varchar(0) columns
+    shp2pgsql -W "utf8" -s 4326 -p -I $one_shapefile tiger2022.$tablename | sed --expression='s/varchar(0)/varchar/g' | psql -v ON_ERROR_STOP=1 -q
 
     if [ $? -ne 0 ]
     then
