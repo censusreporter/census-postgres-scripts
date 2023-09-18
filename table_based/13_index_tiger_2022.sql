@@ -162,18 +162,18 @@ INSERT INTO tiger2022.census_name_lookup
     FROM tiger2022.scsd LEFT OUTER JOIN acs2021_5yr.b01003 ON (('96000US' || scsd.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp);
 INSERT INTO tiger2022.census_name_lookup
     SELECT
-        puma.namelsad10 || ', ' || state.stusps,
-        puma.namelsad10,
-        puma.namelsad10,
+        puma.namelsad20 || ', ' || state.stusps,
+        puma.namelsad20,
+        puma.namelsad20,
         '795',
         puma.geoid20,
         '79500US' || puma.geoid20,
         110,
         b01003.b01003001,
-        puma.aland10,
-        puma.awater10,
+        puma.aland20,
+        puma.awater20,
         puma.geom
-    FROM tiger2022.puma LEFT OUTER JOIN acs2021_5yr.b01003 ON (('79500US' || puma.geoid20) = b01003.geoid) JOIN tiger2022.state ON (puma.statefp10=state.statefp)
+    FROM tiger2022.puma LEFT OUTER JOIN acs2021_5yr.b01003 ON (('79500US' || puma.geoid20) = b01003.geoid) JOIN tiger2022.state ON (puma.statefp20=state.statefp)
     WHERE statefp NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2022.census_name_lookup
     SELECT
