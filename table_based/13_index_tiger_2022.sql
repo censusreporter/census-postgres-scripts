@@ -166,14 +166,14 @@ INSERT INTO tiger2022.census_name_lookup
         puma.namelsad10,
         puma.namelsad10,
         '795',
-        puma.geoid10,
-        '79500US' || puma.geoid10,
+        puma.geoid20,
+        '79500US' || puma.geoid20,
         110,
         b01003.b01003001,
         puma.aland10,
         puma.awater10,
         puma.geom
-    FROM tiger2022.puma LEFT OUTER JOIN acs2021_5yr.b01003 ON (('79500US' || puma.geoid10) = b01003.geoid) JOIN tiger2022.state ON (puma.statefp10=state.statefp)
+    FROM tiger2022.puma LEFT OUTER JOIN acs2021_5yr.b01003 ON (('79500US' || puma.geoid20) = b01003.geoid) JOIN tiger2022.state ON (puma.statefp10=state.statefp)
     WHERE statefp NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2022.census_name_lookup
     SELECT
