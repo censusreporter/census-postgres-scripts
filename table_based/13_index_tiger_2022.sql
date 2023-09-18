@@ -61,7 +61,7 @@ INSERT INTO tiger2022.census_name_lookup
         state.aland,
         state.awater,
         state.geom
-    FROM tiger2022.state LEFT OUTER JOIN acs2020_5yr.b01003 ON (('04000US' || state.geoid) = b01003.geoid)
+    FROM tiger2022.state LEFT OUTER JOIN acs2021_5yr.b01003 ON (('04000US' || state.geoid) = b01003.geoid)
     WHERE state.geoid NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2022.census_name_lookup
     SELECT
@@ -76,7 +76,7 @@ INSERT INTO tiger2022.census_name_lookup
         place.aland,
         place.awater,
         place.geom
-    FROM tiger2022.place LEFT OUTER JOIN acs2020_5yr.b01003 ON (('16000US' || place.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp)
+    FROM tiger2022.place LEFT OUTER JOIN acs2021_5yr.b01003 ON (('16000US' || place.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp)
     WHERE state.geoid NOT IN ('60', '66', '69', '78');
 
 INSERT INTO tiger2022.census_name_lookup
@@ -92,7 +92,7 @@ INSERT INTO tiger2022.census_name_lookup
         county.aland,
         county.awater,
         county.geom
-    FROM tiger2022.county LEFT OUTER JOIN acs2020_5yr.b01003 ON (('05000US' || county.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp)
+    FROM tiger2022.county LEFT OUTER JOIN acs2021_5yr.b01003 ON (('05000US' || county.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp)
     WHERE state.geoid NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2022.census_name_lookup
     SELECT
@@ -107,7 +107,7 @@ INSERT INTO tiger2022.census_name_lookup
         cousub.aland,
         cousub.awater,
         cousub.geom
-    FROM tiger2022.cousub LEFT OUTER JOIN acs2020_5yr.b01003 ON (('06000US' || cousub.geoid) = b01003.geoid) JOIN tiger2022.county USING (statefp, countyfp) JOIN tiger2022.state USING (statefp)
+    FROM tiger2022.cousub LEFT OUTER JOIN acs2021_5yr.b01003 ON (('06000US' || cousub.geoid) = b01003.geoid) JOIN tiger2022.county USING (statefp, countyfp) JOIN tiger2022.state USING (statefp)
     WHERE state.geoid NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2022.census_name_lookup
     SELECT
@@ -122,7 +122,7 @@ INSERT INTO tiger2022.census_name_lookup
         zcta520.aland20,
         zcta520.awater20,
         zcta520.geom
-    FROM tiger2022.zcta520 LEFT OUTER JOIN acs2020_5yr.b01003 ON (('86000US' || zcta520.geoid20) = b01003.geoid);
+    FROM tiger2022.zcta520 LEFT OUTER JOIN acs2021_5yr.b01003 ON (('86000US' || zcta520.geoid20) = b01003.geoid);
 INSERT INTO tiger2022.census_name_lookup
     SELECT
         cbsa.namelsad,
@@ -136,7 +136,7 @@ INSERT INTO tiger2022.census_name_lookup
         cbsa.aland,
         cbsa.awater,
         cbsa.geom
-    FROM tiger2022.cbsa LEFT OUTER JOIN acs2020_5yr.b01003 ON (('31000US' || cbsa.geoid) = b01003.geoid);
+    FROM tiger2022.cbsa LEFT OUTER JOIN acs2021_5yr.b01003 ON (('31000US' || cbsa.geoid) = b01003.geoid);
 INSERT INTO tiger2022.census_name_lookup
     SELECT
         cd.namelsad || ', ' || state.stusps,
@@ -150,7 +150,7 @@ INSERT INTO tiger2022.census_name_lookup
         cd.aland,
         cd.awater,
         cd.geom
-    FROM tiger2022.cd LEFT OUTER JOIN acs2020_5yr.b01003 ON (('50000US' || cd.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp)
+    FROM tiger2022.cd LEFT OUTER JOIN acs2021_5yr.b01003 ON (('50000US' || cd.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp)
     WHERE state.geoid NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2022.census_name_lookup
     SELECT
@@ -165,7 +165,7 @@ INSERT INTO tiger2022.census_name_lookup
         csa.aland,
         csa.awater,
         csa.geom
-    FROM tiger2022.csa LEFT OUTER JOIN acs2020_5yr.b01003 ON (('33000US' || csa.geoid) = b01003.geoid);
+    FROM tiger2022.csa LEFT OUTER JOIN acs2021_5yr.b01003 ON (('33000US' || csa.geoid) = b01003.geoid);
 INSERT INTO tiger2022.census_name_lookup
     SELECT
         elsd.name || ', ' || state.stusps,
@@ -179,7 +179,7 @@ INSERT INTO tiger2022.census_name_lookup
         elsd.aland,
         elsd.awater,
         elsd.geom
-    FROM tiger2022.elsd LEFT OUTER JOIN acs2020_5yr.b01003 ON (('95000US' || elsd.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp);
+    FROM tiger2022.elsd LEFT OUTER JOIN acs2021_5yr.b01003 ON (('95000US' || elsd.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp);
 INSERT INTO tiger2022.census_name_lookup
     SELECT
         scsd.name || ', ' || state.stusps,
@@ -193,7 +193,7 @@ INSERT INTO tiger2022.census_name_lookup
         scsd.aland,
         scsd.awater,
         scsd.geom
-    FROM tiger2022.scsd LEFT OUTER JOIN acs2020_5yr.b01003 ON (('96000US' || scsd.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp);
+    FROM tiger2022.scsd LEFT OUTER JOIN acs2021_5yr.b01003 ON (('96000US' || scsd.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp);
 INSERT INTO tiger2022.census_name_lookup
     SELECT
         puma.namelsad10 || ', ' || state.stusps,
@@ -207,7 +207,7 @@ INSERT INTO tiger2022.census_name_lookup
         puma.aland10,
         puma.awater10,
         puma.geom
-    FROM tiger2022.puma LEFT OUTER JOIN acs2020_5yr.b01003 ON (('79500US' || puma.geoid10) = b01003.geoid) JOIN tiger2022.state ON (puma.statefp10=state.statefp)
+    FROM tiger2022.puma LEFT OUTER JOIN acs2021_5yr.b01003 ON (('79500US' || puma.geoid10) = b01003.geoid) JOIN tiger2022.state ON (puma.statefp10=state.statefp)
     WHERE statefp NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2022.census_name_lookup
     SELECT
@@ -222,7 +222,7 @@ INSERT INTO tiger2022.census_name_lookup
         sldl.aland,
         sldl.awater,
         sldl.geom
-    FROM tiger2022.sldl LEFT OUTER JOIN acs2020_5yr.b01003 ON (('62000US' || sldl.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp);
+    FROM tiger2022.sldl LEFT OUTER JOIN acs2021_5yr.b01003 ON (('62000US' || sldl.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp);
 INSERT INTO tiger2022.census_name_lookup
     SELECT
         sldu.namelsad || ', ' || state.stusps,
@@ -236,7 +236,7 @@ INSERT INTO tiger2022.census_name_lookup
         sldu.aland,
         sldu.awater,
         sldu.geom
-    FROM tiger2022.sldu LEFT OUTER JOIN acs2020_5yr.b01003 ON (('61000US' || sldu.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp);
+    FROM tiger2022.sldu LEFT OUTER JOIN acs2021_5yr.b01003 ON (('61000US' || sldu.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp);
 
 -- skip AIAN levels 250 and 251
 -- The TIGER AIANNH shapefile conflates sumlevels 252 and 254
@@ -257,7 +257,7 @@ INSERT INTO tiger2022.census_name_lookup
         anrc.aland,
         anrc.awater,
         anrc.geom
-    FROM tiger2022.anrc LEFT OUTER JOIN acs2020_5yr.b01003 ON (('23000US' || anrc.geoid) = b01003.geoid);
+    FROM tiger2022.anrc LEFT OUTER JOIN acs2021_5yr.b01003 ON (('23000US' || anrc.geoid) = b01003.geoid);
 INSERT INTO tiger2022.census_name_lookup
     SELECT
         'BG ' || bg.blkgrpce  || ', Tract ' || tract.name || ', ' || county.name || ', ' || state.stusps,
@@ -272,7 +272,7 @@ INSERT INTO tiger2022.census_name_lookup
         bg.awater,
         bg.geom
     FROM tiger2022.bg
-    LEFT OUTER JOIN acs2020_5yr.b01003 ON (('15000US' || bg.geoid) = b01003.geoid)
+    LEFT OUTER JOIN acs2021_5yr.b01003 ON (('15000US' || bg.geoid) = b01003.geoid)
     JOIN tiger2022.county USING (statefp, countyfp)
     JOIN tiger2022.state USING (statefp)
     JOIN tiger2022.tract USING (statefp, countyfp, tractce)
@@ -292,7 +292,7 @@ INSERT INTO tiger2022.census_name_lookup
         cnecta.aland,
         cnecta.awater,
         cnecta.geom
-    FROM tiger2022.cnecta LEFT OUTER JOIN acs2020_5yr.b01003 ON (('33500US' || cnecta.geoid) = b01003.geoid);
+    FROM tiger2022.cnecta LEFT OUTER JOIN acs2021_5yr.b01003 ON (('33500US' || cnecta.geoid) = b01003.geoid);
 INSERT INTO tiger2022.census_name_lookup
     SELECT
         concity.namelsad || ', ' || state.stusps,
@@ -306,7 +306,7 @@ INSERT INTO tiger2022.census_name_lookup
         concity.aland,
         concity.awater,
         concity.geom
-    FROM tiger2022.concity LEFT OUTER JOIN acs2020_5yr.b01003 ON (('17000US' || concity.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp);
+    FROM tiger2022.concity LEFT OUTER JOIN acs2021_5yr.b01003 ON (('17000US' || concity.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp);
 INSERT INTO tiger2022.census_name_lookup
     SELECT
         metdiv.namelsad,
@@ -320,7 +320,7 @@ INSERT INTO tiger2022.census_name_lookup
         metdiv.aland,
         metdiv.awater,
         metdiv.geom
-    FROM tiger2022.metdiv LEFT OUTER JOIN acs2020_5yr.b01003 ON (('31400US' || metdiv.geoid) = b01003.geoid);
+    FROM tiger2022.metdiv LEFT OUTER JOIN acs2021_5yr.b01003 ON (('31400US' || metdiv.geoid) = b01003.geoid);
 INSERT INTO tiger2022.census_name_lookup
     SELECT
         necta.namelsad,
@@ -334,7 +334,7 @@ INSERT INTO tiger2022.census_name_lookup
         necta.aland,
         necta.awater,
         necta.geom
-    FROM tiger2022.necta LEFT OUTER JOIN acs2020_5yr.b01003 ON (('35000US' || necta.geoid) = b01003.geoid);
+    FROM tiger2022.necta LEFT OUTER JOIN acs2021_5yr.b01003 ON (('35000US' || necta.geoid) = b01003.geoid);
 INSERT INTO tiger2022.census_name_lookup
     SELECT
         nectadiv.namelsad,
@@ -348,7 +348,7 @@ INSERT INTO tiger2022.census_name_lookup
         nectadiv.aland,
         nectadiv.awater,
         nectadiv.geom
-    FROM tiger2022.nectadiv LEFT OUTER JOIN acs2020_5yr.b01003 ON (('35500US' || nectadiv.geoid) = b01003.geoid);
+    FROM tiger2022.nectadiv LEFT OUTER JOIN acs2021_5yr.b01003 ON (('35500US' || nectadiv.geoid) = b01003.geoid);
 INSERT INTO tiger2022.census_name_lookup
     SELECT
         tbg.namelsad,
@@ -362,7 +362,7 @@ INSERT INTO tiger2022.census_name_lookup
         tbg.aland,
         tbg.awater,
         tbg.geom
-    FROM tiger2022.tbg LEFT OUTER JOIN acs2020_5yr.b01003 ON (('25800US' || tbg.geoid) = b01003.geoid);
+    FROM tiger2022.tbg LEFT OUTER JOIN acs2021_5yr.b01003 ON (('25800US' || tbg.geoid) = b01003.geoid);
 INSERT INTO tiger2022.census_name_lookup
     SELECT
         ttract.namelsad,
@@ -376,7 +376,7 @@ INSERT INTO tiger2022.census_name_lookup
         ttract.aland,
         ttract.awater,
         ttract.geom
-    FROM tiger2022.ttract LEFT OUTER JOIN acs2020_5yr.b01003 ON (('25600US' || ttract.geoid) = b01003.geoid);
+    FROM tiger2022.ttract LEFT OUTER JOIN acs2021_5yr.b01003 ON (('25600US' || ttract.geoid) = b01003.geoid);
 INSERT INTO tiger2022.census_name_lookup
     SELECT
         tract.namelsad || ', ' || county.name || ', ' || state.stusps,
@@ -390,7 +390,7 @@ INSERT INTO tiger2022.census_name_lookup
         tract.aland,
         tract.awater,
         tract.geom
-    FROM tiger2022.tract LEFT OUTER JOIN acs2020_5yr.b01003 ON (('14000US' || tract.geoid) = b01003.geoid) JOIN tiger2022.county USING (statefp, countyfp) JOIN tiger2022.state USING (statefp)
+    FROM tiger2022.tract LEFT OUTER JOIN acs2021_5yr.b01003 ON (('14000US' || tract.geoid) = b01003.geoid) JOIN tiger2022.county USING (statefp, countyfp) JOIN tiger2022.state USING (statefp)
     WHERE statefp NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2022.census_name_lookup
     SELECT
@@ -405,7 +405,7 @@ INSERT INTO tiger2022.census_name_lookup
         uac.aland10,
         uac.awater10,
         uac.geom
-    FROM tiger2022.uac LEFT OUTER JOIN acs2020_5yr.b01003 ON (('40000US' || uac.geoid10) = b01003.geoid)
+    FROM tiger2022.uac LEFT OUTER JOIN acs2021_5yr.b01003 ON (('40000US' || uac.geoid10) = b01003.geoid)
     WHERE RIGHT(uac.name10,2) not IN ('AS','MP','GU','VI');
 INSERT INTO tiger2022.census_name_lookup
     SELECT
@@ -420,7 +420,7 @@ INSERT INTO tiger2022.census_name_lookup
         unsd.aland,
         unsd.awater,
         unsd.geom
-    FROM tiger2022.unsd LEFT OUTER JOIN acs2020_5yr.b01003 ON (('97000US' || unsd.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp)
+    FROM tiger2022.unsd LEFT OUTER JOIN acs2021_5yr.b01003 ON (('97000US' || unsd.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp)
     WHERE statefp NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2022.census_name_lookup
     SELECT
@@ -431,7 +431,7 @@ INSERT INTO tiger2022.census_name_lookup
         '',
         '01000US',
         5,
-        (SELECT b01003.b01003001 FROM acs2020_5yr.b01003 WHERE geoid='01000US'),
+        (SELECT b01003.b01003001 FROM acs2021_5yr.b01003 WHERE geoid='01000US'),
         (SELECT SUM(aland) FROM tiger2022.state),
         (SELECT SUM(awater) FROM tiger2022.state),
         (SELECT ST_Simplify(ST_Union(geom), 0.01) FROM tiger2022.state);
@@ -447,7 +447,7 @@ INSERT INTO tiger2022.census_name_lookup
         '',
         '03000US1',
         310,
-        (SELECT b01003.b01003001 FROM acs2020_5yr.b01003 WHERE geoid = '03000US1'),
+        (SELECT b01003.b01003001 FROM acs2021_5yr.b01003 WHERE geoid = '03000US1'),
         (SELECT SUM(aland) FROM tiger2022.state WHERE division='1'),
         (SELECT SUM(awater) FROM tiger2022.state WHERE division='1'),
         (SELECT ST_Union(geom) FROM tiger2022.census_name_lookup WHERE full_geoid IN ('04000US09', '04000US23', '04000US25', '04000US33', '04000US44', '04000US50'));
@@ -461,7 +461,7 @@ INSERT INTO tiger2022.census_name_lookup
         '',
         '03000US2',
         310,
-        (SELECT b01003.b01003001 FROM acs2020_5yr.b01003 WHERE geoid = '03000US2'),
+        (SELECT b01003.b01003001 FROM acs2021_5yr.b01003 WHERE geoid = '03000US2'),
         (SELECT SUM(aland) FROM tiger2022.state WHERE division='2'),
         (SELECT SUM(awater) FROM tiger2022.state WHERE division='2'),
         (SELECT ST_Multi(ST_Union(geom)) FROM tiger2022.census_name_lookup WHERE full_geoid IN ('04000US34', '04000US36', '04000US42'));
@@ -475,7 +475,7 @@ INSERT INTO tiger2022.census_name_lookup
         '',
         '03000US3',
         310,
-        (SELECT b01003.b01003001 FROM acs2020_5yr.b01003 WHERE geoid = '03000US3'),
+        (SELECT b01003.b01003001 FROM acs2021_5yr.b01003 WHERE geoid = '03000US3'),
         (SELECT SUM(aland) FROM tiger2022.state WHERE division='3'),
         (SELECT SUM(awater) FROM tiger2022.state WHERE division='3'),
         (SELECT ST_Multi(ST_Union(geom)) FROM tiger2022.census_name_lookup WHERE full_geoid IN ('04000US17', '04000US18', '04000US26', '04000US39', '04000US55'));
@@ -489,7 +489,7 @@ INSERT INTO tiger2022.census_name_lookup
         '',
         '03000US4',
         310,
-        (SELECT b01003.b01003001 FROM acs2020_5yr.b01003 WHERE geoid = '03000US4'),
+        (SELECT b01003.b01003001 FROM acs2021_5yr.b01003 WHERE geoid = '03000US4'),
         (SELECT SUM(aland) FROM tiger2022.state WHERE division='4'),
         (SELECT SUM(awater) FROM tiger2022.state WHERE division='4'),
         (SELECT ST_Multi(ST_Union(geom)) FROM tiger2022.census_name_lookup WHERE full_geoid IN ('04000US19', '04000US20', '04000US27', '04000US29', '04000US31', '04000US38', '04000US46'));
@@ -503,7 +503,7 @@ INSERT INTO tiger2022.census_name_lookup
         '',
         '03000US5',
         310,
-        (SELECT b01003.b01003001 FROM acs2020_5yr.b01003 WHERE geoid = '03000US5'),
+        (SELECT b01003.b01003001 FROM acs2021_5yr.b01003 WHERE geoid = '03000US5'),
         (SELECT SUM(aland) FROM tiger2022.state WHERE division='5'),
         (SELECT SUM(awater) FROM tiger2022.state WHERE division='5'),
         (SELECT ST_Multi(ST_Union(geom)) FROM tiger2022.census_name_lookup WHERE full_geoid IN ('04000US10', '04000US11', '04000US12', '04000US13', '04000US24', '04000US37', '04000US45', '04000US51', '04000US54'));
@@ -517,7 +517,7 @@ INSERT INTO tiger2022.census_name_lookup
         '',
         '03000US6',
         310,
-        (SELECT b01003.b01003001 FROM acs2020_5yr.b01003 WHERE geoid = '03000US6'),
+        (SELECT b01003.b01003001 FROM acs2021_5yr.b01003 WHERE geoid = '03000US6'),
         (SELECT SUM(aland) FROM tiger2022.state WHERE division='6'),
         (SELECT SUM(awater) FROM tiger2022.state WHERE division='6'),
         (SELECT ST_Multi(ST_Union(geom)) FROM tiger2022.census_name_lookup WHERE full_geoid IN ('04000US01', '04000US21', '04000US28', '04000US47'));
@@ -531,7 +531,7 @@ INSERT INTO tiger2022.census_name_lookup
         '',
         '03000US7',
         310,
-        (SELECT b01003.b01003001 FROM acs2020_5yr.b01003 WHERE geoid = '03000US7'),
+        (SELECT b01003.b01003001 FROM acs2021_5yr.b01003 WHERE geoid = '03000US7'),
         (SELECT SUM(aland) FROM tiger2022.state WHERE division='7'),
         (SELECT SUM(awater) FROM tiger2022.state WHERE division='7'),
         (SELECT ST_Multi(ST_Union(geom)) FROM tiger2022.census_name_lookup WHERE full_geoid IN ('04000US05', '04000US22', '04000US40', '04000US48'));
@@ -545,7 +545,7 @@ INSERT INTO tiger2022.census_name_lookup
         '',
         '03000US8',
         310,
-        (SELECT b01003.b01003001 FROM acs2020_5yr.b01003 WHERE geoid = '03000US8'),
+        (SELECT b01003.b01003001 FROM acs2021_5yr.b01003 WHERE geoid = '03000US8'),
         (SELECT SUM(aland) FROM tiger2022.state WHERE division='8'),
         (SELECT SUM(awater) FROM tiger2022.state WHERE division='8'),
         (SELECT ST_Multi(ST_Union(geom)) FROM tiger2022.census_name_lookup WHERE full_geoid IN ('04000US04', '04000US08', '04000US16', '04000US35', '04000US30', '04000US49', '04000US32', '04000US56'));
@@ -559,7 +559,7 @@ INSERT INTO tiger2022.census_name_lookup
         '',
         '03000US9',
         310,
-        (SELECT b01003.b01003001 FROM acs2020_5yr.b01003 WHERE geoid = '03000US9'),
+        (SELECT b01003.b01003001 FROM acs2021_5yr.b01003 WHERE geoid = '03000US9'),
         (SELECT SUM(aland) FROM tiger2022.state WHERE division='9'),
         (SELECT SUM(awater) FROM tiger2022.state WHERE division='9'),
         (SELECT ST_Multi(ST_Union(geom)) FROM tiger2022.census_name_lookup WHERE full_geoid IN ('04000US02', '04000US06', '04000US15', '04000US41', '04000US53'));
@@ -575,7 +575,7 @@ INSERT INTO tiger2022.census_name_lookup
         '',
         '02000US1',
         320,
-        (SELECT b01003.b01003001 FROM acs2020_5yr.b01003 WHERE geoid = '02000US1'),
+        (SELECT b01003.b01003001 FROM acs2021_5yr.b01003 WHERE geoid = '02000US1'),
         (SELECT SUM(aland) FROM tiger2022.state WHERE region='1'),
         (SELECT SUM(awater) FROM tiger2022.state WHERE region='1'),
         (SELECT ST_Multi(ST_Union(geom)) FROM tiger2022.census_name_lookup WHERE full_geoid IN ('03000US1', '03000US2'));
@@ -589,7 +589,7 @@ INSERT INTO tiger2022.census_name_lookup
         '',
         '02000US2',
         320,
-        (SELECT b01003.b01003001 FROM acs2020_5yr.b01003 WHERE geoid = '02000US2'),
+        (SELECT b01003.b01003001 FROM acs2021_5yr.b01003 WHERE geoid = '02000US2'),
         (SELECT SUM(aland) FROM tiger2022.state WHERE region='2'),
         (SELECT SUM(awater) FROM tiger2022.state WHERE region='2'),
         (SELECT ST_Multi(ST_Union(geom)) FROM tiger2022.census_name_lookup WHERE full_geoid IN ('03000US3', '03000US4'));
@@ -603,7 +603,7 @@ INSERT INTO tiger2022.census_name_lookup
         '',
         '02000US3',
         320,
-        (SELECT b01003.b01003001 FROM acs2020_5yr.b01003 WHERE geoid = '02000US3'),
+        (SELECT b01003.b01003001 FROM acs2021_5yr.b01003 WHERE geoid = '02000US3'),
         (SELECT SUM(aland) FROM tiger2022.state WHERE region='3'),
         (SELECT SUM(awater) FROM tiger2022.state WHERE region='3'),
         (SELECT ST_Multi(ST_Union(geom)) FROM tiger2022.census_name_lookup WHERE full_geoid IN ('03000US5', '03000US6', '03000US7'));
@@ -617,7 +617,7 @@ INSERT INTO tiger2022.census_name_lookup
         '',
         '02000US4',
         320,
-        (SELECT b01003.b01003001 FROM acs2020_5yr.b01003 WHERE geoid = '02000US4'),
+        (SELECT b01003.b01003001 FROM acs2021_5yr.b01003 WHERE geoid = '02000US4'),
         (SELECT SUM(aland) FROM tiger2022.state WHERE region='4'),
         (SELECT SUM(awater) FROM tiger2022.state WHERE region='4'),
         (SELECT ST_Multi(ST_Union(geom)) FROM tiger2022.census_name_lookup WHERE full_geoid IN ('03000US8', '03000US9'));
