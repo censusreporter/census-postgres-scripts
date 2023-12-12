@@ -1,5 +1,5 @@
 #!/bin/bash
-DATA_DIR=/home/ubuntu/data/acs2022_5yr_tables
+DATA_DIR=/home/ubuntu/data/acs2022_5yr
 mkdir -p $DATA_DIR
 cd $DATA_DIR
 
