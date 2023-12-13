@@ -117,6 +117,7 @@ INSERT INTO tiger2022.census_name_lookup
         zcta520.awater20,
         zcta520.geom
     FROM tiger2022.zcta520 LEFT OUTER JOIN acs2021_5yr.b01003 ON (('86000US' || zcta520.geoid20) = b01003.geoid);
+
 INSERT INTO tiger2022.census_name_lookup
     SELECT
         cd.namelsad || ', ' || state.stusps,
@@ -132,6 +133,20 @@ INSERT INTO tiger2022.census_name_lookup
         cd.geom
     FROM tiger2022.cd LEFT OUTER JOIN acs2021_5yr.b01003 ON (('50000US' || cd.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp)
     WHERE state.geoid NOT IN ('60', '66', '69', '78');
+INSERT INTO tiger2022.census_name_lookup
+    SELECT
+        csa.namelsad,
+        csa.name,
+        csa.name,
+        '330',
+        csa.geoid,
+        '33000US' || csa.geoid,
+        80,
+        b01003.b01003001,
+        csa.aland,
+        csa.awater,
+        csa.geom
+    FROM tiger2021.csa LEFT OUTER JOIN acs2021_5yr.b01003 ON (('33000US' || csa.geoid) = b01003.geoid);
 INSERT INTO tiger2022.census_name_lookup
     SELECT
         elsd.name || ', ' || state.stusps,
@@ -259,6 +274,20 @@ INSERT INTO tiger2022.census_name_lookup
         concity.awater,
         concity.geom
     FROM tiger2022.concity LEFT OUTER JOIN acs2021_5yr.b01003 ON (('17000US' || concity.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp);
+INSERT INTO tiger2022.census_name_lookup
+    SELECT
+        metdiv.namelsad,
+        metdiv.namelsad,
+        metdiv.name,
+        '314',
+        metdiv.geoid,
+        '31400US' || metdiv.geoid,
+        200,
+        b01003.b01003001,
+        metdiv.aland,
+        metdiv.awater,
+        metdiv.geom
+    FROM tiger2022.metdiv LEFT OUTER JOIN acs2021_5yr.b01003 ON (('31400US' || metdiv.geoid) = b01003.geoid);
 INSERT INTO tiger2022.census_name_lookup
     SELECT
         tbg.namelsad,
