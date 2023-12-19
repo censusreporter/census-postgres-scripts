@@ -117,6 +117,20 @@ INSERT INTO tiger2022.census_name_lookup
         zcta520.awater20,
         zcta520.geom
     FROM tiger2022.zcta520 LEFT OUTER JOIN acs2021_5yr.b01003 ON (('86000US' || zcta520.geoid20) = b01003.geoid);
+INSERT INTO tiger2022.census_name_lookup
+    SELECT
+        cbsa.namelsad,
+        cbsa.name,
+        cbsa.name,
+        '310',
+        cbsa.geoid,
+        '31000US' || cbsa.geoid,
+        60,
+        b01003.b01003001,
+        cbsa.aland,
+        cbsa.awater,
+        cbsa.geom
+    FROM tiger2022.cbsa LEFT OUTER JOIN acs2021_5yr.b01003 ON (('31000US' || cbsa.geoid) = b01003.geoid);
 
 INSERT INTO tiger2022.census_name_lookup
     SELECT
@@ -146,7 +160,7 @@ INSERT INTO tiger2022.census_name_lookup
         csa.aland,
         csa.awater,
         csa.geom
-    FROM tiger2021.csa LEFT OUTER JOIN acs2021_5yr.b01003 ON (('33000US' || csa.geoid) = b01003.geoid);
+    FROM tiger2022.csa LEFT OUTER JOIN acs2021_5yr.b01003 ON (('33000US' || csa.geoid) = b01003.geoid);
 INSERT INTO tiger2022.census_name_lookup
     SELECT
         elsd.name || ', ' || state.stusps,
