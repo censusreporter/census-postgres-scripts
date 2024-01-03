@@ -347,19 +347,19 @@ INSERT INTO tiger2022.census_name_lookup
     WHERE statefp NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2022.census_name_lookup
     SELECT
-        uac.namelsad10,
-        uac.name10,
-        uac.name10,
+        uac.namelsad20,
+        uac.name20,
+        uac.name20,
         '400',
-        uac.geoid10,
-        '40000US' || uac.geoid10,
+        uac.geoid20,
+        '40000US' || uac.geoid20,
         280,
         b01003.b01003001,
-        uac.aland10,
-        uac.awater10,
+        uac.aland20,
+        uac.awater20,
         uac.geom
-    FROM tiger2022.uac LEFT OUTER JOIN acs2021_5yr.b01003 ON (('40000US' || uac.geoid10) = b01003.geoid)
-    WHERE RIGHT(uac.name10,2) not IN ('AS','MP','GU','VI');
+    FROM tiger2022.uac LEFT OUTER JOIN acs2021_5yr.b01003 ON (('40000US' || uac.geoid20) = b01003.geoid)
+    WHERE RIGHT(uac.name20,2) not IN ('AS','MP','GU','VI');
 INSERT INTO tiger2022.census_name_lookup
     SELECT
         unsd.name || ', ' || state.stusps,
@@ -659,6 +659,36 @@ INSERT INTO tiger2022.census_geo_containment (
     ORDER BY
         child_geoid ASC,
         ST_Area(ST_Intersection(unsd.geom,county.geom)) DESC
+);
+-- Places (160) in CBSA (310)
+INSERT INTO tiger2022.census_geo_containment (
+    SELECT
+        '16000US' || place.geoid AS child_geoid,
+        '31000US' || cbsa.geoid AS parent_geoid,
+        ST_Area(ST_Intersection(place.geom,cbsa.geom))/ST_Area(place.geom)*100 as percent_covered
+    FROM tiger2022.place
+    JOIN tiger2022.cbsa ON ST_Intersects(place.geom, cbsa.geom)
+    WHERE
+        ST_IsValid(place.geom) AND
+        ST_Area(ST_Intersection(place.geom,cbsa.geom))/ST_Area(place.geom) > 0
+    ORDER BY
+        child_geoid ASC,
+        ST_Area(ST_Intersection(place.geom,cbsa.geom)) DESC
+);
+-- ZCTA5s (860) in CBSA (310)
+INSERT INTO tiger2022.census_geo_containment (
+    SELECT
+        '86000US' || zcta520.geoid20 AS child_geoid,
+        '31000US' || cbsa.geoid AS parent_geoid,
+        ST_Area(ST_Intersection(zcta520.geom,cbsa.geom))/ST_Area(zcta520.geom)*100 as percent_covered
+    FROM tiger2022.zcta520
+    JOIN tiger2022.cbsa ON ST_Intersects(zcta520.geom, cbsa.geom)
+    WHERE
+        ST_IsValid(zcta520.geom) AND
+        ST_Area(ST_Intersection(zcta520.geom,cbsa.geom))/ST_Area(zcta520.geom) > 0
+    ORDER BY
+        child_geoid ASC,
+        ST_Area(ST_Intersection(zcta520.geom,cbsa.geom)) DESC
 );
 -- ZCTA5s (860) in States (040)
 INSERT INTO tiger2022.census_geo_containment (
