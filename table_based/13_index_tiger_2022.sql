@@ -134,19 +134,20 @@ INSERT INTO tiger2022.census_name_lookup
 
 INSERT INTO tiger2022.census_name_lookup
     SELECT
-        cd.namelsad || ', ' || state.stusps,
-        cd.namelsad,
-        cd.namelsad,
+        cd.namelsad20 || ', ' || state.stusps,
+        cd.namelsad20,
+        cd.namelsad20,
         '500',
-        cd.geoid,
-        '50000US' || cd.geoid,
+        cd.geoid20,
+        '50000US' || cd.geoid20,
         70,
         b01003.b01003001,
-        cd.aland,
-        cd.awater,
+        cd.aland20,
+        cd.awater20,
         cd.geom
-    FROM tiger2022.cd LEFT OUTER JOIN acs2021_5yr.b01003 ON (('50000US' || cd.geoid) = b01003.geoid) JOIN tiger2022.state USING (statefp)
+    FROM tiger2022.cd LEFT OUTER JOIN acs2021_5yr.b01003 ON (('50000US' || cd.geoid20) = b01003.geoid) JOIN tiger2022.state on cd.statefp20 = state.statefp
     WHERE state.geoid NOT IN ('60', '66', '69', '78');
+
 INSERT INTO tiger2022.census_name_lookup
     SELECT
         csa.namelsad,
@@ -183,7 +184,7 @@ INSERT INTO tiger2022.census_name_lookup
         '960',
         scsd.geoid,
         '96000US' || scsd.geoid,
-        100,
+        90,
         b01003.b01003001,
         scsd.aland,
         scsd.awater,
@@ -261,7 +262,7 @@ INSERT INTO tiger2022.census_name_lookup
         '150',
         bg.geoid,
         '15000US' || bg.geoid,
-        190,
+        120,
         b01003.b01003001,
         bg.aland,
         bg.awater,
@@ -338,7 +339,7 @@ INSERT INTO tiger2022.census_name_lookup
         '140',
         tract.geoid,
         '14000US' || tract.geoid,
-        270,
+        100,
         b01003.b01003001,
         tract.aland,
         tract.awater,
@@ -368,7 +369,7 @@ INSERT INTO tiger2022.census_name_lookup
         '970',
         unsd.geoid,
         '97000US' || unsd.geoid,
-        290,
+        90,
         b01003.b01003001,
         unsd.aland,
         unsd.awater,
