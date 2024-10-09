@@ -10,11 +10,14 @@ wget --recursive --continue --accept=*.zip \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2023/AITSN/ \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2023/ANRC/ \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2023/BG/ \
+    https://census-backup.b-cdn.net/geo/tiger/TIGER2023/CBSA/ \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2023/CD/ \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2023/CONCITY/ \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2023/COUNTY/ \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2023/COUSUB/ \
+    https://census-backup.b-cdn.net/geo/tiger/TIGER2023/CSA/ \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2023/ELSD/ \
+    https://census-backup.b-cdn.net/geo/tiger/TIGER2023/METDIV/ \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2023/PLACE/ \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2023/PUMA/ \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2023/SCSD/ \
