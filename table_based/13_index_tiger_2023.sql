@@ -1,31 +1,32 @@
 -- Change ownership on the TIGER tables
-ALTER TABLE tiger2023.aiannh OWNER TO census;
-ALTER TABLE tiger2023.aitsn OWNER TO census;
-ALTER TABLE tiger2023.anrc OWNER TO census;
-ALTER TABLE tiger2023.bg OWNER TO census;
-ALTER TABLE tiger2023.cbsa OWNER TO census;
-ALTER TABLE tiger2023.cd OWNER TO census;
-ALTER TABLE tiger2023.concity OWNER TO census;
-ALTER TABLE tiger2023.county OWNER TO census;
-ALTER TABLE tiger2023.cousub OWNER TO census;
-ALTER TABLE tiger2023.csa OWNER TO census;
-ALTER TABLE tiger2023.elsd OWNER TO census;
-ALTER TABLE tiger2023.metdiv OWNER TO census;
-ALTER TABLE tiger2023.place OWNER TO census;
-ALTER TABLE tiger2023.puma OWNER TO census;
-ALTER TABLE tiger2023.scsd OWNER TO census;
-ALTER TABLE tiger2023.sldl OWNER TO census;
-ALTER TABLE tiger2023.sldu OWNER TO census;
-ALTER TABLE tiger2023.state OWNER TO census;
-ALTER TABLE tiger2023.tbg OWNER TO census;
-ALTER TABLE tiger2023.tract OWNER TO census;
-ALTER TABLE tiger2023.ttract OWNER TO census;
-ALTER TABLE tiger2023.uac OWNER TO census;
-ALTER TABLE tiger2023.unsd OWNER TO census;
-ALTER TABLE tiger2023.zcta520 OWNER TO census;
+-- Not using 'census' user since we moved to dokku
+-- ALTER TABLE tiger2023.aiannh OWNER TO census;
+-- ALTER TABLE tiger2023.aitsn OWNER TO census;
+-- ALTER TABLE tiger2023.anrc OWNER TO census;
+-- ALTER TABLE tiger2023.bg OWNER TO census;
+-- ALTER TABLE tiger2023.cbsa OWNER TO census;
+-- ALTER TABLE tiger2023.cd OWNER TO census;
+-- ALTER TABLE tiger2023.concity OWNER TO census;
+-- ALTER TABLE tiger2023.county OWNER TO census;
+-- ALTER TABLE tiger2023.cousub OWNER TO census;
+-- ALTER TABLE tiger2023.csa OWNER TO census;
+-- ALTER TABLE tiger2023.elsd OWNER TO census;
+-- ALTER TABLE tiger2023.metdiv OWNER TO census;
+-- ALTER TABLE tiger2023.place OWNER TO census;
+-- ALTER TABLE tiger2023.puma OWNER TO census;
+-- ALTER TABLE tiger2023.scsd OWNER TO census;
+-- ALTER TABLE tiger2023.sldl OWNER TO census;
+-- ALTER TABLE tiger2023.sldu OWNER TO census;
+-- ALTER TABLE tiger2023.state OWNER TO census;
+-- ALTER TABLE tiger2023.tbg OWNER TO census;
+-- ALTER TABLE tiger2023.tract OWNER TO census;
+-- ALTER TABLE tiger2023.ttract OWNER TO census;
+-- ALTER TABLE tiger2023.uac OWNER TO census;
+-- ALTER TABLE tiger2023.unsd OWNER TO census;
+-- ALTER TABLE tiger2023.zcta520 OWNER TO census;
 
 -- OGR needs select on geography_columns to do it's thing
-GRANT SELECT ON geography_columns TO census;
+-- GRANT SELECT ON geography_columns TO census;
 
 BEGIN;
 
