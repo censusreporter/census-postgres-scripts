@@ -2,3 +2,4 @@
 geocontainment_scripts/*bz2
 geocontainment_scripts/*gz
 *.ipynb
+geocontainment_scripts/delineation.xls

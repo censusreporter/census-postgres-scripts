@@ -80,6 +80,7 @@ df = pd.read_excel('delineation.xls', engine='openpyxl', skiprows=2, names=names
 
 to_insert = []
 for index, row in df.iterrows():
+    if pd.isna(row["cbsa_code"]) or not row["cbsa_code"].isdigit(): continue # skip notes
     cbsa = f'31000US{row["cbsa_code"]}'
 
     if not pd.isna(row['csa_code']):
