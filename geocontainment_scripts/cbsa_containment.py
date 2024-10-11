@@ -20,10 +20,11 @@ data pipeline.
 """
 
 import requests
-import xlrd
+import pandas as pd
 
-DELINEATION_URL = 'https://www2.census.gov/programs-surveys/metro-micro/geographies/reference-files/2020/delineation-files/list1_2020.xls'
-SCHEMA_YEAR="2022"
+
+DELINEATION_URL = 'https://www2.census.gov/programs-surveys/metro-micro/geographies/reference-files/2023/delineation-files/list1_2023.xlsx'
+SCHEMA_YEAR="2023"
 SQL_FILE = f"15_cbsa_geocontainment_{SCHEMA_YEAR}.sql"
 FQ_TABLE_NAME = f'tiger{SCHEMA_YEAR}.census_geo_containment'
 
@@ -31,8 +32,22 @@ resp = requests.get(DELINEATION_URL)
 with open('delineation.xls', 'wb') as f:
     f.write(resp.content)
 
-wb = xlrd.open_workbook('delineation.xls')
-sheet = wb.sheet_by_index(0)
+names = [
+    'cbsa_code',
+    'metdiv_code',
+    'csa_code',
+    'cbsa_name',
+    'cbsa_type',
+    'metdiv_name',
+    'csa_name',
+    'county_name',
+    'state_name',
+    'state_fips',
+    'county_fips',
+    'county_type'
+]
+dtypes = dict(zip(names,['object'] * len(names)))
+df = pd.read_excel('delineation.xls', engine='openpyxl', skiprows=2, names=names, dtype=dtypes)
 
 # might like to do
 #   parent 040 state
@@ -50,10 +65,6 @@ sheet = wb.sheet_by_index(0)
 # delete statements immediately below
 #
 
-rows = sheet.get_rows()
-junk = next(rows)  # first two rows are blank
-junk = next(rows)  # first two rows are blank
-headers = next(rows)
 # 0 CBSA Code
 # 1 Metropolitan Division Code
 # 2 CSA Code
@@ -68,23 +79,23 @@ headers = next(rows)
 # 11 Central/Outlying County
 
 to_insert = []
-for row in rows:
-    cbsa = f'31000US{row[0].value}'
+for index, row in df.iterrows():
+    cbsa = f'31000US{row["cbsa_code"]}'
 
-    if row[2].value:
-        csa = f'33000US{row[2].value}'
+    if not pd.isna(row['csa_code']):
+        csa = f'33000US{row["csa_code"]}'
     else:
         csa = ''
 
-    state_fips = row[9].value
-    county_fips = row[10].value
+    state_fips = row['state_fips']
+    county_fips = row['county_fips']
     if state_fips and county_fips:
         county = f'05000US{state_fips}{county_fips}'
     else:
         county = ''
 
     if csa:
-        if not cbsa == '12740' and not csa == '162':  # specific error case found in Census delineation file
+        # if not cbsa == '12740' and not csa == '162':  # specific error case found in Census delineation file
             to_insert.append((csa, cbsa, 100))
             to_insert.append((csa, county, 100))
 
