@@ -492,7 +492,7 @@ INSERT INTO tiger2023.census_name_lookup
         (SELECT b01003.b01003001 FROM acs2022_5yr.b01003 WHERE geoid = '03000US7'),
         (SELECT SUM(aland) FROM tiger2023.state WHERE division='7'),
         (SELECT SUM(awater) FROM tiger2023.state WHERE division='7'),
-        (SELECT ST_Multi(ST_Union(geom)) FROM tiger2023.census_name_lookup WHERE full_geoid IN ('04000US05', '04000US23', '04000US40', '04000US48'));
+        (SELECT ST_Multi(ST_Union(geom)) FROM tiger2023.census_name_lookup WHERE full_geoid IN ('04000US05', '04000US22', '04000US40', '04000US48'));
 -- Division 8
 INSERT INTO tiger2023.census_name_lookup
     SELECT
