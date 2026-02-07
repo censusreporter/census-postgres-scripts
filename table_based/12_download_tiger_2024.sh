@@ -19,7 +19,7 @@ wget --recursive --continue --accept=*.zip \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2024/ELSD/ \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2024/METDIV/ \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2024/PLACE/ \
-    https://census-backup.b-cdn.net/geo/tiger/TIGER2024/PUMA/ \
+    https://census-backup.b-cdn.net/geo/tiger/TIGER2024/PUMA20/ \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2024/SCSD/ \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2024/SLDL/ \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2024/SLDU/ \
@@ -27,6 +27,6 @@ wget --recursive --continue --accept=*.zip \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2024/TBG/ \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2024/TRACT/ \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2024/TTRACT/ \
-    https://census-backup.b-cdn.net/geo/tiger/TIGER2024/UAC/ \
+    https://census-backup.b-cdn.net/geo/tiger/TIGER2024/UAC20/ \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2024/UNSD/ \
     https://census-backup.b-cdn.net/geo/tiger/TIGER2024/ZCTA520/
