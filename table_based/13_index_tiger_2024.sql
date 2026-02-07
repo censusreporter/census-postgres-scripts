@@ -13,7 +13,7 @@
 -- ALTER TABLE tiger2024.elsd OWNER TO census;
 -- ALTER TABLE tiger2024.metdiv OWNER TO census;
 -- ALTER TABLE tiger2024.place OWNER TO census;
--- ALTER TABLE tiger2024.puma OWNER TO census;
+-- ALTER TABLE tiger2024.puma20 OWNER TO census;
 -- ALTER TABLE tiger2024.scsd OWNER TO census;
 -- ALTER TABLE tiger2024.sldl OWNER TO census;
 -- ALTER TABLE tiger2024.sldu OWNER TO census;
@@ -196,18 +196,18 @@ INSERT INTO tiger2024.census_name_lookup
     FROM tiger2024.scsd LEFT OUTER JOIN acs2022_5yr.b01003 ON (('96000US' || scsd.geoid) = b01003.geoid) JOIN tiger2024.state USING (statefp);
 INSERT INTO tiger2024.census_name_lookup
     SELECT
-        puma.namelsad20 || ', ' || state.stusps,
-        puma.namelsad20,
-        puma.namelsad20,
+        puma20.namelsad20 || ', ' || state.stusps,
+        puma20.namelsad20,
+        puma20.namelsad20,
         '795',
-        puma.geoid20,
-        '79500US' || puma.geoid20,
+        puma20.geoid20,
+        '79500US' || puma20.geoid20,
         110,
         b01003.b01003001,
-        puma.aland20,
-        puma.awater20,
-        puma.geom
-    FROM tiger2024.puma LEFT OUTER JOIN acs2022_5yr.b01003 ON (('79500US' || puma.geoid20) = b01003.geoid) JOIN tiger2024.state ON (puma.statefp20=state.statefp)
+        puma20.aland20,
+        puma20.awater20,
+        puma20.geom
+    FROM tiger2024.puma20 LEFT OUTER JOIN acs2022_5yr.b01003 ON (('79500US' || puma20.geoid20) = b01003.geoid) JOIN tiger2024.state ON (puma20.statefp20=state.statefp)
     WHERE statefp NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2024.census_name_lookup
     SELECT
