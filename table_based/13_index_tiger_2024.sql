@@ -21,7 +21,7 @@
 -- ALTER TABLE tiger2024.tbg OWNER TO census;
 -- ALTER TABLE tiger2024.tract OWNER TO census;
 -- ALTER TABLE tiger2024.ttract OWNER TO census;
--- ALTER TABLE tiger2024.uac OWNER TO census;
+-- ALTER TABLE tiger2024.uac20 OWNER TO census;
 -- ALTER TABLE tiger2024.unsd OWNER TO census;
 -- ALTER TABLE tiger2024.zcta520 OWNER TO census;
 
@@ -352,19 +352,19 @@ INSERT INTO tiger2024.census_name_lookup
     WHERE statefp NOT IN ('60', '66', '69', '78');
 INSERT INTO tiger2024.census_name_lookup
     SELECT
-        uac.namelsad20,
-        uac.name20,
-        uac.name20,
+        uac20.namelsad20,
+        uac20.name20,
+        uac20.name20,
         '400',
-        uac.geoid20,
-        '40000US' || uac.geoid20,
+        uac20.geoid20,
+        '40000US' || uac20.geoid20,
         280,
         b01003.b01003001,
-        uac.aland20,
-        uac.awater20,
-        uac.geom
-    FROM tiger2024.uac LEFT OUTER JOIN acs2022_5yr.b01003 ON (('40000US' || uac.geoid20) = b01003.geoid)
-    WHERE RIGHT(uac.name20,2) not IN ('AS','MP','GU','VI');
+        uac20.aland20,
+        uac20.awater20,
+        uac20.geom
+    FROM tiger2024.uac20 LEFT OUTER JOIN acs2022_5yr.b01003 ON (('40000US' || uac20.geoid20) = b01003.geoid)
+    WHERE RIGHT(uac20.name20,2) not IN ('AS','MP','GU','VI');
 INSERT INTO tiger2024.census_name_lookup
     SELECT
         unsd.name || ', ' || state.stusps,
