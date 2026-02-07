@@ -10,15 +10,26 @@ if [ -z $PGHOST ]; then
     exit 1
 fi
 
-psql -v ON_ERROR_STOP=1 -q -c "DROP SCHEMA IF EXISTS tiger2024 CASCADE; CREATE SCHEMA tiger2024;"
-psql -v ON_ERROR_STOP=1 -q -c "ALTER SCHEMA tiger2024 OWNER TO census;"
+if [ -z $PGDATABASE ]; then
+    echo "You must set PGDATABASE environment variable to the name of the PostgreSQL database to operate on."
+    exit 1
+fi
 
-for i in $DATA_DIR/{AIANNH,AITSN,ANRC,BG,CBSA,CD,CONCITY,COUNTY,COUSUB,CSA,ELSD,METDIV,PLACE,PUMA,SCSD,SLDL,SLDU,STATE,TBG,TRACT,TTRACT,UAC,UNSD,ZCTA520}
+psql -v ON_ERROR_STOP=1 -c "DROP SCHEMA IF EXISTS tiger2024 CASCADE; CREATE SCHEMA tiger2024;"
+psql -v ON_ERROR_STOP=1 -c "ALTER SCHEMA tiger2024 OWNER TO census;"
+
+for i in $DATA_DIR/{AIANNH,AITSN,ANRC,BG,CBSA,CD,CONCITY,COUNTY,COUSUB,CSA,ELSD,METDIV,PLACE,PUMA20,SCSD,SLDL,SLDU,STATE,TBG,TRACT,TTRACT,UAC20,UNSD,ZCTA520}
 do
     tablename=$(basename $i)
     for j in $i/*.zip
     do
         unzip -q -n $j -d $i
+
+        if [ $? -ne 0 ]
+        then
+            echo "Failed to extract zipfile: ${j}"
+            exit 1
+        fi
     done
 
     # Pick one of the shapefiles to build schema with
