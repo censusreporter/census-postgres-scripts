@@ -97,6 +97,15 @@ if [[ $? != 0 ]]; then
     exit 1
 fi
 
+# Backstop for jam/sentinel values that fix_geoids.py didn't blank while preprocessing the CSVs.
+# Safe to re-run; it only updates rows that still hold one. See DATA_UPDATES.md.
+echo "Fixing jam values"
+python3 /home/ubuntu/census-postgres/meta-scripts/fix_jam_values.py ${SCHEMA_NAME}
+if [[ $? != 0 ]]; then
+    echo "Failed fixing jam values."
+    exit 1
+fi
+
 for i in ${DATA_DIR}/acs*.csv; # don't catch the geoheader file now that it also has a .csv suffix
     do
         table=`echo $(basename $i .csv) | cut -d "-" -f 2`
